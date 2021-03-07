@@ -1,0 +1,21 @@
+name: CI
+on: pull_request
+jobs:
+  check:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: subosito/flutter-action@v1
+      - name: Install dependencies
+        run: flutter pub get
+      - name: Generate file
+        run: flutter packages pub run build_runner build
+      - name: Linter
+        run: flutter analyze .
+      - name: Sonar
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      - name: Test
+        run: flutter test --no-sound-null-safety
