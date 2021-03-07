@@ -63,11 +63,13 @@ class StatisticCubit extends Cubit<StatisticState> {
 
   void addCheckIn(CheckIn checkIn) {
     final statistic = state.statistic.copyWith();
+    statistic.checkInServingStyleRepartition.increment(checkIn.servingStyle);
 
     emit(state.copyWith.statistic(
       checkInCount: statistic.checkInCount + 1,
       checkInAverageRating:
-          statistic.checkInAverageRating.average(checkIn.rating),
+          statistic.checkInAverageRating.average(checkIn.rating).toPrecision(),
+      checkInServingStyleRepartition: statistic.checkInServingStyleRepartition,
     ));
   }
 }
