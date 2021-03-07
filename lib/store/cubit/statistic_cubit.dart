@@ -42,7 +42,8 @@ class StatisticCubit extends Cubit<StatisticState> {
 
     emit(state.copyWith.statistic(
       beerCount: statistic.beerCount + 1,
-      beerAverageDegree: statistic.beerAverageDegree.average(beer.degree).toPrecision(),
+      beerAverageDegree:
+          statistic.beerAverageDegree.average(beer.degree).toPrecision(),
       beerColorRepartition: statistic.beerColorRepartition,
       beerStyleRepartition: statistic.beerStyleRepartition,
     ));

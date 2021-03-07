@@ -11,8 +11,7 @@ class BeerRepository extends BaseRepository<Beer> {
   }) async {
     final box = await this.openBox();
     return box.values
-        .where((beer) =>
-        beer.name
+        .where((beer) => beer.name
             .toLowerCase()
             .contains(filter.keyword?.toLowerCase() ?? ''))
         .skip(page * size)
@@ -22,9 +21,7 @@ class BeerRepository extends BaseRepository<Beer> {
 
   Future<List<Beer>> findAllFavorite() async {
     final box = await this.openBox();
-    return box.values
-        .where((beer) => beer.favorite)
-        .toList();
+    return box.values.where((beer) => beer.favorite).toList();
   }
 
   Future<BeerStatistic> statistic() async {
