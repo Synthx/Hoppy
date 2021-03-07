@@ -1,0 +1,4 @@
+enum UploadPictureAction {
+  CAMERA,
+  GALLERY,
+}
