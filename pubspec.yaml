@@ -28,9 +28,11 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  bloc_test: ^8.0.0-nullsafety.2
+  mockito: 5.0.0
   hive_generator: ^1.0.0
   json_serializable: ^4.0.2
-  freezed: ^0.14.0
+  freezed: ^0.14.0+1
   build_runner: ^1.11.5
 
 flutter:
