@@ -19,6 +19,7 @@ class _BeerColorSelectorState extends State<BeerColorSelector> {
 
   void _selectBeerColor(BeerColor color) {
     widget.form.control('color').value = color;
+    widget.form.control('color').markAsDirty();
     setState(() {
       selectedColor = color;
     });

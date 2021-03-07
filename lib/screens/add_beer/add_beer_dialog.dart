@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
-import 'package:hoppy/screens/add_beer/add_beer_state.dart';
 import 'package:hoppy/widget/widget.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 import 'add_beer_cubit.dart';
 import 'add_beer_dialog_footer.dart';
+import 'add_beer_state.dart';
 import 'widget/beer_color_selector.dart';
 import 'widget/beer_country_selector.dart';
 import 'widget/beer_degree_input.dart';
@@ -49,18 +49,17 @@ class _AddBeerDialogState extends State<AddBeerDialog> {
   });
 
   Future<void> _onClose() async {
-    //TODO: ameliorate condition to detect all changes (not only UI ones)
-    //TODO: create specific platform code
     if (_addBeerForm.dirty) {
       final result = await showCupertinoDialog<bool?>(
         context: context,
+        barrierDismissible: false,
         builder: (_) => ConfirmActionDialog(
           content:
               'Il semblerait que vous ayez saisi des informations, êtes-vous sur de vouloir quitter cette page ?',
         ),
       );
 
-      if (result != null) {
+      if (result != null && result) {
         Navigator.pop(context);
       }
     } else {
@@ -73,7 +72,7 @@ class _AddBeerDialogState extends State<AddBeerDialog> {
       showGeneralDialog(
         context: context,
         barrierDismissible: false,
-        pageBuilder: (context, _, __) => _AddBeerDialogLoading(),
+        pageBuilder: (context, _, __) => LoadingDialog(),
       );
     } else {
       Navigator.pop(context);
@@ -148,31 +147,6 @@ class _AddBeerDialogState extends State<AddBeerDialog> {
                 ),
               ],
             ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _AddBeerDialogLoading extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).cardColor,
-      body: SafeArea(
-        child: Container(
-          padding: const EdgeInsets.all(20),
-          width: double.infinity,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(),
-              Text('Ajout en cours...'),
-              CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor),
-              ),
-            ],
           ),
         ),
       ),
