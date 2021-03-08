@@ -26,6 +26,7 @@ class _BeerCountrySelectorState extends State<BeerCountrySelector> {
 
     if (beerCountry != null) {
       widget.form.control('country').value = beerCountry;
+      widget.form.control('country').markAsDirty();
       setState(() {
         _selectedBeerCountry = beerCountry;
       });
@@ -55,8 +56,9 @@ class _BeerCountrySelectorState extends State<BeerCountrySelector> {
           child: const Text('Origine *'),
         ),
         isThreeLine: false,
-        subtitle:
-            _selectedBeerCountry != null ? Text('${_selectedBeerCountry!.name}') : null,
+        subtitle: _selectedBeerCountry != null
+            ? Text('${_selectedBeerCountry!.name}')
+            : null,
         trailing: const Icon(Icons.chevron_right),
       ),
     );

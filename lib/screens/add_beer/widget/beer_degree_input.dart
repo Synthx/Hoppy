@@ -22,8 +22,8 @@ class BeerDegreeInput extends StatelessWidget {
           Text(
             'Degré *',
             style: Theme.of(context).textTheme.bodyText1!.copyWith(
-              fontSize: 16,
-            ),
+                  fontSize: 16,
+                ),
           ),
           ReactiveTextField(
             formControlName: 'degree',

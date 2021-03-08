@@ -42,7 +42,8 @@ class StatisticCubit extends Cubit<StatisticState> {
 
     emit(state.copyWith.statistic(
       beerCount: statistic.beerCount + 1,
-      beerAverageDegree: statistic.beerAverageDegree.average(beer.degree).toPrecision(),
+      beerAverageDegree:
+          statistic.beerAverageDegree.average(beer.degree).toPrecision(),
       beerColorRepartition: statistic.beerColorRepartition,
       beerStyleRepartition: statistic.beerStyleRepartition,
     ));
@@ -62,11 +63,13 @@ class StatisticCubit extends Cubit<StatisticState> {
 
   void addCheckIn(CheckIn checkIn) {
     final statistic = state.statistic.copyWith();
+    statistic.checkInServingStyleRepartition.increment(checkIn.servingStyle);
 
     emit(state.copyWith.statistic(
       checkInCount: statistic.checkInCount + 1,
       checkInAverageRating:
-          statistic.checkInAverageRating.average(checkIn.rating),
+          statistic.checkInAverageRating.average(checkIn.rating).toPrecision(),
+      checkInServingStyleRepartition: statistic.checkInServingStyleRepartition,
     ));
   }
 }

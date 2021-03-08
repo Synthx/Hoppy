@@ -31,8 +31,8 @@ class BeerPreview extends StatelessWidget {
                 Text(
                   beer.name,
                   style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                    fontSize: 18,
-                  ),
+                        fontSize: 18,
+                      ),
                 ),
                 const SizedBox(height: 4),
                 Text(beer.style.name),

@@ -19,7 +19,7 @@ enum BeerColor {
 
 extension BeerColorExtension on BeerColor {
   Color get color {
-    switch(this) {
+    switch (this) {
       case BeerColor.AMBER:
         return Colors.orange;
       case BeerColor.BLOND:
@@ -34,7 +34,7 @@ extension BeerColorExtension on BeerColor {
   }
 
   String get name {
-    switch(this) {
+    switch (this) {
       case BeerColor.AMBER:
         return 'Ambrée';
       case BeerColor.BLOND:

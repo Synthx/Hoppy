@@ -10,6 +10,9 @@ import 'package:hoppy/widget/widget.dart';
 
 import 'search_beer_cubit.dart';
 import 'search_beer_state.dart';
+import 'widget/no_beers_found.dart';
+import 'widget/search_input.dart';
+import 'widget/waiting_for_keyword.dart';
 
 class SearchBeerDialog extends StatefulWidget {
   static route() => MaterialPageRoute(
@@ -47,20 +50,29 @@ class _SearchBeerDialogState extends State<SearchBeerDialog> {
   }
 
   Future<void> _openNewCheckInDialog(Beer beer) async {
-    final checkIn = await Navigator.push(
+    final checkIn = await Navigator.push<CheckIn?>(
       context,
       NewCheckInDialog.route(beer),
     );
+
+    if (checkIn != null) {
+      Navigator.pop(context);
+    }
   }
 
   void _onScroll() {
     final maxScroll = _scrollController.position.maxScrollExtent;
     final currentScroll = _scrollController.position.pixels;
     final position = _scrollController.position.userScrollDirection;
+
+    final cubit = context.read<SearchBeerCubit>();
+
     if (maxScroll - currentScroll <= 200 &&
-        position == ScrollDirection.forward &&
-        !context.read<SearchBeerCubit>().state.loading) {
-      print('next page');
+        position == ScrollDirection.reverse &&
+        !cubit.state.loading &&
+        cubit.state.beers != null &&
+        cubit.state.beers!.length < cubit.state.maxSize) {
+      cubit.nextPage();
     }
   }
 
@@ -103,22 +115,40 @@ class _SearchBeerDialogState extends State<SearchBeerDialog> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: BlocBuilder<SearchBeerCubit, SearchBeerState>(
         builder: (context, state) {
-          if (state.beers != null) {
-            if (state.beers!.isEmpty) {
-              return NoBeersFound();
-            } else {
-              final beers = state.beers!;
-              return Scrollbar(
-                controller: _scrollController,
-                isAlwaysShown: true,
-                child: GridView.builder(
-                  controller: _scrollController,
-                  padding: EdgeInsets.only(
-                    top: 20,
-                    left: 20,
-                    right: 20,
-                    bottom: max(MediaQuery.of(context).padding.bottom, 20),
-                  ),
+          if (state.beers == null) {
+            return WaitingForKeyword();
+          }
+
+          if (state.beers!.isEmpty && state.loading) {
+            return Center(
+              child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(
+                  Theme.of(context).primaryColor,
+                ),
+              ),
+            );
+          }
+
+          if (state.beers!.isEmpty && !state.loading) {
+            return NoBeersFound();
+          }
+
+          final beers = state.beers!;
+          return Scrollbar(
+            controller: _scrollController,
+            isAlwaysShown: true,
+            child: ListView(
+              controller: _scrollController,
+              physics: const BouncingScrollPhysics(),
+              padding: EdgeInsets.only(
+                top: 20,
+                left: 20,
+                right: 20,
+                bottom: max(MediaQuery.of(context).padding.bottom, 20),
+              ),
+              children: [
+                GridView.builder(
+                  shrinkWrap: true,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     crossAxisSpacing: 15,
@@ -135,183 +165,23 @@ class _SearchBeerDialogState extends State<SearchBeerDialog> {
                     );
                   },
                 ),
-              );
-            }
-          } else {
-            return WaitingForKeyword();
-          }
-        },
-      ),
-    );
-  }
-}
-
-class NoBeersFound extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(24),
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Oops, nous sommes à sec',
-              style: Theme.of(context).textTheme.headline4,
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 12),
-            const Text(
-              'Impossible de trouver des bières correspondantes, vérifiez l\'orthogrape ou ajoutez-la.',
-              textAlign: TextAlign.center,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class WaitingForKeyword extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(24),
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Alors c\'est laquelle ?',
-              style: Theme.of(context).textTheme.headline4,
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 12),
-            const Text(
-              'Recherchez la bière que vous venez de boire et commencer un nouveau check-in.',
-              textAlign: TextAlign.center,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class SearchInput extends StatefulWidget with PreferredSizeWidget {
-  final Function(String?) onValueChanged;
-
-  const SearchInput({
-    required this.onValueChanged,
-  });
-
-  @override
-  Size get preferredSize => Size.fromHeight(48);
-
-  @override
-  State createState() => _SearchInputState();
-}
-
-class _SearchInputState extends State<SearchInput> {
-  final TextEditingController _controller = TextEditingController();
-  final FocusNode _focus = FocusNode();
-  bool showCancelButton = false;
-  bool showResetButton = false;
-
-  void _cancelAction() {
-    _focus.unfocus();
-  }
-
-  void _resetValue() {
-    _controller.text = '';
-    _focus.unfocus();
-    widget.onValueChanged(null);
-  }
-
-  void _onFieldSubmitted(String value) {
-    widget.onValueChanged(value);
-  }
-
-  void _onFocusChanged() {
-    setState(() {
-      showCancelButton = _focus.hasFocus;
-    });
-  }
-
-  void _onTextChanged() {
-    setState(() {
-      showResetButton = _controller.text.isNotEmpty;
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _focus.addListener(_onFocusChanged);
-    _controller.addListener(_onTextChanged);
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    _focus.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(
-        left: 10,
-        right: 10,
-        bottom: 10,
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Flexible(
-            child: Container(
-              height: 48,
-              decoration: BoxDecoration(
-                color: Theme.of(context).backgroundColor,
-                borderRadius: const BorderRadius.all(Radius.circular(12)),
-              ),
-              child: Row(
-                children: [
-                  const SizedBox(width: 10),
-                  Icon(Icons.search),
-                  const SizedBox(width: 10),
-                  Flexible(
-                    child: TextField(
-                      controller: _controller,
-                      focusNode: _focus,
-                      autocorrect: false,
-                      enableSuggestions: false,
-                      onSubmitted: (value) => _onFieldSubmitted(value),
-                      decoration: const InputDecoration(
-                        hintText: 'Paix Dieu, Anosteke, ...',
-                        border: InputBorder.none,
+                if (state.loading)
+                  Container(
+                    padding: const EdgeInsets.only(
+                      bottom: 100,
+                    ),
+                    child: Center(
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                          Theme.of(context).primaryColor,
+                        ),
                       ),
                     ),
                   ),
-                  if (_controller.value.text.isNotEmpty)
-                    IconButton(
-                      icon: Icon(Icons.clear),
-                      onPressed: () => _resetValue(),
-                    ),
-                ],
-              ),
+              ],
             ),
-          ),
-          if (showCancelButton)
-            TextButton(
-              onPressed: () => _cancelAction(),
-              child: Text(
-                'Annuler',
-                style: Theme.of(context).textTheme.bodyText1!.copyWith(),
-              ),
-            ),
-        ],
+          );
+        },
       ),
     );
   }

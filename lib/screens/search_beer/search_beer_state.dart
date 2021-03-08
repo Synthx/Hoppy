@@ -5,11 +5,12 @@ part 'search_beer_state.freezed.dart';
 
 @freezed
 class SearchBeerState with _$SearchBeerState {
-  const factory SearchBeerState({
-    List<Beer>? beers,
+  factory SearchBeerState({
     required BeerFilter filter,
     required bool loading,
-    @Default(0) int page,
-    @Default(20) int size,
+    required int maxSize,
+    List<Beer>? beers,
+    @Default(0) int? page,
+    @Default(20) int? size,
   }) = _SearchBeerState;
 }

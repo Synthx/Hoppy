@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
+import 'package:hoppy/screens/new_check_in/new_check_in_state.dart';
+import 'package:hoppy/widget/widget.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 import 'new_check_in_cubit.dart';
@@ -14,7 +16,7 @@ import 'widget/check_in_location_selector.dart';
 import 'widget/check_in_serving_style_selector.dart';
 
 class NewCheckInDialog extends StatefulWidget {
-  static route(Beer beer) => MaterialPageRoute(
+  static route(Beer beer) => MaterialPageRoute<CheckIn?>(
         builder: (_) => NewCheckInDialog(
           beer: beer,
         ),
@@ -51,6 +53,29 @@ class _NewCheckInDialogState extends State<NewCheckInDialog> {
     Navigator.pop(context);
   }
 
+  void _onLoadingChanged(bool loading) {
+    if (loading) {
+      showGeneralDialog(
+        context: context,
+        barrierDismissible: false,
+        pageBuilder: (context, _, __) => LoadingDialog(),
+      );
+    } else {
+      Navigator.pop(context);
+    }
+  }
+
+  Future<void> _onCheckInCreated(CheckIn checkIn) async {
+    await showGeneralDialog(
+      context: context,
+      barrierDismissible: false,
+      pageBuilder: (context, _, __) => SuccessNotificationDialog(
+        content: 'Check-in enregistré avec succès',
+      ),
+    );
+    Navigator.pop(context, checkIn);
+  }
+
   @override
   void dispose() {
     _checkInForm.dispose();
@@ -62,39 +87,53 @@ class _NewCheckInDialogState extends State<NewCheckInDialog> {
     return BlocProvider<NewCheckInCubit>(
       create: (_) => NewCheckInCubit(
         checkInRepository: getIt(),
+        statisticCubit: context.read(),
       ),
-      child: ReactiveForm(
-        formGroup: _checkInForm,
-        child: Scaffold(
-          backgroundColor: Theme.of(context).cardColor,
-          appBar: AppBar(
-            title: const Text('Check-in'),
-            leading: IconButton(
-              icon: const Icon(Icons.chevron_left),
-              onPressed: () => _closeDialog(),
+      child: MultiBlocListener(
+        listeners: [
+          BlocListener<NewCheckInCubit, NewCheckInState>(
+            listenWhen: (prev, curr) => prev.loading != curr.loading,
+            listener: (_, state) => _onLoadingChanged(state.loading),
+          ),
+          BlocListener<NewCheckInCubit, NewCheckInState>(
+            listenWhen: (prev, curr) =>
+                prev.checkIn != curr.checkIn && curr.checkIn != null,
+            listener: (_, state) => _onCheckInCreated(state.checkIn!),
+          ),
+        ],
+        child: ReactiveForm(
+          formGroup: _checkInForm,
+          child: Scaffold(
+            backgroundColor: Theme.of(context).cardColor,
+            appBar: AppBar(
+              title: const Text('Check-in'),
+              leading: IconButton(
+                icon: const Icon(Icons.chevron_left),
+                onPressed: () => _closeDialog(),
+              ),
             ),
-          ),
-          bottomNavigationBar: NewCheckInDialogFooter(
-            form: _checkInForm,
-            beer: widget.beer,
-          ),
-          body: ListView(
-            physics: const BouncingScrollPhysics(),
-            children: [
-              BeerPreview(
-                beer: widget.beer,
-              ),
-              CheckInServingStyleSelector(
-                form: _checkInForm,
-              ),
-              CheckInDateSelector(
-                form: _checkInForm,
-              ),
-              CheckInDescriptionInput(),
-              CheckInLocationSelector(
-                form: _checkInForm,
-              ),
-            ],
+            bottomNavigationBar: NewCheckInDialogFooter(
+              form: _checkInForm,
+              beer: widget.beer,
+            ),
+            body: ListView(
+              physics: const BouncingScrollPhysics(),
+              children: [
+                BeerPreview(
+                  beer: widget.beer,
+                ),
+                CheckInServingStyleSelector(
+                  form: _checkInForm,
+                ),
+                CheckInDateSelector(
+                  form: _checkInForm,
+                ),
+                CheckInDescriptionInput(),
+                CheckInLocationSelector(
+                  form: _checkInForm,
+                ),
+              ],
+            ),
           ),
         ),
       ),

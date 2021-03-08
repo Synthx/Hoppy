@@ -8,5 +8,5 @@ void setupAdapter() {
   Hive.registerAdapter(BeerCountryAdapter());
   Hive.registerAdapter(CheckInAdapter());
   Hive.registerAdapter(ServingStyleAdapter());
-  //Hive.registerAdapter(CheckInLocationAdapter());
+  Hive.registerAdapter(CheckInLocationAdapter());
 }

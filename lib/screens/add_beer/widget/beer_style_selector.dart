@@ -26,6 +26,7 @@ class _BeerStyleSelectorState extends State<BeerStyleSelector> {
 
     if (beerStyle != null) {
       widget.form.control('style').value = beerStyle;
+      widget.form.control('style').markAsDirty();
       setState(() {
         _selectedBeerStyle = beerStyle;
       });
@@ -55,8 +56,9 @@ class _BeerStyleSelectorState extends State<BeerStyleSelector> {
           child: const Text('Style *'),
         ),
         isThreeLine: false,
-        subtitle:
-            _selectedBeerStyle != null ? Text('${_selectedBeerStyle!.name}') : null,
+        subtitle: _selectedBeerStyle != null
+            ? Text('${_selectedBeerStyle!.name}')
+            : null,
         trailing: Icon(Icons.chevron_right),
       ),
     );

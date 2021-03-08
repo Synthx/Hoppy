@@ -11,7 +11,7 @@ enum ServingStyle {
   @HiveField(2)
   CAN,
   @HiveField(3)
-  TASTER,
+  OTHER,
 }
 
 extension ServingStyleExtension on ServingStyle {
@@ -23,8 +23,8 @@ extension ServingStyleExtension on ServingStyle {
         return 'Bouteille';
       case ServingStyle.CAN:
         return 'Canette';
-      case ServingStyle.TASTER:
-        return 'Unknown';
+      case ServingStyle.OTHER:
+        return 'Autre';
     }
   }
 }
