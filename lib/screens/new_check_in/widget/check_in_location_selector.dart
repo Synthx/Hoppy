@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
@@ -30,19 +31,12 @@ class _CheckInLocationSelectorState extends State<CheckInLocationSelector> {
       padding: const EdgeInsets.symmetric(
         vertical: 30,
       ),
-      decoration: BoxDecoration(
-        border: Border(
-          top: BorderSide(
-            color: Theme.of(context).dividerColor,
-          ),
-        ),
-      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(
-              horizontal: 20,
+              horizontal: kDefaultPadding,
             ),
             child: Text(
               "Location",
@@ -56,10 +50,10 @@ class _CheckInLocationSelectorState extends State<CheckInLocationSelector> {
             height: 40,
             child: ListView.separated(
               separatorBuilder: (context, index) {
-                return SizedBox(width: 10);
+                return SizedBox(width: 15);
               },
               padding: const EdgeInsets.symmetric(
-                horizontal: 20,
+                horizontal: kDefaultPadding,
               ),
               scrollDirection: Axis.horizontal,
               itemCount: locations.length,
@@ -94,14 +88,14 @@ class _CheckInLocationPreview extends StatelessWidget {
   Widget build(BuildContext context) {
     final color = isSelected
         ? Theme.of(context).primaryColor
-        : Theme.of(context).textTheme.bodyText2!.color;
+        : Theme.of(context).textTheme.bodyText2!.color!;
     return GestureDetector(
       onTap: this.onTap,
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
-            color: color!,
+            color: color,
           ),
         ),
         padding: const EdgeInsets.symmetric(

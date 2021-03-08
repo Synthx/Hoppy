@@ -84,7 +84,9 @@ class _AddBeerDialogState extends State<AddBeerDialog> {
       context: context,
       barrierDismissible: false,
       pageBuilder: (context, _, __) => SuccessNotificationDialog(
-        content: 'Bière créée avec succès',
+        title: 'Bière ajoutée avec succès',
+        content: 'Et une plus dans votre collection, ça commence à faire beaucoup non ?',
+        icon: Text('🍺', style: TextStyle(fontSize: 50)),
       ),
     );
     Navigator.pop(context, beer);
@@ -135,13 +137,17 @@ class _AddBeerDialogState extends State<AddBeerDialog> {
                   form: _addBeerForm,
                 ),
                 BeerNameInput(),
+                const Divider(height: 0),
                 BeerColorSelector(
                   form: _addBeerForm,
                 ),
+                const Divider(height: 0),
                 BeerDegreeInput(),
+                const Divider(height: 0),
                 BeerStyleSelector(
                   form: _addBeerForm,
                 ),
+                const Divider(height: 0),
                 BeerCountrySelector(
                   form: _addBeerForm,
                 ),

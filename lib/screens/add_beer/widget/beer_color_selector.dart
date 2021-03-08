@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
@@ -31,19 +32,12 @@ class _BeerColorSelectorState extends State<BeerColorSelector> {
       padding: const EdgeInsets.symmetric(
         vertical: 30,
       ),
-      decoration: BoxDecoration(
-        border: Border(
-          top: BorderSide(
-            color: Theme.of(context).dividerColor,
-          ),
-        ),
-      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(
-              horizontal: 20,
+              horizontal: kDefaultPadding,
             ),
             child: Text(
               'Couleur *',
@@ -57,11 +51,11 @@ class _BeerColorSelectorState extends State<BeerColorSelector> {
             height: 100,
             child: ListView.separated(
               separatorBuilder: (context, index) {
-                return SizedBox(width: 12);
+                return SizedBox(width: 15);
               },
               physics: const BouncingScrollPhysics(),
               padding: const EdgeInsets.symmetric(
-                horizontal: 20,
+                horizontal: kDefaultPadding,
               ),
               scrollDirection: Axis.horizontal,
               itemCount: beerColors.length,
@@ -105,7 +99,7 @@ class BeerColorPreview extends StatelessWidget {
             width: 72,
             decoration: BoxDecoration(
               color: beerColor.color,
-              borderRadius: BorderRadius.circular(42),
+              borderRadius: BorderRadius.circular(36),
               border: Border.all(
                 color: Theme.of(context).dividerColor,
               ),

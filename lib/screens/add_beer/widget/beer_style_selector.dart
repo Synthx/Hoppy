@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
@@ -18,7 +19,7 @@ class BeerStyleSelector extends StatefulWidget {
 class _BeerStyleSelectorState extends State<BeerStyleSelector> {
   BeerStyle? _selectedBeerStyle;
 
-  void _openBeerStyleDialog() async {
+  Future<void> _openBeerStyleDialog() async {
     final beerStyle = await Navigator.push<BeerStyle?>(
       context,
       BeerStyleSelectorDialog.route(),
@@ -35,32 +36,23 @@ class _BeerStyleSelectorState extends State<BeerStyleSelector> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border(
-          top: BorderSide(
-            color: Theme.of(context).dividerColor,
-          ),
-        ),
+    return ListTile(
+      contentPadding: const EdgeInsets.symmetric(
+        horizontal: kDefaultPadding,
+        vertical: 10,
       ),
-      child: ListTile(
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 10,
+      onTap: () => _openBeerStyleDialog(),
+      title: Padding(
+        padding: EdgeInsets.only(
+          bottom: _selectedBeerStyle != null ? 6 : 0,
         ),
-        onTap: () => _openBeerStyleDialog(),
-        title: const Padding(
-          padding: const EdgeInsets.only(
-            bottom: 6,
-          ),
-          child: const Text('Style *'),
-        ),
-        isThreeLine: false,
-        subtitle: _selectedBeerStyle != null
-            ? Text('${_selectedBeerStyle!.name}')
-            : null,
-        trailing: Icon(Icons.chevron_right),
+        child: const Text('Style *'),
       ),
+      isThreeLine: false,
+      subtitle: _selectedBeerStyle != null
+          ? Text('${_selectedBeerStyle!.name}')
+          : null,
+      trailing: Icon(Icons.chevron_right),
     );
   }
 }

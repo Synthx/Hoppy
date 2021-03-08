@@ -43,14 +43,7 @@ class BeerImagePreview extends StatelessWidget {
       width: width,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(radius),
-        color: Colors.grey.withOpacity(0.1),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.2),
-            spreadRadius: 0,
-            blurRadius: 1,
-          ),
-        ],
+        color: Colors.grey.withOpacity(0.25),
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(radius),

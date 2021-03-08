@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
@@ -36,7 +37,7 @@ class _CheckInServingStyleSelectorState
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(
-              horizontal: 20,
+              horizontal: kDefaultPadding,
             ),
             child: Text(
               "Style *",
@@ -50,10 +51,10 @@ class _CheckInServingStyleSelectorState
             height: 40,
             child: ListView.separated(
               separatorBuilder: (context, index) {
-                return SizedBox(width: 10);
+                return SizedBox(width: 15);
               },
               padding: const EdgeInsets.symmetric(
-                horizontal: 20,
+                horizontal: kDefaultPadding,
               ),
               scrollDirection: Axis.horizontal,
               itemCount: servingStyles.length,
@@ -88,14 +89,14 @@ class _CheckInServingStylePreview extends StatelessWidget {
   Widget build(BuildContext context) {
     final color = isSelected
         ? Theme.of(context).primaryColor
-        : Theme.of(context).textTheme.bodyText2!.color;
+        : Theme.of(context).textTheme.bodyText2!.color!;
     return GestureDetector(
       onTap: this.onTap,
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
-            color: color!,
+            color: color,
           ),
         ),
         padding: const EdgeInsets.symmetric(

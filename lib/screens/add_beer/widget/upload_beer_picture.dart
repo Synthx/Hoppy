@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:reactive_forms/reactive_forms.dart';
@@ -82,8 +83,8 @@ class _UploadBeerPictureState extends State<UploadBeerPicture> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(
-        left: 20,
-        right: 20,
+        left: kDefaultPadding,
+        right: kDefaultPadding,
         bottom: 20,
         top: 30,
       ),
@@ -104,10 +105,11 @@ class _UploadBeerPictureState extends State<UploadBeerPicture> {
                           fontSize: 16,
                         ),
                   ),
-                  const SizedBox(height: 6),
-                  const Text(
+                  const SizedBox(height: 5),
+                  Text(
                     'Ajouter une photo pour reconnaitre cette bière plus facilement plus tard',
                     textAlign: TextAlign.start,
+                    style: Theme.of(context).textTheme.bodyText2,
                   ),
                 ],
               ),
@@ -120,16 +122,16 @@ class _UploadBeerPictureState extends State<UploadBeerPicture> {
               width: 72,
               decoration: BoxDecoration(
                 border: Border.all(
-                  color: Theme.of(context).dividerColor,
+                  color: Theme.of(context).dividerColor.withOpacity(0.5),
                 ),
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(36),
               ),
               child: _beerImagePath == null
                   ? const Center(
                       child: Icon(Icons.camera_alt),
                     )
                   : ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(36),
                       child: Image.file(
                         File(_beerImagePath!),
                         fit: BoxFit.cover,

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 import 'new_check_in_cubit.dart';
-import 'new_check_in_state.dart';
 import 'widget/check_in_rating_bar.dart';
 
 class NewCheckInDialogFooter extends StatelessWidget {
@@ -34,7 +34,7 @@ class NewCheckInDialogFooter extends StatelessWidget {
     return BottomAppBar(
       child: Container(
         margin: const EdgeInsets.symmetric(
-          horizontal: 20,
+          horizontal: kDefaultPadding,
           vertical: 10,
         ),
         child: Column(
@@ -44,23 +44,17 @@ class NewCheckInDialogFooter extends StatelessWidget {
               formControlName: 'rating',
             ),
             const SizedBox(height: 10),
-            Container(
-              height: 60,
-              width: double.infinity,
-              child: BlocBuilder<NewCheckInCubit, NewCheckInState>(
-                buildWhen: (prev, curr) => prev.loading != curr.loading,
-                builder: (context, state) {
-                  return ReactiveFormConsumer(
-                    builder: (context, form, child) {
-                      return ElevatedButton(
-                        onPressed:
-                            form.valid ? () => _addCheckIn(context) : null,
-                        child: const Text('Enregistrer'),
-                      );
-                    },
-                  );
-                },
-              ),
+            ReactiveFormConsumer(
+              builder: (context, form, child) {
+                return Container(
+                  height: kFooterButtonHeight,
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: form.valid ? () => _addCheckIn(context) : null,
+                    child: const Text('Enregister'),
+                  ),
+                );
+              },
             ),
           ],
         ),

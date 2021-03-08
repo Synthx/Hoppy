@@ -13,6 +13,8 @@ class SettingsView extends StatefulWidget {
 class _SettingsViewState extends State<SettingsView> {
   void goToHelpScreen() {}
 
+  void goToAboutScreen() {}
+
   void openExternalLink() {}
 
   @override
@@ -26,16 +28,19 @@ class _SettingsViewState extends State<SettingsView> {
         children: [
           const SizedBox(height: 48),
           NameInputTile(),
+          const Divider(height: 0),
           DarkModeTile(),
           const SizedBox(height: 48),
           LinkTile(
             label: "A propos",
             onTap: () => goToHelpScreen(),
           ),
+          const Divider(height: 0),
           LinkTile(
             label: "Aide",
             onTap: () => goToHelpScreen(),
           ),
+          const Divider(height: 0),
           LinkTile(
             label: "Github",
             onTap: () => openExternalLink(),

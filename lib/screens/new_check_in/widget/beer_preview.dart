@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
 import 'package:hoppy/widget/widget.dart';
 
@@ -13,7 +14,7 @@ class BeerPreview extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(
-        horizontal: 20,
+        horizontal: kDefaultPadding,
         vertical: 30,
       ),
       child: Row(
@@ -34,9 +35,15 @@ class BeerPreview extends StatelessWidget {
                         fontSize: 18,
                       ),
                 ),
-                const SizedBox(height: 4),
-                Text(beer.style.name),
-                Text(beer.color.name),
+                const SizedBox(height: 5),
+                Text(
+                  beer.style.name,
+                  style: Theme.of(context).textTheme.bodyText2,
+                ),
+                Text(
+                  beer.color.name,
+                  style: Theme.of(context).textTheme.bodyText2,
+                ),
               ],
             ),
           ),

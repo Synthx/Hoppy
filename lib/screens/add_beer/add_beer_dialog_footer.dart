@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 import 'add_beer_cubit.dart';
-import 'add_beer_state.dart';
 
 class AddBeerDialogFooter extends StatelessWidget {
   final FormGroup form;
@@ -33,21 +33,18 @@ class AddBeerDialogFooter extends StatelessWidget {
   Widget build(BuildContext context) {
     return BottomAppBar(
       child: Container(
-        height: 60,
         margin: const EdgeInsets.symmetric(
-          horizontal: 20,
+          horizontal: kDefaultPadding,
           vertical: 10,
         ),
-        child: BlocBuilder<AddBeerCubit, AddBeerState>(
-          buildWhen: (prev, curr) => prev.loading != curr.loading,
-          builder: (context, state) {
-            return ReactiveFormConsumer(
-              builder: (context, form, child) {
-                return ElevatedButton(
-                  onPressed: form.valid ? () => _addBeer(context) : null,
-                  child: const Text('Ajouter'),
-                );
-              },
+        child: ReactiveFormConsumer(
+          builder: (context, form, child) {
+            return Container(
+              height: kFooterButtonHeight,
+              child: ElevatedButton(
+                onPressed: form.valid ? () => _addBeer(context) : null,
+                child: const Text('Ajouter'),
+              ),
             );
           },
         ),
