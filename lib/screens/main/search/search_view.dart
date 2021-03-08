@@ -9,7 +9,6 @@ import 'package:hoppy/screens/main/search/search_state.dart';
 import 'package:hoppy/screens/screens.dart';
 import 'package:hoppy/widget/widget.dart';
 
-import 'dialog/search_beer_filter_dialog.dart';
 import 'search_cubit.dart';
 
 class SearchView extends StatefulWidget {
@@ -21,14 +20,6 @@ class _SearchViewState extends State<SearchView> {
   final ScrollController _scrollController = ScrollController(
     initialScrollOffset: 0,
   );
-
-  Future<void> _openBeerFilterDialog() async {
-    final filter = await Navigator.push(
-      context,
-      SearchBeerFilterDialog.route(),
-    );
-    print(filter);
-  }
 
   Future<void> _openBeerDetailDialog(Beer beer) async {
     final needChanges = await Navigator.push<bool?>(
