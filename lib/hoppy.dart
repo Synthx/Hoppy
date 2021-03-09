@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hoppy/core/core.dart';
 import 'package:hoppy/screens/screens.dart';
 import 'package:hoppy/store/store.dart';
@@ -54,6 +55,8 @@ class Hoppy extends StatelessWidget {
               theme: lightThemeData(context),
               darkTheme: darkThemeData,
               themeMode: _getCurrentThemeMode(state.value.darkMode),
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              supportedLocales: AppLocalizations.supportedLocales,
               home: SplashScreen(),
             ),
           );
