@@ -70,7 +70,9 @@ class _NewCheckInDialogState extends State<NewCheckInDialog> {
       context: context,
       barrierDismissible: false,
       pageBuilder: (context, _, __) => SuccessNotificationDialog(
-        content: 'Check-in enregistré avec succès',
+        title: 'Check-in enregistré avec succès',
+        content: 'Alors, elle était bonne ?',
+        icon: Text('🍻', style: TextStyle(fontSize: 50)),
       ),
     );
     Navigator.pop(context, checkIn);
@@ -125,10 +127,13 @@ class _NewCheckInDialogState extends State<NewCheckInDialog> {
                 CheckInServingStyleSelector(
                   form: _checkInForm,
                 ),
+                const Divider(height: 0),
                 CheckInDateSelector(
                   form: _checkInForm,
                 ),
+                const Divider(height: 0),
                 CheckInDescriptionInput(),
+                const Divider(height: 0),
                 CheckInLocationSelector(
                   form: _checkInForm,
                 ),

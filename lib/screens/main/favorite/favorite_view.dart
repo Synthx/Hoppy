@@ -8,6 +8,8 @@ import 'package:hoppy/store/cubit/cubit.dart';
 import 'package:hoppy/store/store.dart';
 import 'package:hoppy/widget/widget.dart';
 
+import 'empty_favorite.dart';
+
 class FavoriteView extends StatefulWidget {
   @override
   State createState() => _FavoriteViewState();
@@ -15,7 +17,7 @@ class FavoriteView extends StatefulWidget {
 
 class _FavoriteViewState extends State<FavoriteView> {
   void _openBeerDetailDialog(Beer beer) {
-    Navigator.push(
+    Navigator.push<Beer?>(
       context,
       BeerDetailDialog.route(beer),
     );
@@ -32,30 +34,7 @@ class _FavoriteViewState extends State<FavoriteView> {
         builder: (context, state) {
           final beers = state.beers;
           if (beers.isEmpty) {
-            return Container(
-              width: MediaQuery.of(context).size.width,
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Pas encore de favoris ?',
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                          fontSize: 15,
-                        ),
-                  ),
-                  const SizedBox(height: 6),
-                  Text(
-                    'AJoutez des bières en favoris pour plus vite les retrouver (20 maximum)',
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                          fontSize: 14,
-                        ),
-                  ),
-                ],
-              ),
-            );
+            return EmptyFavorite();
           }
 
           return GridView.builder(

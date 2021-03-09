@@ -8,25 +8,43 @@ class VersionContainer extends StatelessWidget {
       future: PackageInfo.fromPlatform(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
-          return Column(
-            children: [
-              const Text("Copyright 2021 Hoppy"),
-              const Text("Tous droits réservées"),
-            ],
-          );
+          return LegalNotice();
         }
 
         var packageInfo = snapshot.data!;
         return Column(
           children: [
-            Text("Version ${packageInfo.version}"),
-            Text("Build ${packageInfo.buildNumber}"),
+            Text(
+              'Version ${packageInfo.version}',
+              style: Theme.of(context).textTheme.bodyText2,
+            ),
+            Text(
+              'Build ${packageInfo.buildNumber}',
+              style: Theme.of(context).textTheme.bodyText2,
+            ),
             const SizedBox(height: 20),
-            const Text("Copyright 2021 Hoppy"),
-            const Text("Tous droits réservées"),
+            LegalNotice(),
           ],
         );
       },
+    );
+  }
+}
+
+class LegalNotice extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(
+          'Copyright 2021 Hoppy',
+          style: Theme.of(context).textTheme.bodyText2,
+        ),
+        Text(
+          'Tous droits réservées',
+          style: Theme.of(context).textTheme.bodyText2,
+        ),
+      ],
     );
   }
 }

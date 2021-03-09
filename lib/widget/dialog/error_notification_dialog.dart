@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hoppy/core/core.dart';
 
 class ErrorNotificationDialog extends StatelessWidget {
   final String content;
@@ -23,9 +24,8 @@ class ErrorNotificationDialog extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       backgroundColor: Theme.of(context).cardColor,
       body: SafeArea(
-        child: Container(
-          padding: const EdgeInsets.all(20),
-          width: double.infinity,
+        child: Padding(
+          padding: const EdgeInsets.all(kDefaultPadding),
           child: Column(
             children: [
               Text('Oops'),

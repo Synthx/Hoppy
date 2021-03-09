@@ -26,12 +26,12 @@ class BeerCard extends StatelessWidget {
           const SizedBox(height: 10),
           Text(
             '${beer.color.name} - ${beer.style.name}',
+            style: Theme.of(context).textTheme.bodyText2,
           ),
           Text(
             beer.name,
             style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500,
+                  fontSize: 16,
                 ),
           ),
         ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
 
 class BeerInformation extends StatelessWidget {
@@ -14,8 +15,8 @@ class BeerInformation extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.only(
         top: 40,
-        left: 20,
-        right: 20,
+        left: kDefaultPadding,
+        right: kDefaultPadding,
         bottom: 20,
       ),
       width: double.infinity,

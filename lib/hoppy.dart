@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hoppy/config/config.dart';
 import 'package:hoppy/core/core.dart';
 import 'package:hoppy/screens/screens.dart';
 import 'package:hoppy/store/store.dart';
@@ -38,7 +37,6 @@ class Hoppy extends StatelessWidget {
                 lazy: false,
                 create: (_) => FavoriteCubit(
                   beerRepository: getIt(),
-                  settingsCubit: context.read(),
                 ),
               ),
               BlocProvider(
@@ -53,8 +51,8 @@ class Hoppy extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               debugShowMaterialGrid: false,
               title: 'Hoppy',
-              theme: Themes.light,
-              darkTheme: Themes.dark,
+              theme: lightThemeData(context),
+              darkTheme: darkThemeData,
               themeMode: _getCurrentThemeMode(state.value.darkMode),
               home: SplashScreen(),
             ),

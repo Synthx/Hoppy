@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
@@ -35,32 +36,23 @@ class _BeerCountrySelectorState extends State<BeerCountrySelector> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border(
-          top: BorderSide(
-            color: Theme.of(context).dividerColor,
-          ),
-        ),
+    return ListTile(
+      contentPadding: const EdgeInsets.symmetric(
+        horizontal: kDefaultPadding,
+        vertical: 10,
       ),
-      child: ListTile(
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 10,
+      onTap: () => _openBeerCountryDialog(),
+      title: Padding(
+        padding: EdgeInsets.only(
+          bottom: _selectedBeerCountry != null ? 6 : 0,
         ),
-        onTap: () => _openBeerCountryDialog(),
-        title: const Padding(
-          padding: const EdgeInsets.only(
-            bottom: 6,
-          ),
-          child: const Text('Origine *'),
-        ),
-        isThreeLine: false,
-        subtitle: _selectedBeerCountry != null
-            ? Text('${_selectedBeerCountry!.name}')
-            : null,
-        trailing: const Icon(Icons.chevron_right),
+        child: const Text('Origine *'),
       ),
+      isThreeLine: false,
+      subtitle: _selectedBeerCountry != null
+          ? Text('${_selectedBeerCountry!.name}')
+          : null,
+      trailing: const Icon(Icons.chevron_right),
     );
   }
 }
