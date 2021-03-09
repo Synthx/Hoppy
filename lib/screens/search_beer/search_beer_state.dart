@@ -8,9 +8,9 @@ class SearchBeerState with _$SearchBeerState {
   factory SearchBeerState({
     required BeerFilter filter,
     required bool loading,
-    required int maxSize,
+    required int page,
+    required int size,
     List<Beer>? beers,
-    @Default(0) int? page,
-    @Default(20) int? size,
+    int? totalElements,
   }) = _SearchBeerState;
 }
