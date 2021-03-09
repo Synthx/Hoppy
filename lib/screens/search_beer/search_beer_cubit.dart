@@ -10,31 +10,43 @@ class SearchBeerCubit extends Cubit<SearchBeerState> {
     required this.beerRepository,
   }) : super(SearchBeerState(
           loading: false,
-          maxSize: 0,
           filter: BeerFilter(),
+          page: 0,
+          size: 20,
         ));
 
   void nextPage() async {
     var currentList = state.beers ?? [];
     emit(state.copyWith(loading: true, page: state.page + 1));
-    await Future.delayed(Duration(seconds: 2));
-    final beers = await _searchBeers();
-    currentList.addAll(beers);
-    emit(state.copyWith(loading: false, beers: currentList));
+    final datasource = await _searchBeers();
+    currentList.addAll(datasource.content);
+    emit(state.copyWith(
+      loading: false,
+      beers: currentList,
+      totalElements: datasource.totalElements,
+    ));
   }
 
   void keywordChanged(String? keyword) async {
     final filter = state.filter.copyWith(keyword: keyword);
     emit(state.copyWith(loading: true, beers: [], filter: filter, page: 0));
-    await Future.delayed(Duration(seconds: 2));
-    final beers = await _searchBeers();
-    emit(state.copyWith(loading: false, beers: beers));
+    final datasource = await _searchBeers();
+    emit(state.copyWith(
+      loading: false,
+      beers: datasource.content,
+      totalElements: datasource.totalElements,
+    ));
   }
 
-  Future<List<Beer>> _searchBeers() async {
-    final maxSize = await beerRepository.count();
-    emit(state.copyWith(maxSize: maxSize));
+  void addBeer(Beer beer) {
+    final beers = state.beers ?? [];
+    beers.add(beer);
+    emit(state.copyWith(
+      beers: beers,
+    ));
+  }
 
+  Future<Page<Beer>> _searchBeers() async {
     return beerRepository.search(
       filter: state.filter,
       page: state.page,

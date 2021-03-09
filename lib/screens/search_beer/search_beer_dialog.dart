@@ -45,6 +45,7 @@ class _SearchBeerDialogState extends State<SearchBeerDialog> {
     );
 
     if (beer != null) {
+      context.read<SearchBeerCubit>().addBeer(beer);
       await _openNewCheckInDialog(beer);
     }
   }
@@ -71,7 +72,8 @@ class _SearchBeerDialogState extends State<SearchBeerDialog> {
         position == ScrollDirection.reverse &&
         !cubit.state.loading &&
         cubit.state.beers != null &&
-        cubit.state.beers!.length < cubit.state.maxSize) {
+        cubit.state.totalElements != null &&
+        cubit.state.beers!.length < cubit.state.totalElements!) {
       cubit.nextPage();
     }
   }
