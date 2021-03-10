@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
 
 class BeerCountrySelectorDialog extends StatelessWidget {
@@ -7,11 +8,11 @@ class BeerCountrySelectorDialog extends StatelessWidget {
       );
 
   _closeDialog(BuildContext context) {
-    Navigator.pop(context);
+    context.pop();
   }
 
   _selectBeerCountry(BuildContext context, BeerCountry beerCountry) {
-    Navigator.pop(context, beerCountry);
+    context.pop(beerCountry);
   }
 
   @override
@@ -25,7 +26,6 @@ class BeerCountrySelectorDialog extends StatelessWidget {
           icon: const Icon(Icons.clear),
         ),
       ),
-      backgroundColor: Theme.of(context).cardColor,
       body: ListView.separated(
         physics: const BouncingScrollPhysics(),
         separatorBuilder: (context, index) {

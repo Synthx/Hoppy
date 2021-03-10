@@ -60,36 +60,29 @@ class _AddBeerDialogState extends State<AddBeerDialog> {
       );
 
       if (result != null && result) {
-        Navigator.pop(context);
+        context.pop();
       }
     } else {
-      Navigator.pop(context);
+      context.pop();
     }
   }
 
   void _onLoadingChanged(bool loading) {
     if (loading) {
-      showGeneralDialog(
-        context: context,
-        barrierDismissible: false,
-        pageBuilder: (context, _, __) => LoadingDialog(),
-      );
+      context.showLoadingDialog();
     } else {
-      Navigator.pop(context);
+      context.pop();
     }
   }
 
   Future<void> _onBeerCreated(Beer beer) async {
-    await showGeneralDialog(
-      context: context,
-      barrierDismissible: false,
-      pageBuilder: (context, _, __) => SuccessNotificationDialog(
-        title: 'Bière ajoutée avec succès',
-        content: 'Et une plus dans votre collection, ça commence à faire beaucoup non ?',
-        icon: Text('🍺', style: TextStyle(fontSize: 50)),
-      ),
+    await context.showSuccessDialog(
+      title: 'Bière ajoutée avec succès',
+      content:
+          'Et une plus dans votre collection, ça commence à faire beaucoup non ?',
+      icon: Text('🍺', style: TextStyle(fontSize: 50)),
     );
-    Navigator.pop(context, beer);
+    context.pop(beer);
   }
 
   @override
@@ -119,7 +112,6 @@ class _AddBeerDialogState extends State<AddBeerDialog> {
         child: ReactiveForm(
           formGroup: _addBeerForm,
           child: Scaffold(
-            backgroundColor: Theme.of(context).cardColor,
             appBar: AppBar(
               title: const Text('Ajouter une bière'),
               leading: IconButton(
