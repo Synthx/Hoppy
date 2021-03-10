@@ -1,9 +1,10 @@
 import 'package:hive/hive.dart';
+import 'package:hoppy/data/model/auditable.dart';
 
-class BaseRepository<T extends HiveObject> {
+class AuditableRepository<T extends Auditable> {
   final String _boxName;
 
-  const BaseRepository(this._boxName);
+  const AuditableRepository(this._boxName);
 
   Future<Box<T>> openBox() async {
     return Hive.openBox<T>(_boxName);
@@ -15,12 +16,15 @@ class BaseRepository<T extends HiveObject> {
   }
 
   Future<T> insert(T object) async {
+    object.creationDate = DateTime.now();
+    object.lastModifiedDate = DateTime.now();
     final box = await this.openBox();
     final id = await box.add(object);
     return box.get(id)!;
   }
 
   Future<T> update(T object) async {
+    object.lastModifiedDate = DateTime.now();
     final box = await this.openBox();
     await box.put(object.key, object);
     return box.get(object.key)!;

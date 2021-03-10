@@ -1,5 +1,6 @@
 import 'package:hive/hive.dart';
 import 'package:hoppy/data/data.dart';
+import 'package:hoppy/data/model/auditable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 export 'beer_color.dart';
@@ -12,42 +13,36 @@ part 'beer.g.dart';
 
 @HiveType(typeId: 0)
 @JsonSerializable(explicitToJson: true)
-class Beer extends HiveObject {
-  @HiveField(0)
+class Beer extends Auditable {
+  @HiveField(2)
   String name;
 
-  @HiveField(1)
+  @HiveField(3)
   double degree;
 
-  @HiveField(2)
+  @HiveField(4)
   BeerColor color;
 
-  @HiveField(3)
+  @HiveField(5)
   BeerStyle style;
 
-  @HiveField(4)
+  @HiveField(6)
   BeerCountry country;
 
-  @HiveField(5)
+  @HiveField(7)
   String? title;
 
-  @HiveField(6)
+  @HiveField(8)
   String? picturePath;
 
-  @HiveField(7)
-  int? drinkCount;
-
-  @HiveField(8)
-  double? averageRating;
-
   @HiveField(9)
-  bool favorite;
+  int drinkCount;
 
   @HiveField(10)
-  DateTime creationDate;
+  double averageRating;
 
   @HiveField(11)
-  DateTime lastModifiedDate;
+  bool favorite;
 
   Beer({
     required this.name,
@@ -55,14 +50,15 @@ class Beer extends HiveObject {
     required this.color,
     required this.style,
     required this.country,
-    required this.creationDate,
-    required this.lastModifiedDate,
     this.title,
     this.picturePath,
-    this.drinkCount,
-    this.averageRating,
+    this.drinkCount = 0,
+    this.averageRating = double.nan,
     this.favorite = false,
-  });
+  }) : super(
+          creationDate: DateTime.now(),
+          lastModifiedDate: DateTime.now(),
+        );
 
   factory Beer.fromJson(Map<String, dynamic> json) => _$BeerFromJson(json);
 

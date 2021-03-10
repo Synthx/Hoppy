@@ -23,8 +23,6 @@ class AddBeerDialogFooter extends StatelessWidget {
       country: value['country'],
       picturePath: value['picturePath'],
       title: value['title'],
-      creationDate: DateTime.now(),
-      lastModifiedDate: DateTime.now(),
     );
     context.read<AddBeerCubit>().addBeer(beer);
   }

@@ -1,5 +1,6 @@
 import 'package:hive/hive.dart';
 import 'package:hoppy/data/data.dart';
+import 'package:hoppy/data/model/auditable.dart';
 import 'package:hoppy/data/model/check_in/serving_style.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -15,26 +16,26 @@ part 'check_in.g.dart';
 
 @HiveType(typeId: 4)
 @JsonSerializable(explicitToJson: true)
-class CheckIn extends HiveObject {
-  @HiveField(0)
+class CheckIn extends Auditable {
+  @HiveField(2)
   double rating;
 
-  @HiveField(1)
+  @HiveField(3)
   String? description;
 
-  @HiveField(2)
+  @HiveField(4)
   ServingStyle servingStyle;
 
-  @HiveField(3)
+  @HiveField(5)
   DateTime date;
 
-  @HiveField(4)
+  @HiveField(6)
   Position? position;
 
-  @HiveField(5)
+  @HiveField(7)
   Beer beer;
 
-  @HiveField(6)
+  @HiveField(8)
   CheckInLocation? location;
 
   CheckIn({
@@ -44,5 +45,8 @@ class CheckIn extends HiveObject {
     required this.date,
     this.location,
     required this.beer,
-  });
+  }) : super(
+          creationDate: DateTime.now(),
+          lastModifiedDate: DateTime.now(),
+        );
 }
