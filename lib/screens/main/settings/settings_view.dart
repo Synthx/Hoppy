@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'dark_mode_tile.dart';
 import 'link_tile.dart';
@@ -11,11 +12,29 @@ class SettingsView extends StatefulWidget {
 }
 
 class _SettingsViewState extends State<SettingsView> {
-  void goToHelpScreen() {}
+  void _goToHelpScreen() {}
 
-  void goToAboutScreen() {}
+  void _goToAboutScreen() {}
 
-  void openExternalLink() {}
+  Future<void> _openGithub() async {
+    final githubUri = 'https://github.com/Synthx/Hoppy';
+    if (await canLaunch(githubUri)) {
+      await launch(githubUri, forceWebView: true, enableJavaScript: true);
+    }
+  }
+
+  Future<void> _sendMailTo() async {
+    final mailUri = Uri(
+      scheme: 'mailto',
+      path: 'taniel.remi@gmail.com',
+      queryParameters: {
+        'subject': '[Hoppy]',
+      },
+    ).toString();
+    if (await canLaunch(mailUri)) {
+      await launch(mailUri);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,17 +52,22 @@ class _SettingsViewState extends State<SettingsView> {
           const SizedBox(height: 48),
           LinkTile(
             label: "A propos",
-            onTap: () => goToHelpScreen(),
+            onTap: () => _goToHelpScreen(),
           ),
           const Divider(height: 0),
           LinkTile(
             label: "Aide",
-            onTap: () => goToHelpScreen(),
+            onTap: () => _goToHelpScreen(),
           ),
           const Divider(height: 0),
           LinkTile(
-            label: "Github",
-            onTap: () => openExternalLink(),
+            label: 'Github',
+            onTap: () => _openGithub(),
+          ),
+          const Divider(height: 0),
+          LinkTile(
+            label: 'Nous contacter',
+            onTap: () => _sendMailTo(),
           ),
           const SizedBox(height: 48),
           VersionContainer(),
