@@ -12,7 +12,8 @@ class StatisticCubit extends Cubit<StatisticState> {
     required this.checkInRepository,
   }) : super(StatisticState(
           loading: false,
-          statistic: Statistic(),
+          beerStatistic: BeerStatistic(),
+          checkInStatistic: CheckInStatistic(),
         ));
 
   Future<void> load() async {
@@ -21,55 +22,54 @@ class StatisticCubit extends Cubit<StatisticState> {
     final checkInStatistic = await checkInRepository.statistic();
     emit(state.copyWith(
       loading: false,
-      statistic: Statistic(
-        beerCount: beerStatistic.count,
-        checkInCount: checkInStatistic.count,
-        beerAverageDegree: beerStatistic.averageDegree,
-        checkInAverageRating: checkInStatistic.averageRating,
-        beerColorRepartition: beerStatistic.colorRepartition,
-        beerStyleRepartition: beerStatistic.styleRepartition,
-        checkInLocationRepartition: checkInStatistic.locationRepartition,
-        checkInServingStyleRepartition:
-            checkInStatistic.servingStyleRepartition,
-      ),
+      beerStatistic: beerStatistic,
+      checkInStatistic: checkInStatistic,
     ));
   }
 
   void addBeer(Beer beer) {
-    final statistic = state.statistic.copyWith();
-    statistic.beerColorRepartition.increment(beer.color);
-    statistic.beerStyleRepartition.increment(beer.style);
+    final statistic = state.beerStatistic.copyWith();
+    statistic.colorRepartition.increment(beer.color);
+    statistic.styleRepartition.increment(beer.style);
 
-    emit(state.copyWith.statistic(
-      beerCount: statistic.beerCount + 1,
-      beerAverageDegree:
-          statistic.beerAverageDegree.average(beer.degree).toPrecision(),
-      beerColorRepartition: statistic.beerColorRepartition,
-      beerStyleRepartition: statistic.beerStyleRepartition,
+    emit(state.copyWith.beerStatistic(
+      count: statistic.count + 1,
+      averageDegree: statistic.averageDegree.average(beer.degree).toPrecision(),
+      highestDegree: beer.degree > statistic.highestDegree
+          ? beer.degree
+          : statistic.highestDegree,
+      colorRepartition: statistic.colorRepartition,
+      styleRepartition: statistic.styleRepartition,
+      lastAdded: beer,
     ));
   }
 
   void deleteBeer(Beer beer) {
-    final statistic = state.statistic.copyWith();
-    statistic.beerColorRepartition.decrement(beer.color);
-    statistic.beerStyleRepartition.decrement(beer.style);
+    final statistic = state.beerStatistic.copyWith();
+    statistic.colorRepartition.decrement(beer.color);
+    statistic.styleRepartition.decrement(beer.style);
 
-    emit(state.copyWith.statistic(
-      beerCount: statistic.beerCount - 1,
-      beerColorRepartition: statistic.beerColorRepartition,
-      beerStyleRepartition: statistic.beerStyleRepartition,
+    emit(state.copyWith.beerStatistic(
+      count: statistic.count - 1,
+      colorRepartition: statistic.colorRepartition,
+      styleRepartition: statistic.styleRepartition,
     ));
   }
 
   void addCheckIn(CheckIn checkIn) {
-    final statistic = state.statistic.copyWith();
-    statistic.checkInServingStyleRepartition.increment(checkIn.servingStyle);
+    final statistic = state.checkInStatistic.copyWith();
+    statistic.servingStyleRepartition.increment(checkIn.servingStyle);
+    if (checkIn.location != null) {
+      statistic.locationRepartition.increment(checkIn.location!);
+    }
 
-    emit(state.copyWith.statistic(
-      checkInCount: statistic.checkInCount + 1,
-      checkInAverageRating:
-          statistic.checkInAverageRating.average(checkIn.rating).toPrecision(),
-      checkInServingStyleRepartition: statistic.checkInServingStyleRepartition,
+    emit(state.copyWith.checkInStatistic(
+      count: statistic.count + 1,
+      averageRating:
+          statistic.averageRating.average(checkIn.rating).toPrecision(),
+      servingStyleRepartition: statistic.servingStyleRepartition,
+      locationRepartition: statistic.locationRepartition,
+      lastAdded: checkIn,
     ));
   }
 }

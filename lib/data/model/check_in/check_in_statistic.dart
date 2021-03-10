@@ -6,9 +6,10 @@ part 'check_in_statistic.freezed.dart';
 @freezed
 class CheckInStatistic with _$CheckInStatistic {
   factory CheckInStatistic({
-    required int count,
-    required double averageRating,
-    required Map<ServingStyle, int> servingStyleRepartition,
-    required Map<CheckInLocation, int> locationRepartition,
+    @Default(0) int count,
+    @Default(double.nan) double averageRating,
+    @Default({}) Map<ServingStyle, int> servingStyleRepartition,
+    @Default({}) Map<CheckInLocation, int> locationRepartition,
+    CheckIn? lastAdded,
   }) = _CheckInStatistic;
 }

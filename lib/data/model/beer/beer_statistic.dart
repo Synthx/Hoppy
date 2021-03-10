@@ -6,10 +6,13 @@ part 'beer_statistic.freezed.dart';
 @freezed
 class BeerStatistic with _$BeerStatistic {
   factory BeerStatistic({
-    required int count,
-    required double averageDegree,
-    required Map<BeerColor, int> colorRepartition,
-    required Map<BeerStyle, int> styleRepartition,
-    required Map<BeerCountry, int> countryRepartition,
+    @Default(0) int count,
+    @Default(double.nan) double averageDegree,
+    @Default(double.nan) double highestDegree,
+    @Default({}) Map<BeerColor, int> colorRepartition,
+    @Default({}) Map<BeerStyle, int> styleRepartition,
+    @Default({}) Map<BeerCountry, int> countryRepartition,
+    Beer? lastAdded,
+    Beer? mostDrunk,
   }) = _BeerStatistic;
 }

@@ -7,6 +7,7 @@ part 'statistic_state.freezed.dart';
 class StatisticState with _$StatisticState {
   factory StatisticState({
     required bool loading,
-    required Statistic statistic,
+    required BeerStatistic beerStatistic,
+    required CheckInStatistic checkInStatistic,
   }) = _StatisticState;
 }
