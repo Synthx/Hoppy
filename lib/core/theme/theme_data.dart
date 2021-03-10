@@ -44,7 +44,7 @@ ThemeData lightThemeData(BuildContext context) {
         color: kLightContentColor,
         opacity: 0.8,
       ),
-      backgroundColor: kLightCardColor,
+      backgroundColor: kLightBackgroundColor,
       textTheme: Theme.of(context).textTheme.copyWith(
             headline6: TextStyle(
               fontFamily: font.fontFamily,
@@ -54,7 +54,7 @@ ThemeData lightThemeData(BuildContext context) {
     ),
     dividerColor: Color(0xFFA0A0A0),
     bottomNavigationBarTheme: bottomBarTheme.copyWith(
-      backgroundColor: kLightCardColor,
+      backgroundColor: kLightBackgroundColor,
       selectedItemColor: kPrimaryColor,
       unselectedItemColor: kLightContentColor.withOpacity(0.6),
     ),
