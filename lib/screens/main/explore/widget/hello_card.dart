@@ -9,6 +9,7 @@ class HelloCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: kDefaultPadding,
+        vertical: 30,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

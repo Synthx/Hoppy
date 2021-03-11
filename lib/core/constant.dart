@@ -3,3 +3,4 @@ const kDefaultPadding = 20.0;
 const kDefaultRadius = 10.0;
 const kFooterButtonHeight = 60.0;
 const kCardHeight = 420.0;
+const kCardVerticalMargin = 3.0;

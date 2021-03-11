@@ -15,7 +15,7 @@ class ExploreView extends StatefulWidget {
   State createState() => _ExploreViewState();
 }
 
-class _ExploreViewState extends State<ExploreView> {
+class _ExploreViewState extends State<ExploreView> with AutomaticKeepAliveClientMixin {
   void openSearchBeerDialog() {
     Navigator.push(
       context,
@@ -24,7 +24,22 @@ class _ExploreViewState extends State<ExploreView> {
   }
 
   @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
+    List<Widget> widgets = [
+      BeerColorList(),
+      MostDrunkenBeerCountryCard(),
+      BeerColorRepartitionCard(),
+      LastAddedBeerCard(),
+      FavoriteBeerList(),
+      MostDrunkenBeerStyleCard(),
+      EmptyBeerCard(),
+    ];
+    widgets.shuffle();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Hoppy"),
@@ -37,16 +52,7 @@ class _ExploreViewState extends State<ExploreView> {
       ),
       body: ListView(
         physics: const BouncingScrollPhysics(),
-        children: [
-          HelloCard(),
-          BeerColorList(),
-          MostDrunkenBeerCountryCard(),
-          BeerColorRepartitionCard(),
-          LastAddedBeerCard(),
-          FavoriteBeerList(),
-          MostDrunkenBeerStyleCard(),
-          EmptyBeerCard(),
-        ],
+        children: [HelloCard(), ...widgets],
       ),
     );
   }

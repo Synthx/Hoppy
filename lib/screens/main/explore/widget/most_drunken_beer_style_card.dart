@@ -1,62 +1,76 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hoppy/core/core.dart';
+import 'package:hoppy/store/store.dart';
 
 import 'more_card_button.dart';
 
 class MostDrunkenBeerStyleCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: kCardHeight,
-      padding: const EdgeInsets.all(kDefaultPadding),
-      decoration: BoxDecoration(
-        color: Theme.of(context).cardColor,
-        image: DecorationImage(
-          image: const AssetImage('assets/images/beer-style.jpg'),
-          fit: BoxFit.cover,
-          colorFilter: ColorFilter.mode(
-            Colors.black.withOpacity(0.3),
-            BlendMode.srcOver,
+    return BlocBuilder<StatisticCubit, StatisticState>(
+      buildWhen: (prev, curr) =>
+          prev.beerStatistic.count != curr.beerStatistic.count,
+      builder: (context, state) {
+        if (state.beerStatistic.count == 0) {
+          return Container();
+        }
+
+        return Container(
+          height: kCardHeight,
+          margin: const EdgeInsets.symmetric(
+            vertical: kCardVerticalMargin,
           ),
-        ),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const Spacer(flex: 2),
-          Text(
-            'Style de bière le plus apprecié',
-            style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                  color: Colors.white.withOpacity(0.8),
-                  fontSize: 16,
-                ),
+          padding: const EdgeInsets.all(kDefaultPadding),
+          decoration: BoxDecoration(
+            color: Theme.of(context).cardColor,
+            image: DecorationImage(
+              image: const AssetImage('assets/images/beer-style.jpg'),
+              fit: BoxFit.cover,
+              colorFilter: ColorFilter.mode(
+                Colors.black.withOpacity(0.3),
+                BlendMode.srcOver,
+              ),
+            ),
           ),
-          const SizedBox(height: 10),
-          Text(
-            'IPA',
-            style: Theme.of(context).textTheme.headline4!.copyWith(
-                  color: Colors.white,
-                ),
-          ),
-          const Spacer(flex: 1),
-          Row(
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              const Spacer(flex: 2),
               Text(
-                'Bue 34 fois',
-                style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                      color: Colors.white,
+                'Style de bière le plus apprecié',
+                style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                      color: Colors.white.withOpacity(0.8),
                       fontSize: 16,
                     ),
               ),
-              MoreCardButton(
-                onTap: () {},
-                icon: Icon(Icons.chevron_right),
+              const SizedBox(height: 10),
+              Text(
+                'IPA',
+                style: Theme.of(context).textTheme.headline4!.copyWith(
+                      color: Colors.white,
+                    ),
+              ),
+              const Spacer(flex: 1),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Bue 34 fois',
+                    style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                          color: Colors.white,
+                          fontSize: 16,
+                        ),
+                  ),
+                  MoreCardButton(
+                    onTap: () {},
+                  ),
+                ],
               ),
             ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

@@ -17,6 +17,7 @@ class EmptyBeerCard extends StatelessWidget {
         return Container(
           margin: const EdgeInsets.symmetric(
             horizontal: kDefaultPadding,
+            vertical: 40,
           ),
           height: kCardHeight - 30,
           decoration: BoxDecoration(

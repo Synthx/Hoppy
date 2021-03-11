@@ -20,6 +20,9 @@ class BeerColorRepartitionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: kCardHeight,
+      margin: const EdgeInsets.symmetric(
+        vertical: kCardVerticalMargin,
+      ),
       padding: const EdgeInsets.all(kDefaultPadding),
       decoration: BoxDecoration(
         color: Theme.of(context).cardColor,
@@ -79,13 +82,12 @@ class BeerColorRepartitionCard extends StatelessWidget {
                   if (state.beerStatistic.count > 0) {
                     return MoreCardButton(
                       onTap: () {},
-                      icon: Icon(Icons.chevron_right),
                     );
                   }
 
                   return MoreCardButton(
                     onTap: () => _openAddBeerDialog(context),
-                    icon: Icon(Icons.add),
+                    iconData: Icons.add,
                   );
                 },
               ),

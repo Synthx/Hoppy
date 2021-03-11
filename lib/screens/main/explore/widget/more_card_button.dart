@@ -2,29 +2,29 @@ import 'package:flutter/material.dart';
 
 class MoreCardButton extends StatelessWidget {
   final VoidCallback onTap;
-  final Icon icon;
+  final IconData iconData;
 
   const MoreCardButton({
     required this.onTap,
-    required this.icon,
+    this.iconData = Icons.chevron_right,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 65,
-      width: 65,
+      height: 48,
+      width: 48,
       padding: const EdgeInsets.all(6),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30),
-        border: Border.all(
+        color: Colors.black.withOpacity(0.8),
+        borderRadius: BorderRadius.circular(24),
+      ),
+      child: Center(
+        child: Icon(
+          iconData,
           color: Colors.white,
         ),
-      ),
-      child: IconButton(
-        onPressed: onTap,
-        icon: icon,
-      ),
+      )
     );
   }
 }
