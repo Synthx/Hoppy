@@ -1,5 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:hoppy/screens/main/explore/widget/most_drunken_beer_country_card.dart';
 import 'package:hoppy/screens/screens.dart';
+
+import 'widget/beer_color_list.dart';
+import 'widget/beer_color_repartition_card.dart';
+import 'widget/empty_beer_card.dart';
+import 'widget/favorite_beer_list.dart';
+import 'widget/hello_card.dart';
+import 'widget/last_added_beer_card.dart';
+import 'widget/most_drunken_beer_style_card.dart';
 
 class ExploreView extends StatefulWidget {
   @override
@@ -8,7 +17,10 @@ class ExploreView extends StatefulWidget {
 
 class _ExploreViewState extends State<ExploreView> {
   void openSearchBeerDialog() {
-    Navigator.push(context, SearchBeerDialog.route());
+    Navigator.push(
+      context,
+      SearchBeerDialog.route(),
+    );
   }
 
   @override
@@ -26,7 +38,14 @@ class _ExploreViewState extends State<ExploreView> {
       body: ListView(
         physics: const BouncingScrollPhysics(),
         children: [
-          Text('Explorer'),
+          HelloCard(),
+          BeerColorList(),
+          MostDrunkenBeerCountryCard(),
+          BeerColorRepartitionCard(),
+          LastAddedBeerCard(),
+          FavoriteBeerList(),
+          MostDrunkenBeerStyleCard(),
+          EmptyBeerCard(),
         ],
       ),
     );
