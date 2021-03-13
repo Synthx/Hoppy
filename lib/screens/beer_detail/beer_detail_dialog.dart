@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
+import 'package:hoppy/widget/widget.dart';
 
 import 'beer_detail_cubit.dart';
 import 'beer_detail_state.dart';
@@ -72,19 +73,9 @@ class _BeerDetailDialogState extends State<BeerDetailDialog> {
           ),
         ],
         child: Scaffold(
-          floatingActionButton: Container(
-            margin: const EdgeInsets.only(
-              top: 15,
-              right: 15,
-            ),
-            width: 44,
-            height: 44,
-            child: FloatingActionButton(
-              onPressed: () => _closeDialog(),
-              child: Icon(Icons.clear),
-              backgroundColor: Colors.black.withOpacity(0.35),
-              elevation: 1,
-            ),
+          floatingActionButton: MiniFabButton(
+            icon: Icon(Icons.clear),
+            onTap: () => _closeDialog(),
           ),
           floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
           bottomNavigationBar: BottomAppBar(

@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 extension GenericIntegerMapExtension<T> on Map<T, int> {
   void increment(T value, {int step = 1}) {
     if (this.containsKey(value)) {
@@ -5,6 +7,13 @@ extension GenericIntegerMapExtension<T> on Map<T, int> {
     } else {
       this[value] = step;
     }
+  }
+
+  SplayTreeMap<T, int> sort() {
+    return SplayTreeMap.from(
+      this,
+      (a, b) => this[a]! > this[b]! ? 1 : -1,
+    );
   }
 
   void decrement(T value, {int step = 1}) {

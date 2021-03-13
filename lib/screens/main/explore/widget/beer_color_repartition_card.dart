@@ -1,18 +1,25 @@
-import 'package:charts_flutter/flutter.dart' hide TextStyle;
 import 'package:flutter/material.dart' hide AnimatedIcon;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hoppy/core/core.dart';
-import 'package:hoppy/data/data.dart';
-import 'package:hoppy/screens/main/explore/widget/more_card_button.dart';
 import 'package:hoppy/screens/screens.dart';
 import 'package:hoppy/store/store.dart';
 import 'package:hoppy/widget/widget.dart';
+
+import '../dialog/beer_color_repartition_dialog.dart';
+import 'more_card_button.dart';
 
 class BeerColorRepartitionCard extends StatelessWidget {
   void _openAddBeerDialog(BuildContext context) {
     Navigator.push(
       context,
-      AddBeerDialog.route(),
+      SearchBeerDialog.route(),
+    );
+  }
+
+  void _openBeerColorRepartitionDialog(BuildContext context) {
+    Navigator.push(
+      context,
+      BeerColorRepartitionDialog.route(),
     );
   }
 
@@ -29,59 +36,32 @@ class BeerColorRepartitionCard extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Spacer(flex: 2),
-          Container(
-            child: BlocBuilder<StatisticCubit, StatisticState>(
-              buildWhen: (prev, curr) =>
-                  prev.beerStatistic.count != curr.beerStatistic.count,
-              builder: (context, state) {
-                if (state.beerStatistic.count == 0) {
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      AnimatedIcon(
-                        icon: Text('📈', style: TextStyle(fontSize: 50)),
-                      ),
-                      const SizedBox(height: 10),
-                      Text(
-                        'Ajouter des bières et obtenez des statistiques détaillés sur vos goûts',
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  );
-                }
+          BlocBuilder<StatisticCubit, StatisticState>(
+            buildWhen: (prev, curr) =>
+                prev.checkInStatistic.count != curr.checkInStatistic.count,
+            builder: (context, state) {
+              if (state.checkInStatistic.count == 0) {
+                return _EmptyBeerColorRepartition();
+              }
 
-                final List<ChartData> dataList = [];
-                state.beerStatistic.colorRepartition.forEach((key, value) {
-                  dataList.add(ChartData(label: key.name, value: value));
-                });
-                final series = Series<ChartData, String>(
-                  id: 'beer-color',
-                  data: dataList,
-                  domainFn: (data, _) => data.label,
-                  measureFn: (data, _) => data.value,
-                  fillColorFn: (_, __) => MaterialPalette.blue.shadeDefault,
-                );
-                return PieChart(
-                  [series],
-                  animate: true,
-                  defaultRenderer: ArcRendererConfig(
-                    arcWidth: 60,
-                  ),
-                );
-              },
-            ),
+              return Expanded(
+                child: BeerColorChart(
+                  repartition:
+                      state.checkInStatistic.drunkenColorRepartition.sort(),
+                ),
+              );
+            },
           ),
-          Spacer(flex: 1),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               BlocBuilder<StatisticCubit, StatisticState>(
-                buildWhen: (prev, curr) => prev.beerStatistic.count != curr.beerStatistic.count,
+                buildWhen: (prev, curr) =>
+                    prev.checkInStatistic.count != curr.checkInStatistic.count,
                 builder: (context, state) {
-                  if (state.beerStatistic.count > 0) {
+                  if (state.checkInStatistic.count > 0) {
                     return MoreCardButton(
-                      onTap: () {},
+                      onTap: () => _openBeerColorRepartitionDialog(context),
                     );
                   }
 
@@ -95,6 +75,25 @@ class BeerColorRepartitionCard extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _EmptyBeerColorRepartition extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        AnimatedIcon(
+          icon: Text('📈', style: TextStyle(fontSize: 50)),
+        ),
+        const SizedBox(height: 10),
+        Text(
+          'Ajouter des bières et renseigner ce que vous avez bus pour obtenez des statistiques détaillés sur vos goûts',
+          textAlign: TextAlign.center,
+        ),
+      ],
     );
   }
 }

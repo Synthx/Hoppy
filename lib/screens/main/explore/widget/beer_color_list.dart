@@ -32,9 +32,7 @@ class BeerColorList extends StatelessWidget {
             ),
             itemCount: beerColors.length,
             physics: const BouncingScrollPhysics(),
-            separatorBuilder: (context, index) {
-              return const SizedBox(width: 20);
-            },
+            separatorBuilder: (context, _) => const SizedBox(width: 20),
             itemBuilder: (context, index) {
               var beerColor = beerColors[index];
               return _BeerColorCard(

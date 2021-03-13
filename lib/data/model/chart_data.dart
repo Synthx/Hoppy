@@ -3,9 +3,9 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'chart_data.freezed.dart';
 
 @freezed
-class ChartData with _$ChartData {
+class ChartData<T> with _$ChartData<T> {
   factory ChartData({
-    required String label,
+    required T key,
     required int value,
-  }) = _ChartData;
+  }) = _ChartData<T>;
 }
