@@ -1,11 +1,8 @@
-import 'dart:collection';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
-import 'package:hoppy/screens/main/explore/dialog/beer_country_repartition_dialog.dart';
-import 'package:hoppy/screens/main/explore/widget/more_card_button.dart';
+import 'package:hoppy/screens/main/explore/explore.dart';
 import 'package:hoppy/store/store.dart';
 
 class MostDrunkenBeerCountryCard extends StatelessWidget {
@@ -50,31 +47,25 @@ class MostDrunkenBeerCountryCard extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Spacer(flex: 2),
+              const Spacer(flex: 2),
               Text(
                 'Pays le plus apprecié',
-                style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                      color: Colors.white.withOpacity(0.8),
-                      fontSize: 16,
-                    ),
+                textAlign: TextAlign.center,
+                style: cardSubtitleStyle(context),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 5),
               Text(
                 '${country.name}',
-                style: Theme.of(context).textTheme.headline4!.copyWith(
-                      color: Colors.white,
-                    ),
+                textAlign: TextAlign.center,
+                style: cardTitleStyle(context),
               ),
-              Spacer(flex: 1),
+              const Spacer(flex: 1),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     'Bue ${countryRepartition[country]} fois',
-                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                          color: Colors.white,
-                          fontSize: 16,
-                        ),
+                    style: cardContentStyle(context),
                   ),
                   MoreCardButton(
                     onTap: () => _openBeerCountryRepartitionDialog(context),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
-import 'package:hoppy/screens/main/explore/dialog/beer_style_repartition_dialog.dart';
+import 'package:hoppy/screens/main/explore/explore.dart';
 import 'package:hoppy/store/store.dart';
 
 import 'more_card_button.dart';
@@ -52,17 +52,14 @@ class MostDrunkenBeerStyleCard extends StatelessWidget {
               const Spacer(flex: 2),
               Text(
                 'Style de bière le plus apprecié',
-                style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                      color: Colors.white.withOpacity(0.8),
-                      fontSize: 16,
-                    ),
+                textAlign: TextAlign.center,
+                style: cardSubtitleStyle(context),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 5),
               Text(
                 '${style.name}',
-                style: Theme.of(context).textTheme.headline4!.copyWith(
-                      color: Colors.white,
-                    ),
+                textAlign: TextAlign.center,
+                style: cardTitleStyle(context),
               ),
               const Spacer(flex: 1),
               Row(
@@ -70,10 +67,7 @@ class MostDrunkenBeerStyleCard extends StatelessWidget {
                 children: [
                   Text(
                     'Bue ${state.checkInStatistic.drunkenStyleRepartition[style]} fois',
-                    style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                          color: Colors.white,
-                          fontSize: 16,
-                        ),
+                    style: cardContentStyle(context),
                   ),
                   MoreCardButton(
                     onTap: () => _openBeerStyleRepartitionDialog(context),

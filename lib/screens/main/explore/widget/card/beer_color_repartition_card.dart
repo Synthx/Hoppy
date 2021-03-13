@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart' hide AnimatedIcon;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hoppy/core/core.dart';
+import 'package:hoppy/screens/main/explore/explore.dart';
 import 'package:hoppy/screens/screens.dart';
 import 'package:hoppy/store/store.dart';
 import 'package:hoppy/widget/widget.dart';
-
-import '../dialog/beer_color_repartition_dialog.dart';
-import 'more_card_button.dart';
 
 class BeerColorRepartitionCard extends StatelessWidget {
   void _openAddBeerDialog(BuildContext context) {

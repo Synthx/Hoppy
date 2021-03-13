@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart' hide AnimatedIcon;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hoppy/core/core.dart';
+import 'package:hoppy/data/data.dart';
+import 'package:hoppy/screens/screens.dart';
 import 'package:hoppy/store/store.dart';
 import 'package:hoppy/widget/widget.dart';
 
 class FavoriteBeerList extends StatelessWidget {
+  void _openBeerDetailDialog(BuildContext context, Beer beer) {
+    Navigator.push(
+      context,
+      BeerDetailDialog.route(beer),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -24,7 +33,28 @@ class FavoriteBeerList extends StatelessWidget {
         BlocBuilder<FavoriteCubit, FavoriteState>(
           buildWhen: (prev, curr) => prev.beers.length != curr.beers.length,
           builder: (context, state) {
-            return _EmptyFavoriteCard();
+            if (state.beers.isEmpty) {
+              return _EmptyFavoriteCard();
+            }
+
+            final beers = state.beers;
+            return ListView.separated(
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.symmetric(
+                horizontal: kDefaultPadding,
+              ),
+              physics: const BouncingScrollPhysics(),
+              separatorBuilder: (context, _) => const SizedBox(width: 20),
+              itemCount: beers.length,
+              itemBuilder: (context, index) {
+                final beer = beers[index];
+
+                return BeerCard(
+                  beer: beer,
+                  onTap: () => _openBeerDetailDialog(context, beer),
+                );
+              },
+            );
           },
         ),
         const SizedBox(height: 40),
