@@ -29,8 +29,6 @@ class StatisticCubit extends Cubit<StatisticState> {
 
   void addBeer(Beer beer) {
     final statistic = state.beerStatistic.copyWith();
-    statistic.colorRepartition.increment(beer.color);
-    statistic.styleRepartition.increment(beer.style);
 
     emit(state.copyWith.beerStatistic(
       count: statistic.count + 1,
@@ -38,36 +36,40 @@ class StatisticCubit extends Cubit<StatisticState> {
       highestDegree: beer.degree > statistic.highestDegree
           ? beer.degree
           : statistic.highestDegree,
-      colorRepartition: statistic.colorRepartition,
-      styleRepartition: statistic.styleRepartition,
       lastAdded: beer,
     ));
   }
 
   void deleteBeer(Beer beer) {
     final statistic = state.beerStatistic.copyWith();
-    statistic.colorRepartition.decrement(beer.color);
-    statistic.styleRepartition.decrement(beer.style);
 
     emit(state.copyWith.beerStatistic(
       count: statistic.count - 1,
-      colorRepartition: statistic.colorRepartition,
-      styleRepartition: statistic.styleRepartition,
     ));
   }
 
   void addCheckIn(CheckIn checkIn) {
+    final drunkenBeer = checkIn.beer;
     final statistic = state.checkInStatistic.copyWith();
+
+    // checkin repartition statistic
     statistic.servingStyleRepartition.increment(checkIn.servingStyle);
     if (checkIn.location != null) {
       statistic.locationRepartition.increment(checkIn.location!);
     }
+    // drunken beer repartition statistic
+    statistic.drunkenCountryRepartition.increment(drunkenBeer.country);
+    statistic.drunkenStyleRepartition.increment(drunkenBeer.style);
+    statistic.drunkenColorRepartition.increment(drunkenBeer.color);
 
     emit(state.copyWith.checkInStatistic(
       count: statistic.count + 1,
       averageRating:
           statistic.averageRating.average(checkIn.rating).toPrecision(),
       servingStyleRepartition: statistic.servingStyleRepartition,
+      drunkenCountryRepartition: statistic.drunkenCountryRepartition,
+      drunkenStyleRepartition: statistic.drunkenStyleRepartition,
+      drunkenColorRepartition: statistic.drunkenColorRepartition,
       locationRepartition: statistic.locationRepartition,
       lastAdded: checkIn,
     ));

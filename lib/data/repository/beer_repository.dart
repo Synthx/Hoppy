@@ -49,9 +49,6 @@ class BeerRepository extends AuditableRepository<Beer> {
       count: beers.length,
       averageDegree: beers.map((b) => b.degree).average().toPrecision(),
       highestDegree: highestDegree,
-      colorRepartition: beers.map((b) => b.color).group(),
-      styleRepartition: beers.map((b) => b.style).group(),
-      countryRepartition: beers.map((b) => b.country).group(),
       lastAdded: beers.isNotEmpty ? beers.last : null,
       mostDrunk: mostDrunk,
     );

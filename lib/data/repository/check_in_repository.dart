@@ -10,6 +10,7 @@ class CheckInRepository extends AuditableRepository<CheckIn> {
 
   Future<CheckInStatistic> statistic() async {
     final checkIns = await this.findAll();
+    final drunkenBeers = checkIns.map((c) => c.beer);
 
     return CheckInStatistic(
       count: checkIns.length,
@@ -19,6 +20,9 @@ class CheckInRepository extends AuditableRepository<CheckIn> {
           .where((e) => e.location != null)
           .map((e) => e.location!)
           .group(),
+      drunkenColorRepartition: drunkenBeers.map((b) => b.color).group(),
+      drunkenStyleRepartition: drunkenBeers.map((b) => b.style).group(),
+      drunkenCountryRepartition: drunkenBeers.map((b) => b.country).group(),
       lastAdded: checkIns.isNotEmpty ? checkIns.last : null,
     );
   }

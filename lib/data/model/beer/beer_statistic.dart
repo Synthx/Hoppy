@@ -9,9 +9,6 @@ class BeerStatistic with _$BeerStatistic {
     @Default(0) int count,
     @Default(double.nan) double averageDegree,
     @Default(double.nan) double highestDegree,
-    @Default({}) Map<BeerColor, int> colorRepartition,
-    @Default({}) Map<BeerStyle, int> styleRepartition,
-    @Default({}) Map<BeerCountry, int> countryRepartition,
     Beer? lastAdded,
     Beer? mostDrunk,
   }) = _BeerStatistic;
