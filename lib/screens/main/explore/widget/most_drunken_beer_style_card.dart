@@ -1,20 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hoppy/core/core.dart';
+import 'package:hoppy/data/data.dart';
+import 'package:hoppy/screens/main/explore/dialog/beer_style_repartition_dialog.dart';
 import 'package:hoppy/store/store.dart';
 
 import 'more_card_button.dart';
 
 class MostDrunkenBeerStyleCard extends StatelessWidget {
+  void _openBeerStyleRepartitionDialog(BuildContext context) {
+    Navigator.push(
+      context,
+      BeerStyleRepartitionDialog.route(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<StatisticCubit, StatisticState>(
       buildWhen: (prev, curr) =>
-          prev.beerStatistic.count != curr.beerStatistic.count,
+          prev.checkInStatistic.count != curr.checkInStatistic.count,
       builder: (context, state) {
-        if (state.beerStatistic.count == 0) {
+        if (state.checkInStatistic.count == 0) {
           return Container();
         }
+
+        final styleRepartition =
+            state.checkInStatistic.drunkenStyleRepartition.sort();
+        final style = styleRepartition.firstKey()!;
 
         return Container(
           height: kCardHeight,
@@ -46,7 +59,7 @@ class MostDrunkenBeerStyleCard extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               Text(
-                'IPA',
+                '${style.name}',
                 style: Theme.of(context).textTheme.headline4!.copyWith(
                       color: Colors.white,
                     ),
@@ -56,14 +69,14 @@ class MostDrunkenBeerStyleCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Bue 34 fois',
+                    'Bue ${state.checkInStatistic.drunkenStyleRepartition[style]} fois',
                     style: Theme.of(context).textTheme.bodyText2!.copyWith(
                           color: Colors.white,
                           fontSize: 16,
                         ),
                   ),
                   MoreCardButton(
-                    onTap: () {},
+                    onTap: () => _openBeerStyleRepartitionDialog(context),
                   ),
                 ],
               ),
