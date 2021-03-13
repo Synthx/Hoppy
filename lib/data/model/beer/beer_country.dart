@@ -47,4 +47,27 @@ extension BeerCountryExtension on BeerCountry {
         return 'Irelande';
     }
   }
+
+  String get flag {
+    switch (this) {
+      case BeerCountry.FRANCE:
+        return '🇫🇷';
+      case BeerCountry.BELGIUM:
+        return '🇧🇪';
+      case BeerCountry.GERMANY:
+        return '🇩🇪';
+      case BeerCountry.UNITED_STATES:
+        return '🇺🇸';
+      case BeerCountry.ENGLAND:
+        return '🏴󠁧󠁢󠁥󠁮󠁧󠁿';
+      case BeerCountry.SPAIN:
+        return '🇪🇸';
+      case BeerCountry.NETHERLANDS:
+        return '🇳🇱';
+      case BeerCountry.SWEDEN:
+        return '🇸🇪';
+      case BeerCountry.IRELAND:
+        return '🇮🇪';
+    }
+  }
 }

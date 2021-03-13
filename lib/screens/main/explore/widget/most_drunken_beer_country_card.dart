@@ -1,19 +1,34 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hoppy/core/core.dart';
+import 'package:hoppy/data/data.dart';
+import 'package:hoppy/screens/main/explore/dialog/beer_country_repartition_dialog.dart';
 import 'package:hoppy/screens/main/explore/widget/more_card_button.dart';
 import 'package:hoppy/store/store.dart';
 
 class MostDrunkenBeerCountryCard extends StatelessWidget {
+  void _openBeerCountryRepartitionDialog(BuildContext context) {
+    Navigator.push(
+      context,
+      BeerCountryRepartitionDialog.route(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<StatisticCubit, StatisticState>(
       buildWhen: (prev, curr) =>
-          prev.beerStatistic.count != curr.beerStatistic.count,
+          prev.checkInStatistic.count != curr.checkInStatistic.count,
       builder: (context, state) {
-        if (state.beerStatistic.count == 0) {
+        if (state.checkInStatistic.count == 0) {
           return Container();
         }
+
+        final countryRepartition =
+            state.checkInStatistic.drunkenCountryRepartition.sort();
+        final country = countryRepartition.firstKey()!;
 
         return Container(
           height: kCardHeight,
@@ -45,7 +60,7 @@ class MostDrunkenBeerCountryCard extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               Text(
-                'France',
+                '${country.name}',
                 style: Theme.of(context).textTheme.headline4!.copyWith(
                       color: Colors.white,
                     ),
@@ -55,14 +70,14 @@ class MostDrunkenBeerCountryCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Bue 56 fois',
+                    'Bue ${countryRepartition[country]} fois',
                     style: Theme.of(context).textTheme.bodyText1!.copyWith(
                           color: Colors.white,
                           fontSize: 16,
                         ),
                   ),
                   MoreCardButton(
-                    onTap: () {},
+                    onTap: () => _openBeerCountryRepartitionDialog(context),
                   ),
                 ],
               ),
