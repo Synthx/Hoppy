@@ -10,9 +10,9 @@ class AuditableRepository<T extends Auditable> {
     return Hive.openBox<T>(_boxName);
   }
 
-  Future<List<T>> findAll() async {
+  Future<Iterable<T>> findAll() async {
     final box = await this.openBox();
-    return box.values.toList();
+    return box.values;
   }
 
   Future<T> insert(T object) async {
