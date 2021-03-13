@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hoppy/core/core.dart';
 import 'package:hoppy/screens/screens.dart';
 import 'package:hoppy/store/store.dart';
 
@@ -69,7 +70,7 @@ class _SplashScreenState extends State<SplashScreen> {
         backgroundColor: Theme.of(context).primaryColor,
         body: SafeArea(
           child: Container(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(kDefaultPadding),
             width: double.infinity,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,

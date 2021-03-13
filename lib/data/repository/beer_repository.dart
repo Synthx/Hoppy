@@ -1,7 +1,7 @@
 import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
 
-class BeerRepository extends BaseRepository<Beer> {
+class BeerRepository extends AuditableRepository<Beer> {
   const BeerRepository() : super('beers');
 
   Future<Page<Beer>> search({
@@ -31,12 +31,26 @@ class BeerRepository extends BaseRepository<Beer> {
   Future<BeerStatistic> statistic() async {
     final beers = await this.findAll();
 
+    var highestDegree = double.nan;
+    if (beers.isNotEmpty) {
+      var degrees = beers.map((e) => e.degree).toList();
+      degrees.sort();
+      highestDegree = degrees.last;
+    }
+
+    Beer? mostDrunk = null;
+    if (beers.isNotEmpty) {
+      var beerList = beers.toList();
+      beerList.sort((a, b) => a.drinkCount.compareTo(b.drinkCount));
+      mostDrunk = beerList.last;
+    }
+
     return BeerStatistic(
       count: beers.length,
       averageDegree: beers.map((b) => b.degree).average().toPrecision(),
-      colorRepartition: beers.map((b) => b.color).group(),
-      styleRepartition: beers.map((b) => b.style).group(),
-      countryRepartition: beers.map((b) => b.country).group(),
+      highestDegree: highestDegree,
+      lastAdded: beers.isNotEmpty ? beers.last : null,
+      mostDrunk: mostDrunk,
     );
   }
 }

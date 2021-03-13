@@ -31,8 +31,6 @@ void main() {
       color: BeerColor.BLOND,
       style: BeerStyle.IPA,
       country: BeerCountry.FRANCE,
-      creationDate: DateTime.now(),
-      lastModifiedDate: DateTime.now(),
     );
 
     blocTest<FavoriteCubit, FavoriteState>(

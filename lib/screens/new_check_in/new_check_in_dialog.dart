@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
 import 'package:hoppy/screens/new_check_in/new_check_in_state.dart';
-import 'package:hoppy/widget/widget.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 import 'new_check_in_cubit.dart';
@@ -50,32 +49,24 @@ class _NewCheckInDialogState extends State<NewCheckInDialog> {
   });
 
   void _closeDialog() {
-    Navigator.pop(context);
+    context.pop();
   }
 
   void _onLoadingChanged(bool loading) {
     if (loading) {
-      showGeneralDialog(
-        context: context,
-        barrierDismissible: false,
-        pageBuilder: (context, _, __) => LoadingDialog(),
-      );
+      context.showLoadingDialog();
     } else {
-      Navigator.pop(context);
+      context.pop();
     }
   }
 
   Future<void> _onCheckInCreated(CheckIn checkIn) async {
-    await showGeneralDialog(
-      context: context,
-      barrierDismissible: false,
-      pageBuilder: (context, _, __) => SuccessNotificationDialog(
-        title: 'Check-in enregistré avec succès',
-        content: 'Alors, elle était bonne ?',
-        icon: Text('🍻', style: TextStyle(fontSize: 50)),
-      ),
+    await context.showSuccessDialog(
+      title: 'Check-in enregistré avec succès',
+      content: 'Alors, elle était bonne ?',
+      icon: Text('🍻', style: TextStyle(fontSize: 50)),
     );
-    Navigator.pop(context, checkIn);
+    context.pop(checkIn);
   }
 
   @override
@@ -106,7 +97,6 @@ class _NewCheckInDialogState extends State<NewCheckInDialog> {
         child: ReactiveForm(
           formGroup: _checkInForm,
           child: Scaffold(
-            backgroundColor: Theme.of(context).cardColor,
             appBar: AppBar(
               title: const Text('Check-in'),
               leading: IconButton(

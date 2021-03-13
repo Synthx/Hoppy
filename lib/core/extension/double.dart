@@ -6,6 +6,8 @@ extension DoubleExtension on double {
   }
 
   double toPrecision({int precision = 2}) {
+    if (this == double.nan) return this;
+
     return double.parse(this.toStringAsFixed(precision));
   }
 }

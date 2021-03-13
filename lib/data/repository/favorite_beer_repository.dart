@@ -1,5 +1,5 @@
 import 'package:hoppy/data/data.dart';
 
-class FavoriteBeerRepository extends BaseRepository<Beer> {
+class FavoriteBeerRepository extends AuditableRepository<Beer> {
   const FavoriteBeerRepository() : super('favorite-beers');
 }

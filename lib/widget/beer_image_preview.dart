@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:hoppy/core/core.dart';
 
 class BeerImagePreview extends StatelessWidget {
   final String? imagePath;
@@ -12,7 +13,7 @@ class BeerImagePreview extends StatelessWidget {
     required this.imagePath,
     this.height = double.infinity,
     this.width = double.infinity,
-    this.radius = 20,
+    this.radius = kDefaultRadius,
   });
 
   Widget _getImage() {

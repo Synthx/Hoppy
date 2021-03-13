@@ -4,9 +4,9 @@ const kPrimaryColor = Color(0xFFFB6E3B);
 const kDangerColor = Color(0xFFF03738);
 
 // light theme
-const kLightBackgroundColor = Color(0xFFF8F8F8);
+const kLightBackgroundColor = Color(0xFFFFFFFF);
 const kLightDarkerBackgroundColor = Color(0xFFF8F8F8);
-const kLightCardColor = Color(0xFFFFFFFF);
+const kLightCardColor = Color(0xFFF8F8F8);
 const kLightContentColor = Color(0xFF1D1D35);
 
 // dark theme

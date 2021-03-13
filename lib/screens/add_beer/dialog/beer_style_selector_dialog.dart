@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
 
 class BeerStyleSelectorDialog extends StatelessWidget {
@@ -7,11 +8,11 @@ class BeerStyleSelectorDialog extends StatelessWidget {
       );
 
   void _closeDialog(BuildContext context) {
-    Navigator.pop(context, null);
+    context.pop();
   }
 
   void _selectBeerStyle(BuildContext context, BeerStyle beerStyle) {
-    Navigator.pop(context, beerStyle);
+    context.pop(beerStyle);
   }
 
   @override
@@ -25,7 +26,6 @@ class BeerStyleSelectorDialog extends StatelessWidget {
           icon: const Icon(Icons.clear),
         ),
       ),
-      backgroundColor: Theme.of(context).cardColor,
       body: ListView.separated(
         physics: const BouncingScrollPhysics(),
         separatorBuilder: (context, index) {

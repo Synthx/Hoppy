@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hoppy/core/core.dart';
 import 'package:reactive_forms/reactive_forms.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../dialog/date_picker_popup.dart';
 
@@ -17,7 +18,7 @@ class CheckInDateSelector extends StatefulWidget {
 }
 
 class _CheckInDateSelectorState extends State<CheckInDateSelector> {
-  DateTime? _selectedDate;
+  late DateTime _selectedDate;
 
   @override
   void initState() {
@@ -51,7 +52,7 @@ class _CheckInDateSelectorState extends State<CheckInDateSelector> {
       ),
       onTap: () => _openDatePicker(),
       title: const Text('Date *'),
-      subtitle: Text('${_selectedDate.toString()}'),
+      subtitle: Text(AppLocalizations.of(context)!.date(_selectedDate)),
       isThreeLine: false,
       trailing: const Icon(Icons.chevron_right),
     );
