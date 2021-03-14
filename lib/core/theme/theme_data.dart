@@ -56,7 +56,7 @@ ThemeData lightThemeData(BuildContext context) {
     bottomNavigationBarTheme: bottomBarTheme.copyWith(
       backgroundColor: kLightBackgroundColor,
       selectedItemColor: kPrimaryColor,
-      unselectedItemColor: kLightContentColor.withOpacity(0.6),
+      unselectedItemColor: kLightContentColor.withOpacity(0.85),
     ),
     textTheme: GoogleFonts.montserratTextTheme()
         .apply(

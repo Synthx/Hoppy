@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hoppy/screens/screens.dart';
 import 'package:hoppy/store/cubit/cubit.dart';
 
 import 'explore/explore_view.dart';
@@ -43,10 +44,20 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   void goToView(int index) {
-    setState(() {
-      _currentViewIndex = index;
-    });
-    _viewController.jumpToPage(index);
+    if (index == 2) {
+      Navigator.push(
+        context,
+        SearchBeerDialog.route(),
+      );
+    } else {
+      if (index > 2) {
+        index -= 1;
+      }
+      setState(() {
+        _currentViewIndex = index;
+      });
+      _viewController.jumpToPage(index);
+    }
   }
 
   @override
@@ -71,6 +82,13 @@ class _MainScreenState extends State<MainScreen> {
           const BottomNavigationBarItem(
             icon: Icon(Icons.search_outlined),
             label: 'Rechercher',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.add_box_outlined,
+              size: 30,
+            ),
+            label: '',
           ),
           const BottomNavigationBarItem(
             icon: Icon(Icons.favorite_border),
