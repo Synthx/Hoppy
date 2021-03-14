@@ -68,7 +68,7 @@ class _SearchBeerDialogState extends State<SearchBeerDialog> {
 
     final cubit = context.read<SearchBeerCubit>();
 
-    if (maxScroll - currentScroll <= 200 &&
+    if (maxScroll - currentScroll <= kInfiniteScrollDifference &&
         position == ScrollDirection.reverse &&
         !cubit.state.loading &&
         cubit.state.beers != null &&
@@ -116,6 +116,7 @@ class _SearchBeerDialogState extends State<SearchBeerDialog> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: BlocBuilder<SearchBeerCubit, SearchBeerState>(
+        buildWhen: (prev, curr) => prev.loading != curr.loading,
         builder: (context, state) {
           if (state.beers == null) {
             return WaitingForKeyword();
@@ -143,10 +144,13 @@ class _SearchBeerDialogState extends State<SearchBeerDialog> {
               controller: _scrollController,
               physics: const BouncingScrollPhysics(),
               padding: EdgeInsets.only(
-                top: 20,
-                left: 20,
-                right: 20,
-                bottom: max(MediaQuery.of(context).padding.bottom, 20),
+                top: kDefaultPadding,
+                left: kDefaultPadding,
+                right: kDefaultPadding,
+                bottom: max(
+                  MediaQuery.of(context).padding.bottom,
+                  kDefaultPadding,
+                ),
               ),
               children: [
                 GridView.builder(
@@ -155,7 +159,7 @@ class _SearchBeerDialogState extends State<SearchBeerDialog> {
                     crossAxisCount: 2,
                     crossAxisSpacing: 15,
                     mainAxisSpacing: 15,
-                    childAspectRatio: 4 / 7,
+                    childAspectRatio: kBeerCardAspectRatio,
                   ),
                   physics: const BouncingScrollPhysics(),
                   itemCount: beers.length,
@@ -163,6 +167,7 @@ class _SearchBeerDialogState extends State<SearchBeerDialog> {
                     final beer = beers[index];
                     return BeerCard(
                       onTap: () => _openNewCheckInDialog(beer),
+                      showFavoriteButton: false,
                       beer: beer,
                     );
                   },
