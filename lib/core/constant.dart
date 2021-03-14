@@ -5,3 +5,5 @@ const kFooterButtonHeight = 60.0;
 const kCardHeight = 420.0;
 const kCardVerticalMargin = 2.0;
 const kChartArcWidth = 70;
+const kInfiniteScrollDifference = 200.0;
+const kBeerCardAspectRatio = 4 / 7;

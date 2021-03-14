@@ -9,7 +9,8 @@ class SearchState with _$SearchState {
     required BeerFilter filter,
     required List<Beer> beers,
     required bool loading,
-    @Default(0) int page,
-    @Default(25) int size,
+    required int page,
+    required int size,
+    int? totalElements,
   }) = _SearchState;
 }

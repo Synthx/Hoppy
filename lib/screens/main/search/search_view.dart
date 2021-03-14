@@ -5,18 +5,18 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
-import 'package:hoppy/screens/main/search/search_state.dart';
 import 'package:hoppy/screens/screens.dart';
 import 'package:hoppy/widget/widget.dart';
 
-import 'search_cubit.dart';
+import 'search.dart';
 
 class SearchView extends StatefulWidget {
   @override
   State createState() => _SearchViewState();
 }
 
-class _SearchViewState extends State<SearchView> {
+class _SearchViewState extends State<SearchView>
+    with AutomaticKeepAliveClientMixin {
   final ScrollController _scrollController = ScrollController(
     initialScrollOffset: 0,
   );
@@ -36,10 +36,15 @@ class _SearchViewState extends State<SearchView> {
     final maxScroll = _scrollController.position.maxScrollExtent;
     final currentScroll = _scrollController.position.pixels;
     final position = _scrollController.position.userScrollDirection;
-    if (maxScroll - currentScroll <= 200 &&
-        position == ScrollDirection.forward &&
-        !context.read<SearchCubit>().state.loading) {
-      print('next page');
+
+    final cubit = context.read<SearchCubit>();
+
+    if (maxScroll - currentScroll <= kInfiniteScrollDifference &&
+        position == ScrollDirection.reverse &&
+        !cubit.state.loading &&
+        cubit.state.totalElements != null &&
+        cubit.state.beers.length < cubit.state.totalElements!) {
+      cubit.nextPage();
     }
   }
 
@@ -56,7 +61,11 @@ class _SearchViewState extends State<SearchView> {
   }
 
   @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return BlocProvider<SearchCubit>(
       create: (_) => SearchCubit(
         beerRepository: getIt(),
@@ -74,25 +83,25 @@ class _SearchViewState extends State<SearchView> {
               final beers = state.beers;
               return ListView(
                 controller: _scrollController,
-                children: [
-                  TextButton(
-                    onPressed: null,
-                    child: Text('Classement par ordre d\'ajout'),
+                physics: const BouncingScrollPhysics(),
+                padding: EdgeInsets.only(
+                  top: kDefaultPadding,
+                  left: kDefaultPadding,
+                  right: kDefaultPadding,
+                  bottom: max(
+                    MediaQuery.of(context).padding.bottom,
+                    kDefaultPadding,
                   ),
+                ),
+                children: [
                   GridView.builder(
                     shrinkWrap: true,
-                    padding: EdgeInsets.only(
-                      top: 20,
-                      left: 20,
-                      right: 20,
-                      bottom: max(MediaQuery.of(context).padding.bottom, 20),
-                    ),
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       crossAxisSpacing: 15,
                       mainAxisSpacing: 15,
-                      childAspectRatio: 4 / 7,
+                      childAspectRatio: kBeerCardAspectRatio,
                     ),
                     physics: const BouncingScrollPhysics(),
                     itemCount: beers.length,
@@ -104,6 +113,14 @@ class _SearchViewState extends State<SearchView> {
                       );
                     },
                   ),
+                  if (state.loading)
+                    Center(
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                          Theme.of(context).primaryColor,
+                        ),
+                      ),
+                    ),
                 ],
               );
             },
