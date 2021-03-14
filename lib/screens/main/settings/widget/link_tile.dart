@@ -13,7 +13,7 @@ class LinkTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 64,
-      color: Theme.of(context).cardColor,
+      color: Theme.of(context).scaffoldBackgroundColor,
       child: Center(
         child: ListTile(
           title: Text(label),

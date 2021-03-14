@@ -29,7 +29,7 @@ class DarkModeTileState extends State<DarkModeTile> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Theme.of(context).cardColor,
+      color: Theme.of(context).scaffoldBackgroundColor,
       height: 64,
       child: Center(
         child: ListTile(

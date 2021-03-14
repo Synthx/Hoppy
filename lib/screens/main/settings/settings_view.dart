@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'dark_mode_tile.dart';
-import 'link_tile.dart';
-import 'name_input_tile.dart';
-import 'version_container.dart';
+import 'settings.dart';
 
 class SettingsView extends StatefulWidget {
   @override
@@ -42,6 +39,7 @@ class _SettingsViewState extends State<SettingsView> {
       appBar: AppBar(
         title: const Text('Paramètres'),
       ),
+      backgroundColor: Theme.of(context).cardColor,
       body: ListView(
         physics: const BouncingScrollPhysics(),
         children: [
