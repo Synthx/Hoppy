@@ -5,6 +5,7 @@ import 'package:hoppy/data/data.dart';
 import 'package:hoppy/screens/main/explore/explore.dart';
 import 'package:hoppy/screens/screens.dart';
 import 'package:hoppy/store/store.dart';
+import 'package:hoppy/widget/widget.dart';
 
 class MostDrunkenBeerCard extends StatelessWidget {
   ImageProvider _getBackgroundImage(String? imagePath) {
@@ -48,7 +49,16 @@ class MostDrunkenBeerCard extends StatelessWidget {
           ),
           child: Column(
             children: [
-              const Spacer(flex: 2),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  BeerFavoriteIconButton(
+                    beer: beer,
+                    size: 32,
+                  ),
+                ],
+              ),
+              const Spacer(flex: 1),
               Text(
                 'Bière la plus bue',
                 textAlign: TextAlign.center,

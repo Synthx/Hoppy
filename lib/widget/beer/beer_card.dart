@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:hoppy/data/data.dart';
-
-import 'beer_image_preview.dart';
+import 'package:hoppy/widget/widget.dart';
 
 class BeerCard extends StatelessWidget {
   final Beer beer;
   final VoidCallback? onTap;
+  final bool? showFavoriteButton;
 
   const BeerCard({
     required this.beer,
     this.onTap,
+    this.showFavoriteButton = true,
   });
 
   @override
@@ -19,9 +20,23 @@ class BeerCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          BeerImagePreview(
-            imagePath: beer.picturePath,
+          Container(
             height: 220,
+            child: Stack(
+              children: [
+                BeerImagePreview(
+                  imagePath: beer.picturePath,
+                ),
+                if (showFavoriteButton == true)
+                  Positioned(
+                    top: 0,
+                    right: 0,
+                    child: BeerFavoriteIconButton(
+                      beer: beer,
+                    ),
+                  ),
+              ],
+            ),
           ),
           const SizedBox(height: 10),
           Text(

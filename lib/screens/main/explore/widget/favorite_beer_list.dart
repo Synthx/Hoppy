@@ -37,23 +37,31 @@ class FavoriteBeerList extends StatelessWidget {
               return _EmptyFavoriteCard();
             }
 
-            final beers = state.beers;
-            return ListView.separated(
-              scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.symmetric(
-                horizontal: kDefaultPadding,
-              ),
-              physics: const BouncingScrollPhysics(),
-              separatorBuilder: (context, _) => const SizedBox(width: 20),
-              itemCount: beers.length,
-              itemBuilder: (context, index) {
-                final beer = beers[index];
+            var beers = state.beers;
+            beers.shuffle();
+            beers = beers.take(4).toList();
+            return Container(
+              height: 280,
+              child: ListView.separated(
+                scrollDirection: Axis.horizontal,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: kDefaultPadding,
+                ),
+                physics: const BouncingScrollPhysics(),
+                separatorBuilder: (context, _) => const SizedBox(width: 20),
+                itemCount: beers.length,
+                itemBuilder: (context, index) {
+                  final beer = beers[index];
 
-                return BeerCard(
-                  beer: beer,
-                  onTap: () => _openBeerDetailDialog(context, beer),
-                );
-              },
+                  return Container(
+                    width: 180,
+                    child: BeerCard(
+                      beer: beer,
+                      onTap: () => _openBeerDetailDialog(context, beer),
+                    ),
+                  );
+                },
+              ),
             );
           },
         ),
