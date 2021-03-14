@@ -3,16 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
-import 'package:hoppy/screens/new_check_in/new_check_in_state.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
-import 'new_check_in_cubit.dart';
-import 'new_check_in_dialog_footer.dart';
-import 'widget/beer_preview.dart';
-import 'widget/check_in_date_selector.dart';
-import 'widget/check_in_description_input.dart';
-import 'widget/check_in_location_selector.dart';
-import 'widget/check_in_serving_style_selector.dart';
+import 'new_check_in.dart';
 
 class NewCheckInDialog extends StatefulWidget {
   static route(Beer beer) => MaterialPageRoute<CheckIn?>(

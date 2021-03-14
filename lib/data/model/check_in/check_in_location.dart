@@ -22,17 +22,34 @@ extension CheckInLocationExtension on CheckInLocation {
   String get name {
     switch (this) {
       case CheckInLocation.HOME:
-        return '🏠   A la maison';
+        return 'A la maison';
       case CheckInLocation.FRIENDS:
-        return '🏡   Chez des amis';
+        return 'Chez des amis';
       case CheckInLocation.BAR:
-        return '🍻   Dans un bar';
+        return 'Dans un bar';
       case CheckInLocation.RESTAURANT:
-        return '🍴   Dans un restaurant';
+        return 'Dans un restaurant';
       case CheckInLocation.WORK:
-        return '🏢   Au travail';
+        return 'Au travail';
       case CheckInLocation.VACATION:
-        return '⛱️   En vacances';
+        return 'En vacances';
+    }
+  }
+
+  String get icon {
+    switch (this) {
+      case CheckInLocation.HOME:
+        return '🏠';
+      case CheckInLocation.FRIENDS:
+        return '🏡';
+      case CheckInLocation.BAR:
+        return '🍻';
+      case CheckInLocation.RESTAURANT:
+        return '🍴';
+      case CheckInLocation.WORK:
+        return '🏢';
+      case CheckInLocation.VACATION:
+        return '⛱️';
     }
   }
 }

@@ -102,11 +102,22 @@ class _CheckInLocationPreview extends StatelessWidget {
           horizontal: 20,
         ),
         child: Center(
-          child: Text(
-            '${location.name}',
-            style: TextStyle(
-              color: color,
-            ),
+          child: Column(
+            children: [
+              Text(
+                '${location.icon}',
+                style: TextStyle(
+                  color: Colors.black,
+                ),
+              ),
+              const SizedBox(width: 10),
+              Text(
+                '${location.name}',
+                style: TextStyle(
+                  color: color,
+                ),
+              ),
+            ],
           ),
         ),
       ),
