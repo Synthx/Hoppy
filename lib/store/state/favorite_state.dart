@@ -5,7 +5,7 @@ part 'favorite_state.freezed.dart';
 
 @freezed
 class FavoriteState with _$FavoriteState {
-  const factory FavoriteState({
+  factory FavoriteState({
     required List<Beer> beers,
     required bool loading,
   }) = _FavoriteState;

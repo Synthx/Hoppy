@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 const kPrimaryColor = Color(0xFFFB6E3B);
-const kDangerColor = Color(0xFFF03738);
+const kRedColor = Color(0xFFF03738);
 
 // light theme
 const kLightBackgroundColor = Color(0xFFFFFFFF);
