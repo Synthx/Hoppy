@@ -27,6 +27,22 @@ class CheckInRepository extends AuditableRepository<CheckIn> {
     );
   }
 
+  Future<DrunkenBeerStatistic> beerStatistic(Beer beer) async {
+    final checkIns =
+        (await this.findAll()).where((e) => e.beer.name == beer.name).toList();
+
+    return DrunkenBeerStatistic(
+      count: checkIns.length,
+      averageRating: checkIns.map((e) => e.rating).average(),
+      servingStyleRepartition: checkIns.map((e) => e.servingStyle).group(),
+      locationRepartition: checkIns
+          .where((e) => e.location != null)
+          .map((e) => e.location!)
+          .group(),
+      lastCheckIns: checkIns.take(4).toList(),
+    );
+  }
+
   @override
   Future<CheckIn> insert(CheckIn object) async {
     final beer = object.beer;
