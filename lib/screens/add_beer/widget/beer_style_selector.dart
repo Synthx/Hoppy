@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
+import 'package:hoppy/screens/add_beer/add_beer.dart';
 import 'package:reactive_forms/reactive_forms.dart';
-
-import '../dialog/beer_style_selector_dialog.dart';
 
 class BeerStyleSelector extends StatefulWidget {
   final FormGroup form;

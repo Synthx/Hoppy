@@ -102,7 +102,7 @@ class _CheckInLocationPreview extends StatelessWidget {
           horizontal: 20,
         ),
         child: Center(
-          child: Column(
+          child: Row(
             children: [
               Text(
                 '${location.icon}',

@@ -6,20 +6,21 @@ import 'package:hoppy/data/data.dart';
 import 'package:hoppy/widget/widget.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
-import 'add_beer_cubit.dart';
-import 'add_beer_dialog_footer.dart';
-import 'add_beer_state.dart';
-import 'widget/beer_color_selector.dart';
-import 'widget/beer_country_selector.dart';
-import 'widget/beer_degree_input.dart';
-import 'widget/beer_name_input.dart';
-import 'widget/beer_style_selector.dart';
-import 'widget/upload_beer_picture.dart';
+import 'add_beer.dart';
 
 class AddBeerDialog extends StatefulWidget {
-  static route() => MaterialPageRoute<Beer?>(
-        builder: (_) => AddBeerDialog(),
+  static route(bool fullscreen) => MaterialPageRoute<Beer?>(
+        builder: (_) => AddBeerDialog(
+          fullscreen: fullscreen,
+        ),
+        fullscreenDialog: fullscreen,
       );
+
+  final bool fullscreen;
+
+  const AddBeerDialog({
+    required this.fullscreen,
+  });
 
   @override
   State createState() => _AddBeerDialogState();
@@ -115,7 +116,8 @@ class _AddBeerDialogState extends State<AddBeerDialog> {
             appBar: AppBar(
               title: const Text('Ajouter une bière'),
               leading: IconButton(
-                icon: const Icon(Icons.clear),
+                icon:
+                    Icon(widget.fullscreen ? Icons.clear : Icons.chevron_left),
                 onPressed: () => _onClose(),
               ),
             ),
