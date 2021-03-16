@@ -12,14 +12,10 @@ class BeerInformation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textStyle = Theme.of(context).textTheme.bodyText1!;
-    return Container(
-      padding: const EdgeInsets.only(
-        top: 40,
-        left: kDefaultPadding,
-        right: kDefaultPadding,
-        bottom: 20,
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: kDefaultPadding,
       ),
-      width: double.infinity,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

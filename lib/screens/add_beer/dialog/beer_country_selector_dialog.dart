@@ -23,14 +23,12 @@ class BeerCountrySelectorDialog extends StatelessWidget {
         title: const Text('Pays'),
         leading: IconButton(
           onPressed: () => _closeDialog(context),
-          icon: const Icon(Icons.clear),
+          icon: const Icon(Icons.chevron_left),
         ),
       ),
       body: ListView.separated(
         physics: const BouncingScrollPhysics(),
-        separatorBuilder: (context, index) {
-          return const Divider(height: 1);
-        },
+        separatorBuilder: (context, _) => Divider(height: 0),
         itemCount: beerCountries.length,
         itemBuilder: (context, index) {
           final beerCountry = beerCountries[index];

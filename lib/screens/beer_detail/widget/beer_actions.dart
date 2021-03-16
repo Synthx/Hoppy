@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
 import 'package:hoppy/widget/widget.dart';
 
@@ -31,7 +32,7 @@ class BeerActions extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(
-        horizontal: 20,
+        horizontal: kDefaultPadding,
       ),
       child: Row(
         children: [
@@ -42,7 +43,7 @@ class BeerActions extends StatelessWidget {
               onTap: null,
             ),
           ),
-          const SizedBox(width: 12),
+          const SizedBox(width: 20),
           Flexible(
             child: _RoundedButton(
               iconData: Icons.delete,

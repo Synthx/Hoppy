@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hoppy/core/core.dart';
-import 'package:reactive_forms/reactive_forms.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-import '../dialog/date_picker_popup.dart';
+import 'package:hoppy/core/core.dart';
+import 'package:hoppy/screens/new_check_in/new_check_in.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 
 class CheckInDateSelector extends StatefulWidget {
   final FormGroup form;

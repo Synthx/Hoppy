@@ -9,6 +9,7 @@ import 'position.dart';
 
 export 'check_in_location.dart';
 export 'check_in_statistic.dart';
+export 'drunken_beer_statistic.dart';
 export 'position.dart';
 export 'serving_style.dart';
 

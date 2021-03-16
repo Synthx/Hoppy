@@ -41,7 +41,7 @@ class _SearchBeerDialogState extends State<SearchBeerDialog> {
   Future<void> _openAddBeerDialog() async {
     final beer = await Navigator.push<Beer?>(
       context,
-      AddBeerDialog.route(),
+      AddBeerDialog.route(false),
     );
 
     if (beer != null) {

@@ -10,13 +10,6 @@ class ExploreView extends StatefulWidget {
 
 class _ExploreViewState extends State<ExploreView>
     with AutomaticKeepAliveClientMixin {
-  void _openSearchBeerDialog() {
-    Navigator.push(
-      context,
-      SearchBeerDialog.route(),
-    );
-  }
-
   @override
   bool get wantKeepAlive => true;
 
@@ -39,12 +32,6 @@ class _ExploreViewState extends State<ExploreView>
     return Scaffold(
       appBar: AppBar(
         title: const Text("Hoppy"),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.add),
-            onPressed: () => _openSearchBeerDialog(),
-          ),
-        ],
       ),
       body: ListView(
         physics: const BouncingScrollPhysics(),

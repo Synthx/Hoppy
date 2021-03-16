@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hoppy/core/core.dart';
+import 'package:hoppy/screens/screens.dart';
 import 'package:hoppy/store/store.dart';
 
 class EmptyBeerCard extends StatelessWidget {
+  void _openAddBeerDialog(BuildContext context) {
+    Navigator.push(
+      context,
+      AddBeerDialog.route(true),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<StatisticCubit, StatisticState>(
@@ -34,22 +42,22 @@ class EmptyBeerCard extends StatelessWidget {
                     Text(
                       'N\'attendez plus !',
                       style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                        color: Colors.white,
-                        fontSize: 16,
-                      ),
+                            color: Colors.white,
+                            fontSize: 16,
+                          ),
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 5),
                     Text(
                       'Ajouter des bières dès maintenant et découvrez Hoppy',
                       style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                        color: Colors.white.withOpacity(0.8),
-                      ),
+                            color: Colors.white.withOpacity(0.8),
+                          ),
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 20),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () => _openAddBeerDialog(context),
                       child: Text('Ajouter une bière'),
                     ),
                   ],

@@ -1,15 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hoppy/core/core.dart';
-import 'package:hoppy/data/data.dart';
+import 'package:hoppy/data/data.dart' hide BeerStatistic;
+import 'package:hoppy/screens/screens.dart';
 import 'package:hoppy/widget/widget.dart';
 
-import 'beer_detail_cubit.dart';
-import 'beer_detail_state.dart';
-import 'widget/beer_actions.dart';
-import 'widget/beer_image.dart';
-import 'widget/beer_information.dart';
+import 'beer_detail.dart';
 
 class BeerDetailDialog extends StatefulWidget {
   static route(Beer beer) => MaterialPageRoute<bool?>(
@@ -32,6 +30,13 @@ class BeerDetailDialog extends StatefulWidget {
 class _BeerDetailDialogState extends State<BeerDetailDialog> {
   void _closeDialog() {
     context.pop();
+  }
+
+  void _openNewCheckInDialog() {
+    Navigator.push(
+      context,
+      NewCheckInDialog.route(widget.beer),
+    );
   }
 
   Future<void> _onBeerDeleted() async {
@@ -80,6 +85,7 @@ class _BeerDetailDialogState extends State<BeerDetailDialog> {
           floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
           bottomNavigationBar: BottomAppBar(
             elevation: 0,
+            color: Colors.transparent,
             child: Container(
               padding: const EdgeInsets.symmetric(
                 horizontal: kDefaultPadding,
@@ -87,49 +93,60 @@ class _BeerDetailDialogState extends State<BeerDetailDialog> {
               child: Container(
                 height: kFooterButtonHeight,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () => _openNewCheckInDialog(),
                   child: const Text('Check-in'),
                 ),
               ),
             ),
           ),
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              BeerImage(
-                beer: widget.beer,
+          extendBody: true,
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.only(
+                bottom: kFooterButtonHeight + 40,
               ),
-              BeerInformation(
-                beer: widget.beer,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  BeerImage(
+                    beer: widget.beer,
+                  ),
+                  const SizedBox(height: 40),
+                  BeerInformation(
+                    beer: widget.beer,
+                  ),
+                  const SizedBox(height: 20),
+                  BeerStatistic(
+                    beer: widget.beer,
+                  ),
+                  const SizedBox(height: 20),
+                  BeerActions(
+                    beer: widget.beer,
+                  ),
+                  const SizedBox(height: 20),
+                  Padding(
+                    padding: const EdgeInsets.all(kDefaultPadding),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          AppLocalizations.of(context)!
+                              .creation_date(widget.beer.creationDate),
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          AppLocalizations.of(context)!
+                              .last_modified_date(widget.beer.lastModifiedDate),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-              BeerDrinkedInformation(
-                beer: widget.beer,
-              ),
-              BeerActions(
-                beer: widget.beer,
-              ),
-              Text(
-                'Ajoutée le ${widget.beer.creationDate}',
-              ),
-            ],
+            ),
           ),
         ),
       ),
-    );
-  }
-}
-
-class BeerDrinkedInformation extends StatelessWidget {
-  final Beer beer;
-
-  const BeerDrinkedInformation({
-    required this.beer,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: null,
     );
   }
 }
