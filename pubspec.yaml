@@ -30,6 +30,7 @@ dependencies:
   url_launcher: ^6.0.2
   intl: ^0.17.0
   charts_flutter: ^0.10.0
+  uuid: 3.0.1
 
 dev_dependencies:
   flutter_test:
