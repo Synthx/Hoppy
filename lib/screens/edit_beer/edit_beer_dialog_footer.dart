@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
-import 'package:hoppy/screens/add_beer/add_beer.dart';
+import 'package:hoppy/screens/edit_beer/edit_beer.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
-class AddBeerDialogFooter extends StatelessWidget {
+class EditBeerDialogFooter extends StatelessWidget {
   final FormGroup form;
 
-  const AddBeerDialogFooter({
+  const EditBeerDialogFooter({
     required this.form,
   });
 
-  void _addBeer(BuildContext context) {
+  void _editBeer(BuildContext context) {
     final value = form.value;
     final beer = Beer(
       name: value['name'],
@@ -23,7 +23,7 @@ class AddBeerDialogFooter extends StatelessWidget {
       picturePath: value['picturePath'],
       title: value['title'],
     );
-    context.read<AddBeerCubit>().addBeer(beer);
+    context.read<EditBeerCubit>().edit(beer);
   }
 
   @override
@@ -39,8 +39,8 @@ class AddBeerDialogFooter extends StatelessWidget {
             return Container(
               height: kFooterButtonHeight,
               child: ElevatedButton(
-                onPressed: form.valid ? () => _addBeer(context) : null,
-                child: const Text('Ajouter'),
+                onPressed: form.valid ? () => _editBeer(context) : null,
+                child: const Text('Modifier'),
               ),
             );
           },

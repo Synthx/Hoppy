@@ -16,14 +16,20 @@ class BeerColorSelector extends StatefulWidget {
 
 class _BeerColorSelectorState extends State<BeerColorSelector> {
   final beerColors = BeerColor.values;
-  BeerColor? selectedColor;
+  BeerColor? _selectedColor;
 
   void _selectBeerColor(BeerColor color) {
     widget.form.control('color').value = color;
     widget.form.control('color').markAsDirty();
     setState(() {
-      selectedColor = color;
+      _selectedColor = color;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedColor = widget.form.control('color').value;
   }
 
   @override
@@ -63,7 +69,7 @@ class _BeerColorSelectorState extends State<BeerColorSelector> {
                 final beerColor = beerColors[index];
                 return BeerColorPreview(
                   beerColor: beerColor,
-                  isSelected: selectedColor == beerColor,
+                  isSelected: _selectedColor == beerColor,
                   onTap: () => _selectBeerColor(beerColor),
                 );
               },

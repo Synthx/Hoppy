@@ -34,6 +34,12 @@ class _BeerCountrySelectorState extends State<BeerCountrySelector> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _selectedBeerCountry = widget.form.control('country').value;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(

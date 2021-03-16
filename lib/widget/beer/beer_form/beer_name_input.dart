@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hoppy/core/core.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 class BeerNameInput extends StatelessWidget {
@@ -6,8 +7,8 @@ class BeerNameInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(
-        left: 20,
-        right: 20,
+        left: kDefaultPadding,
+        right: kDefaultPadding,
         top: 10,
         bottom: 30,
       ),

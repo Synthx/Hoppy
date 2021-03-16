@@ -40,9 +40,11 @@ class BeerRepository extends AuditableRepository<Beer> {
 
     Beer? mostDrunk = null;
     if (beers.isNotEmpty) {
-      var beerList = beers.toList();
-      beerList.sort((a, b) => a.drinkCount.compareTo(b.drinkCount));
-      mostDrunk = beerList.last;
+      var beerList = beers.where((e) => e.drinkCount > 0).toList();
+      if (beerList.isNotEmpty) {
+        beerList.sort((a, b) => a.drinkCount.compareTo(b.drinkCount));
+        mostDrunk = beerList.last;
+      }
     }
 
     return BeerStatistic(

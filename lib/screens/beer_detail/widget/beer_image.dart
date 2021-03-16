@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
 import 'package:hoppy/widget/widget.dart';
 
@@ -22,6 +23,14 @@ class BeerImage extends StatelessWidget {
             height: containerHeight,
             imagePath: beer.picturePath,
             radius: 0,
+          ),
+          Positioned(
+            top: 10 + MediaQuery.of(context).padding.top,
+            left: kDefaultPadding,
+            child: BeerFavoriteIconButton(
+              beer: beer,
+              size: 32,
+            ),
           ),
         ],
       ),

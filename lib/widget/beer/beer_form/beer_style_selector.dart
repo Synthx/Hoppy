@@ -34,6 +34,12 @@ class _BeerStyleSelectorState extends State<BeerStyleSelector> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _selectedBeerStyle = widget.form.control('style').value;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(

@@ -10,6 +10,11 @@ class AuditableRepository<T extends Auditable> {
     return Hive.openBox<T>(_boxName);
   }
 
+  Future<T?> find(dynamic key) async {
+    final box = await this.openBox();
+    return box.get(key);
+  }
+
   Future<Iterable<T>> findAll() async {
     final box = await this.openBox();
     return box.values;

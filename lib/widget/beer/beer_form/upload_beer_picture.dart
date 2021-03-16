@@ -5,10 +5,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
+import 'package:hoppy/screens/add_beer/add_beer.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:reactive_forms/reactive_forms.dart';
-
-import '../dialog/upload_beer_picture_dialog.dart';
 
 class UploadBeerPicture extends StatefulWidget {
   final FormGroup form;

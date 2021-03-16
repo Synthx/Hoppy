@@ -106,7 +106,7 @@ class _AddBeerDialogState extends State<AddBeerDialog> {
             listener: (_, state) => _onLoadingChanged(state.loading),
           ),
           BlocListener<AddBeerCubit, AddBeerState>(
-            listenWhen: (prev, curr) => prev.beer != curr.beer,
+            listenWhen: (prev, curr) => prev.beer != curr.beer && curr.beer != null,
             listener: (_, state) => _onBeerCreated(state.beer!),
           ),
         ],

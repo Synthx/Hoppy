@@ -31,7 +31,7 @@ class BeerStatistic extends StatelessWidget {
         final statistic = snapshot.data!;
         if (statistic.count == 0) {
           return Container(
-            height: 200,
+            height: 220,
             color: Theme.of(context).cardColor,
             padding: const EdgeInsets.all(kDefaultPadding),
           );

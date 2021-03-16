@@ -34,21 +34,21 @@ class BeerColorRepartitionCard extends StatelessWidget {
       ),
       child: Column(
         children: [
-          BlocBuilder<StatisticCubit, StatisticState>(
-            buildWhen: (prev, curr) =>
-                prev.checkInStatistic.count != curr.checkInStatistic.count,
-            builder: (context, state) {
-              if (state.checkInStatistic.count == 0) {
-                return _EmptyBeerColorRepartition();
-              }
+          Expanded(
+            child: BlocBuilder<StatisticCubit, StatisticState>(
+              buildWhen: (prev, curr) =>
+                  prev.checkInStatistic.count != curr.checkInStatistic.count,
+              builder: (context, state) {
+                if (state.checkInStatistic.count == 0) {
+                  return _EmptyBeerColorRepartition();
+                }
 
-              return Expanded(
-                child: BeerColorChart(
+                return BeerColorChart(
                   repartition:
                       state.checkInStatistic.drunkenColorRepartition.sort(),
-                ),
-              );
-            },
+                );
+              },
+            ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
