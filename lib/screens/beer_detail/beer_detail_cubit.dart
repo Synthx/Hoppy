@@ -6,10 +6,12 @@ import 'beer_detail_state.dart';
 
 class BeerDetailCubit extends Cubit<BeerDetailState> {
   final BeerRepository beerRepository;
+  final CheckInRepository checkInRepository;
   final StatisticCubit statisticCubit;
 
   BeerDetailCubit({
     required this.beerRepository,
+    required this.checkInRepository,
     required this.statisticCubit,
   }) : super(BeerDetailState(
           loading: false,
@@ -33,7 +35,8 @@ class BeerDetailCubit extends Cubit<BeerDetailState> {
   Future<void> delete(Beer beer) async {
     emit(state.copyWith(loading: true));
     await beerRepository.delete(beer.id!);
-    statisticCubit.deleteBeer(beer);
+    await checkInRepository.deleteAssociated(beer);
+    await statisticCubit.load();
     emit(state.copyWith(loading: false, beer: null));
   }
 }

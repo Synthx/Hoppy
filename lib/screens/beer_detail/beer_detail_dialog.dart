@@ -48,6 +48,7 @@ class _BeerDetailDialogState extends State<BeerDetailDialog> {
     return BlocProvider<BeerDetailCubit>(
       create: (_) => BeerDetailCubit(
         beerRepository: getIt(),
+        checkInRepository: getIt(),
         statisticCubit: context.read(),
       )..load(widget.beer.id!),
       child: MultiBlocListener(

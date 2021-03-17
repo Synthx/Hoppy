@@ -43,6 +43,14 @@ class CheckInRepository extends AuditableRepository<CheckIn> {
     );
   }
 
+  Future<void> deleteAssociated(Beer beer) async {
+    final box = await this.openBox();
+    final checkIns = box.values.where((e) => e.beer.id == beer.id);
+    for (var checkIn in checkIns) {
+      await checkIn.delete();
+    }
+  }
+
   @override
   Future<CheckIn> insert(CheckIn object) async {
     final beer = object.beer;
