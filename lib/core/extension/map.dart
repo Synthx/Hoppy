@@ -12,7 +12,7 @@ extension GenericIntegerMapExtension<T> on Map<T, int> {
   SplayTreeMap<T, int> sort() {
     return SplayTreeMap.from(
       this,
-      (a, b) => this[a]! > this[b]! ? 1 : -1,
+      (a, b) => this[a]! > this[b]! ? -1 : 1,
     );
   }
 

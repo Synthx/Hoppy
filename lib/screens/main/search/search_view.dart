@@ -27,7 +27,7 @@ class _SearchViewState extends State<SearchView>
       BeerDetailDialog.route(beer),
     );
 
-    if (needChanges != null) {
+    if (needChanges != null && needChanges == true) {
       context.read<SearchCubit>().search();
     }
   }

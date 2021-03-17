@@ -64,7 +64,7 @@ class MostDrunkenBeerCountryCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Bue ${countryRepartition[country]} fois',
+                    'Bue ${state.checkInStatistic.drunkenCountryRepartition[country]} fois',
                     style: cardContentStyle(context),
                   ),
                   MoreCardButton(

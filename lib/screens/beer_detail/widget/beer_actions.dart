@@ -20,6 +20,10 @@ class BeerActions extends StatelessWidget {
       context,
       EditBeerDialog.route(beer),
     );
+
+    if (result != null) {
+      context.read<BeerDetailCubit>().setBeer(result);
+    }
   }
 
   Future<void> _deleteBeer(BuildContext context) async {

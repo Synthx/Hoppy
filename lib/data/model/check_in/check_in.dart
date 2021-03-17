@@ -3,6 +3,7 @@ import 'package:hoppy/data/data.dart';
 import 'package:hoppy/data/model/auditable.dart';
 import 'package:hoppy/data/model/check_in/serving_style.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:uuid/uuid.dart';
 
 import 'check_in_location.dart';
 import 'position.dart';
@@ -18,25 +19,25 @@ part 'check_in.g.dart';
 @HiveType(typeId: 4)
 @JsonSerializable(explicitToJson: true)
 class CheckIn extends Auditable {
-  @HiveField(2)
+  @HiveField(3)
   double rating;
 
-  @HiveField(3)
+  @HiveField(4)
   String? description;
 
-  @HiveField(4)
+  @HiveField(5)
   ServingStyle servingStyle;
 
-  @HiveField(5)
+  @HiveField(6)
   DateTime date;
 
-  @HiveField(6)
+  @HiveField(7)
   Position? position;
 
-  @HiveField(7)
+  @HiveField(8)
   Beer beer;
 
-  @HiveField(8)
+  @HiveField(9)
   CheckInLocation? location;
 
   CheckIn({
@@ -47,6 +48,7 @@ class CheckIn extends Auditable {
     this.location,
     required this.beer,
   }) : super(
+          id: Uuid().v1(),
           creationDate: DateTime.now(),
           lastModifiedDate: DateTime.now(),
         );

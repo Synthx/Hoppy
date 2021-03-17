@@ -15,6 +15,7 @@ class EditBeerDialogFooter extends StatelessWidget {
   void _editBeer(BuildContext context) {
     final value = form.value;
     final beer = Beer(
+      id: value['id'],
       name: value['name'],
       degree: value['degree'],
       color: value['color'],

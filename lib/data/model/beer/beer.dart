@@ -2,6 +2,7 @@ import 'package:hive/hive.dart';
 import 'package:hoppy/data/data.dart';
 import 'package:hoppy/data/model/auditable.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:uuid/uuid.dart';
 
 export 'beer_color.dart';
 export 'beer_country.dart';
@@ -14,37 +15,38 @@ part 'beer.g.dart';
 @HiveType(typeId: 0)
 @JsonSerializable(explicitToJson: true)
 class Beer extends Auditable {
-  @HiveField(2)
+  @HiveField(3)
   String name;
 
-  @HiveField(3)
+  @HiveField(4)
   double degree;
 
-  @HiveField(4)
+  @HiveField(5)
   BeerColor color;
 
-  @HiveField(5)
+  @HiveField(6)
   BeerStyle style;
 
-  @HiveField(6)
+  @HiveField(7)
   BeerCountry country;
 
-  @HiveField(7)
+  @HiveField(8)
   String? title;
 
-  @HiveField(8)
+  @HiveField(9)
   String? picturePath;
 
-  @HiveField(9)
+  @HiveField(10)
   int drinkCount;
 
-  @HiveField(10)
+  @HiveField(11)
   double averageRating;
 
-  @HiveField(11)
+  @HiveField(12)
   bool favorite;
 
   Beer({
+    String? id,
     required this.name,
     required this.degree,
     required this.color,
@@ -56,6 +58,7 @@ class Beer extends Auditable {
     this.averageRating = double.nan,
     this.favorite = false,
   }) : super(
+          id: id,
           creationDate: DateTime.now(),
           lastModifiedDate: DateTime.now(),
         );

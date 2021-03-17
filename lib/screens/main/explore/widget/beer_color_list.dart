@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
+import 'package:hoppy/screens/main/main.dart';
 
 class BeerColorList extends StatelessWidget {
   @override
@@ -54,26 +56,33 @@ class _BeerColorCard extends StatelessWidget {
     required this.color,
   });
 
+  void _goToSearchView(BuildContext context) {
+    context.read<MainScreenCubit>().changePage(1);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Flexible(
-          child: Container(
-            width: 240,
-            decoration: BoxDecoration(
-              color: Theme.of(context).cardColor,
-              borderRadius: BorderRadius.circular(kDefaultRadius),
+    return GestureDetector(
+      onTap: () => _goToSearchView(context),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Flexible(
+            child: Container(
+              width: 240,
+              decoration: BoxDecoration(
+                color: Theme.of(context).cardColor,
+                borderRadius: BorderRadius.circular(kDefaultRadius),
+              ),
             ),
           ),
-        ),
-        const SizedBox(height: 15),
-        Text(
-          'Bière ${color.name}',
-          style: Theme.of(context).textTheme.bodyText1,
-        ),
-      ],
+          const SizedBox(height: 15),
+          Text(
+            'Bière ${color.name}',
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
+        ],
+      ),
     );
   }
 }

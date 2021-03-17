@@ -2,12 +2,15 @@ import 'package:hive/hive.dart';
 
 abstract class Auditable extends HiveObject {
   @HiveField(0)
-  DateTime creationDate;
+  String? id;
   @HiveField(1)
-  DateTime lastModifiedDate;
+  DateTime? creationDate;
+  @HiveField(2)
+  DateTime? lastModifiedDate;
 
   Auditable({
-    required this.creationDate,
-    required this.lastModifiedDate,
+    this.id,
+    this.creationDate,
+    this.lastModifiedDate,
   });
 }

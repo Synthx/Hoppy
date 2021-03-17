@@ -29,7 +29,7 @@ class CheckInRepository extends AuditableRepository<CheckIn> {
 
   Future<DrunkenBeerStatistic> beerStatistic(Beer beer) async {
     final checkIns =
-        (await this.findAll()).where((e) => e.beer.name == beer.name).toList();
+        (await this.findAll()).where((e) => e.beer.id == beer.id).toList();
 
     return DrunkenBeerStatistic(
       count: checkIns.length,

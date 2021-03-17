@@ -1,5 +1,6 @@
 import 'package:hive/hive.dart';
 import 'package:hoppy/data/model/auditable.dart';
+import 'package:uuid/uuid.dart';
 
 class AuditableRepository<T extends Auditable> {
   final String _boxName;
@@ -10,9 +11,9 @@ class AuditableRepository<T extends Auditable> {
     return Hive.openBox<T>(_boxName);
   }
 
-  Future<T?> find(dynamic key) async {
+  Future<T?> find(String id) async {
     final box = await this.openBox();
-    return box.get(key);
+    return box.get(id);
   }
 
   Future<Iterable<T>> findAll() async {
@@ -21,23 +22,24 @@ class AuditableRepository<T extends Auditable> {
   }
 
   Future<T> insert(T object) async {
+    object.id = Uuid().v1();
     object.creationDate = DateTime.now();
     object.lastModifiedDate = DateTime.now();
     final box = await this.openBox();
-    final id = await box.add(object);
-    return box.get(id)!;
+    await box.put(object.id, object);
+    return box.get(object.id)!;
   }
 
   Future<T> update(T object) async {
     object.lastModifiedDate = DateTime.now();
     final box = await this.openBox();
-    await box.put(object.key, object);
-    return box.get(object.key)!;
+    await box.put(object.id, object);
+    return box.get(object.id)!;
   }
 
-  Future<void> delete(T object) async {
+  Future<void> delete(String id) async {
     final box = await this.openBox();
-    await box.delete(object.key);
+    await box.delete(id);
   }
 
   Future<int> count() async {

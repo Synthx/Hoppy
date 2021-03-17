@@ -3,10 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hoppy/screens/screens.dart';
 import 'package:hoppy/store/cubit/cubit.dart';
 
-import 'explore/explore_view.dart';
-import 'favorite/favorite_view.dart';
-import 'search/search_view.dart';
-import 'settings/settings_view.dart';
+import 'main.dart';
 
 class MainScreen extends StatefulWidget {
   static route() => MaterialPageRoute(
@@ -43,7 +40,7 @@ class _MainScreenState extends State<MainScreen> {
     super.dispose();
   }
 
-  void goToView(int index) {
+  void _goToView(int index) {
     if (index == 2) {
       Navigator.push(
         context,
@@ -60,45 +57,63 @@ class _MainScreenState extends State<MainScreen> {
     }
   }
 
+  void _onAskToChangePage(BuildContext context, int pageIndex) {
+    this._goToView(pageIndex);
+    context.read<MainScreenCubit>().resetPageIndex();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _mainScreenKey,
-      body: PageView(
-        controller: _viewController,
-        children: _views,
-        physics: const NeverScrollableScrollPhysics(),
-        scrollDirection: Axis.horizontal,
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: (index) => goToView(index),
-        showSelectedLabels: false,
-        currentIndex: _currentViewIndex,
-        items: [
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.explore_outlined),
-            label: 'Explorer',
-          ),
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.search_outlined),
-            label: 'Rechercher',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.add_box_outlined,
-              size: 30,
-            ),
-            label: '',
-          ),
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.favorite_border),
-            label: 'Favoris',
-          ),
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.settings_outlined),
-            label: 'Paramètres',
+    return BlocProvider(
+      create: (_) => MainScreenCubit(),
+      child: MultiBlocListener(
+        listeners: [
+          BlocListener<MainScreenCubit, MainScreenState>(
+            listenWhen: (prev, curr) =>
+                prev.pageIndex != curr.pageIndex && curr.pageIndex != null,
+            listener: (context, state) =>
+                _onAskToChangePage(context, state.pageIndex!),
           ),
         ],
+        child: Scaffold(
+          key: _mainScreenKey,
+          body: PageView(
+            controller: _viewController,
+            children: _views,
+            physics: const NeverScrollableScrollPhysics(),
+            scrollDirection: Axis.horizontal,
+          ),
+          bottomNavigationBar: BottomNavigationBar(
+            onTap: (index) => _goToView(index),
+            showSelectedLabels: false,
+            currentIndex: _currentViewIndex,
+            items: [
+              const BottomNavigationBarItem(
+                icon: Icon(Icons.explore_outlined),
+                label: 'Explorer',
+              ),
+              const BottomNavigationBarItem(
+                icon: Icon(Icons.search_outlined),
+                label: 'Rechercher',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.add_box_outlined,
+                  size: 30,
+                ),
+                label: '',
+              ),
+              const BottomNavigationBarItem(
+                icon: Icon(Icons.favorite_border),
+                label: 'Favoris',
+              ),
+              const BottomNavigationBarItem(
+                icon: Icon(Icons.settings_outlined),
+                label: 'Paramètres',
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

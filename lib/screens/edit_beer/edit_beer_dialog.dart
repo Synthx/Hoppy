@@ -25,6 +25,7 @@ class EditBeerDialog extends StatefulWidget {
 
 class _EditBeerDialogState extends State<EditBeerDialog> {
   final _editBeerForm = FormGroup({
+    'id': FormControl(),
     'picturePath': FormControl(),
     'name': FormControl(
       validators: [Validators.required, Validators.maxLength(64)],
@@ -79,7 +80,7 @@ class _EditBeerDialogState extends State<EditBeerDialog> {
     return BlocProvider<EditBeerCubit>(
       create: (_) => EditBeerCubit(
         beerRepository: getIt(),
-        statisticCubit: getIt(),
+        statisticCubit: context.read(),
       ),
       child: MultiBlocListener(
         listeners: [
@@ -126,34 +127,36 @@ class _EditBeerDialogState extends State<EditBeerDialog> {
                 }
 
                 _editBeerForm.patchValue({
+                  'id': beer.id,
                   'name': beer.name,
                   'color': beer.color,
                   'degree': beer.degree,
                   'style': beer.style,
                   'country': beer.country,
                 });
-                return ListView(
-                  physics: const BouncingScrollPhysics(),
-                  children: [
-                    UploadBeerPicture(
-                      form: _editBeerForm,
-                    ),
-                    BeerNameInput(),
-                    const Divider(height: 0),
-                    BeerColorSelector(
-                      form: _editBeerForm,
-                    ),
-                    const Divider(height: 0),
-                    BeerDegreeInput(),
-                    const Divider(height: 0),
-                    BeerStyleSelector(
-                      form: _editBeerForm,
-                    ),
-                    const Divider(height: 0),
-                    BeerCountrySelector(
-                      form: _editBeerForm,
-                    ),
-                  ],
+                return SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      UploadBeerPicture(
+                        form: _editBeerForm,
+                      ),
+                      BeerNameInput(),
+                      const Divider(height: 0),
+                      BeerColorSelector(
+                        form: _editBeerForm,
+                      ),
+                      const Divider(height: 0),
+                      BeerDegreeInput(),
+                      const Divider(height: 0),
+                      BeerStyleSelector(
+                        form: _editBeerForm,
+                      ),
+                      const Divider(height: 0),
+                      BeerCountrySelector(
+                        form: _editBeerForm,
+                      ),
+                    ],
+                  ),
                 );
               },
             ),

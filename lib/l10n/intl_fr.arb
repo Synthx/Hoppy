@@ -1,4 +1,31 @@
 {
   "@@locale": "fr",
-  "home": "Bonjour"
+  "home": "Bonjour",
+  "date": "{date}",
+  "@date": {
+    "placeholders": {
+      "date": {
+        "type": "DateTime",
+        "format": "yMd"
+      }
+    }
+  },
+  "creation_date": "Ajouté le {date}",
+  "@creation_date": {
+    "placeholders": {
+      "date": {
+        "type": "DateTime",
+        "format": "yMd"
+      }
+    }
+  },
+  "last_modified_date": "Dernière modification le {date}",
+  "@last_modified_date": {
+    "placeholders": {
+      "date": {
+        "type": "DateTime",
+        "format": "yMd"
+      }
+    }
+  }
 }
