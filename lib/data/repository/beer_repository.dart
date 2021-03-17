@@ -51,7 +51,7 @@ class BeerRepository extends AuditableRepository<Beer> {
       count: beers.length,
       averageDegree: beers.map((b) => b.degree).average().toPrecision(),
       highestDegree: highestDegree,
-      lastAdded: beers.isNotEmpty ? beers.last : null,
+      lastAdded: beers.isNotEmpty ? beers.first : null,
       mostDrunk: mostDrunk,
     );
   }
