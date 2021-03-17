@@ -32,13 +32,15 @@ class SuccessNotificationDialog extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(kDefaultPadding),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              AnimatedIcon(
-                icon: icon,
-                curve: Curves.easeIn,
-                duration: Duration(milliseconds: 400),
+              Center(
+                child: AnimatedIcon(
+                  icon: icon,
+                  curve: Curves.easeIn,
+                  duration: Duration(milliseconds: 400),
+                ),
               ),
               const SizedBox(height: 10),
               Text(

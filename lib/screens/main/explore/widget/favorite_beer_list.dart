@@ -2,6 +2,7 @@ import 'package:flutter/material.dart' hide AnimatedIcon;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
+import 'package:hoppy/screens/main/main.dart';
 import 'package:hoppy/screens/screens.dart';
 import 'package:hoppy/store/store.dart';
 import 'package:hoppy/widget/widget.dart';
@@ -72,6 +73,10 @@ class FavoriteBeerList extends StatelessWidget {
 }
 
 class _EmptyFavoriteCard extends StatelessWidget {
+  void _goToSearchView(BuildContext context) {
+    context.read<MainScreenCubit>().changePage(1);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -100,7 +105,7 @@ class _EmptyFavoriteCard extends StatelessWidget {
           Container(
             height: 40,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () => _goToSearchView(context),
               child: Text('Rechercher des bières'),
             ),
           ),

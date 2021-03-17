@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:hoppy/data/data.dart';
 
 part 'beer_detail_state.freezed.dart';
 
@@ -6,6 +7,7 @@ part 'beer_detail_state.freezed.dart';
 class BeerDetailState with _$BeerDetailState {
   factory BeerDetailState({
     required bool loading,
-    bool? deleted,
+    required bool haveNewCheckin,
+    Beer? beer,
   }) = _BeerDetailState;
 }

@@ -29,7 +29,7 @@ class CheckInRepository extends AuditableRepository<CheckIn> {
 
   Future<DrunkenBeerStatistic> beerStatistic(Beer beer) async {
     final checkIns =
-        (await this.findAll()).where((e) => e.beer.name == beer.name).toList();
+        (await this.findAll()).where((e) => e.beer.id == beer.id).toList();
 
     return DrunkenBeerStatistic(
       count: checkIns.length,
@@ -41,6 +41,14 @@ class CheckInRepository extends AuditableRepository<CheckIn> {
           .group(),
       lastCheckIns: checkIns.take(4).toList(),
     );
+  }
+
+  Future<void> deleteAssociated(Beer beer) async {
+    final box = await this.openBox();
+    final checkIns = box.values.where((e) => e.beer.id == beer.id);
+    for (var checkIn in checkIns) {
+      await checkIn.delete();
+    }
   }
 
   @override

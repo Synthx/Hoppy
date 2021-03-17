@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
 import 'package:hoppy/screens/beer_detail/beer_detail.dart';
@@ -12,42 +13,52 @@ class BeerStatistic extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<DrunkenBeerStatistic>(
-      future: getIt<CheckInRepository>().beerStatistic(beer),
-      builder: (context, snapshot) {
-        if (!snapshot.hasData) {
-          return Container(
-            height: 100,
-            child: Center(
-              child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(
-                  Theme.of(context).primaryColor,
+    return BlocBuilder<BeerDetailCubit, BeerDetailState>(
+      buildWhen: (prev, curr) =>
+          prev.haveNewCheckin != curr.haveNewCheckin &&
+          curr.haveNewCheckin == true,
+      builder: (context, state) {
+        return FutureBuilder<DrunkenBeerStatistic>(
+          future: getIt<CheckInRepository>().beerStatistic(beer),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return Container(
+                height: 100,
+                child: Center(
+                  child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      Theme.of(context).primaryColor,
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          );
-        }
+              );
+            }
 
-        final statistic = snapshot.data!;
-        if (statistic.count == 0) {
-          return Container(
-            height: 200,
-            color: Theme.of(context).cardColor,
-            padding: const EdgeInsets.all(kDefaultPadding),
-          );
-        }
+            final statistic = snapshot.data!;
+            if (statistic.count == 0) {
+              return Container(
+                height: 220,
+                color: Theme.of(context).cardColor,
+                padding: const EdgeInsets.all(kDefaultPadding),
+                margin: const EdgeInsets.symmetric(
+                  vertical: 20,
+                ),
+              );
+            }
 
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            BeerSomeStatistic(
-              beerStatistic: statistic,
-            ),
-            const SizedBox(height: 20),
-            BeerLastCheckIns(
-              checkIns: statistic.lastCheckIns,
-            ),
-          ],
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                BeerSomeStatistic(
+                  beerStatistic: statistic,
+                ),
+                const SizedBox(height: 20),
+                BeerLastCheckIns(
+                  checkIns: statistic.lastCheckIns,
+                ),
+              ],
+            );
+          },
         );
       },
     );

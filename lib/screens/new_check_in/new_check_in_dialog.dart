@@ -57,7 +57,10 @@ class _NewCheckInDialogState extends State<NewCheckInDialog> {
     await context.showSuccessDialog(
       title: 'Check-in enregistré avec succès',
       content: 'Alors, elle était bonne ?',
-      icon: Text('🍻', style: TextStyle(fontSize: 50)),
+      icon: Text(
+        '🍻',
+        style: TextStyle(fontSize: 50, color: Colors.black),
+      ),
     );
     context.pop(checkIn);
   }

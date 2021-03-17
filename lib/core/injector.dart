@@ -10,5 +10,4 @@ void setupInjector() {
   getIt.registerLazySingleton(() => CheckInRepository(
     beerRepository: getIt(),
   ));
-  getIt.registerLazySingleton(() => FavoriteBeerRepository());
 }

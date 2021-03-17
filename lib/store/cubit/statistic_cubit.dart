@@ -40,14 +40,6 @@ class StatisticCubit extends Cubit<StatisticState> {
     ));
   }
 
-  void deleteBeer(Beer beer) {
-    final statistic = state.beerStatistic.copyWith();
-
-    emit(state.copyWith.beerStatistic(
-      count: statistic.count - 1,
-    ));
-  }
-
   void addCheckIn(CheckIn checkIn) {
     final drunkenBeer = checkIn.beer;
     final statistic = state.checkInStatistic.copyWith();

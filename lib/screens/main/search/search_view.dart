@@ -6,9 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
 import 'package:hoppy/screens/screens.dart';
+import 'package:hoppy/store/store.dart';
 import 'package:hoppy/widget/widget.dart';
-
-import 'search.dart';
 
 class SearchView extends StatefulWidget {
   @override
@@ -21,15 +20,11 @@ class _SearchViewState extends State<SearchView>
     initialScrollOffset: 0,
   );
 
-  Future<void> _openBeerDetailDialog(Beer beer) async {
-    final needChanges = await Navigator.push<bool?>(
+  void _openBeerDetailDialog(Beer beer) {
+    Navigator.push<bool?>(
       context,
       BeerDetailDialog.route(beer),
     );
-
-    if (needChanges != null) {
-      context.read<SearchCubit>().search();
-    }
   }
 
   void _onScroll() {
@@ -52,6 +47,7 @@ class _SearchViewState extends State<SearchView>
   void initState() {
     super.initState();
     _scrollController.addListener(_onScroll);
+    context.read<SearchCubit>().search();
   }
 
   @override
@@ -66,65 +62,58 @@ class _SearchViewState extends State<SearchView>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return BlocProvider<SearchCubit>(
-      create: (_) => SearchCubit(
-        beerRepository: getIt(),
-      )..search(),
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Rechercher'),
-        ),
-        body: Scrollbar(
-          isAlwaysShown: true,
-          controller: _scrollController,
-          child: BlocBuilder<SearchCubit, SearchState>(
-            buildWhen: (prev, curr) => prev.loading != curr.loading,
-            builder: (context, state) {
-              final beers = state.beers;
-              return ListView(
-                controller: _scrollController,
-                physics: const BouncingScrollPhysics(),
-                padding: EdgeInsets.only(
-                  top: kDefaultPadding,
-                  left: kDefaultPadding,
-                  right: kDefaultPadding,
-                  bottom: max(
-                    MediaQuery.of(context).padding.bottom,
-                    kDefaultPadding,
-                  ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Rechercher'),
+      ),
+      body: Scrollbar(
+        isAlwaysShown: true,
+        controller: _scrollController,
+        child: BlocBuilder<SearchCubit, SearchState>(
+          builder: (context, state) {
+            final beers = state.beers;
+            return ListView(
+              controller: _scrollController,
+              physics: const BouncingScrollPhysics(),
+              padding: EdgeInsets.only(
+                top: kDefaultPadding,
+                left: kDefaultPadding,
+                right: kDefaultPadding,
+                bottom: max(
+                  MediaQuery.of(context).padding.bottom,
+                  kDefaultPadding,
                 ),
-                children: [
-                  GridView.builder(
-                    shrinkWrap: true,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 15,
-                      mainAxisSpacing: 15,
-                      childAspectRatio: kBeerCardAspectRatio,
-                    ),
-                    physics: const BouncingScrollPhysics(),
-                    itemCount: beers.length,
-                    itemBuilder: (context, index) {
-                      final beer = beers[index];
-                      return BeerCard(
-                        onTap: () => _openBeerDetailDialog(beer),
-                        beer: beer,
-                      );
-                    },
+              ),
+              children: [
+                GridView.builder(
+                  shrinkWrap: true,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 15,
+                    mainAxisSpacing: 15,
+                    childAspectRatio: kBeerCardAspectRatio,
                   ),
-                  if (state.loading)
-                    Center(
-                      child: CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color>(
-                          Theme.of(context).primaryColor,
-                        ),
+                  physics: const BouncingScrollPhysics(),
+                  itemCount: beers.length,
+                  itemBuilder: (context, index) {
+                    final beer = beers[index];
+                    return BeerCard(
+                      onTap: () => _openBeerDetailDialog(beer),
+                      beer: beer,
+                    );
+                  },
+                ),
+                if (state.loading)
+                  Center(
+                    child: CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                        Theme.of(context).primaryColor,
                       ),
                     ),
-                ],
-              );
-            },
-          ),
+                  ),
+              ],
+            );
+          },
         ),
       ),
     );

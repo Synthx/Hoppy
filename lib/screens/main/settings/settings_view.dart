@@ -11,7 +11,12 @@ class SettingsView extends StatefulWidget {
 class _SettingsViewState extends State<SettingsView> {
   void _goToHelpScreen() {}
 
-  void _goToAboutScreen() {}
+  void _goToAboutScreen() {
+    Navigator.push(
+      context,
+      AboutView.route(),
+    );
+  }
 
   Future<void> _openGithub() async {
     final githubUri = 'https://github.com/Synthx/Hoppy';
@@ -50,7 +55,7 @@ class _SettingsViewState extends State<SettingsView> {
           const SizedBox(height: 48),
           LinkTile(
             label: "A propos",
-            onTap: () => _goToHelpScreen(),
+            onTap: () => _goToAboutScreen(),
           ),
           const Divider(height: 0),
           LinkTile(

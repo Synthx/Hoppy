@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart' hide BeerStatistic;
-import 'package:hoppy/screens/screens.dart';
 import 'package:hoppy/widget/widget.dart';
 
 import 'beer_detail.dart';
@@ -32,13 +30,6 @@ class _BeerDetailDialogState extends State<BeerDetailDialog> {
     context.pop();
   }
 
-  void _openNewCheckInDialog() {
-    Navigator.push(
-      context,
-      NewCheckInDialog.route(widget.beer),
-    );
-  }
-
   Future<void> _onBeerDeleted() async {
     await context.showSuccessDialog(
       title: 'Bière supprimée avec succès',
@@ -48,12 +39,8 @@ class _BeerDetailDialogState extends State<BeerDetailDialog> {
     context.pop(true);
   }
 
-  void _onLoadingChanged(bool loading) {
-    if (loading) {
-      context.showLoadingDialog();
-    } else {
-      context.pop();
-    }
+  void _onLoadingChanged() {
+    print('loading changed');
   }
 
   @override
@@ -61,19 +48,22 @@ class _BeerDetailDialogState extends State<BeerDetailDialog> {
     return BlocProvider<BeerDetailCubit>(
       create: (_) => BeerDetailCubit(
         beerRepository: getIt(),
+        checkInRepository: getIt(),
         statisticCubit: context.read(),
-      ),
+        searchCubit: context.read(),
+        favoriteCubit: context.read(),
+      )..load(widget.beer.id!),
       child: MultiBlocListener(
         listeners: [
           BlocListener<BeerDetailCubit, BeerDetailState>(
             listenWhen: (prev, curr) => prev.loading != curr.loading,
-            listener: (_, state) => _onLoadingChanged(state.loading),
+            listener: (_, state) => _onLoadingChanged(),
           ),
           BlocListener<BeerDetailCubit, BeerDetailState>(
             listenWhen: (prev, curr) =>
-                prev.deleted != curr.deleted &&
-                curr.deleted != null &&
-                curr.deleted!,
+                prev.beer != curr.beer &&
+                curr.beer == null &&
+                prev.beer != null,
             listener: (_, __) => _onBeerDeleted(),
           ),
         ],
@@ -83,68 +73,9 @@ class _BeerDetailDialogState extends State<BeerDetailDialog> {
             onTap: () => _closeDialog(),
           ),
           floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
-          bottomNavigationBar: BottomAppBar(
-            elevation: 0,
-            color: Colors.transparent,
-            child: Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: kDefaultPadding,
-              ),
-              child: Container(
-                height: kFooterButtonHeight,
-                child: ElevatedButton(
-                  onPressed: () => _openNewCheckInDialog(),
-                  child: const Text('Check-in'),
-                ),
-              ),
-            ),
-          ),
+          bottomNavigationBar: BeerDetailDialogFooter(),
           extendBody: true,
-          body: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.only(
-                bottom: kFooterButtonHeight + 40,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  BeerImage(
-                    beer: widget.beer,
-                  ),
-                  const SizedBox(height: 40),
-                  BeerInformation(
-                    beer: widget.beer,
-                  ),
-                  const SizedBox(height: 20),
-                  BeerStatistic(
-                    beer: widget.beer,
-                  ),
-                  const SizedBox(height: 20),
-                  BeerActions(
-                    beer: widget.beer,
-                  ),
-                  const SizedBox(height: 20),
-                  Padding(
-                    padding: const EdgeInsets.all(kDefaultPadding),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          AppLocalizations.of(context)!
-                              .creation_date(widget.beer.creationDate),
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          AppLocalizations.of(context)!
-                              .last_modified_date(widget.beer.lastModifiedDate),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+          body: BeerDetailDialogBody(),
         ),
       ),
     );

@@ -81,7 +81,10 @@ class _AddBeerDialogState extends State<AddBeerDialog> {
       title: 'Bière ajoutée avec succès',
       content:
           'Et une plus dans votre collection, ça commence à faire beaucoup non ?',
-      icon: Text('🍺', style: TextStyle(fontSize: 50)),
+      icon: Text(
+        '🍺',
+        style: TextStyle(fontSize: 50, color: Colors.black),
+      ),
     );
     context.pop(beer);
   }
@@ -98,6 +101,7 @@ class _AddBeerDialogState extends State<AddBeerDialog> {
       create: (_) => AddBeerCubit(
         beerRepository: getIt(),
         statisticCubit: context.read(),
+        searchCubit: context.read(),
       ),
       child: MultiBlocListener(
         listeners: [
@@ -106,7 +110,8 @@ class _AddBeerDialogState extends State<AddBeerDialog> {
             listener: (_, state) => _onLoadingChanged(state.loading),
           ),
           BlocListener<AddBeerCubit, AddBeerState>(
-            listenWhen: (prev, curr) => prev.beer != curr.beer,
+            listenWhen: (prev, curr) =>
+                prev.beer != curr.beer && curr.beer != null,
             listener: (_, state) => _onBeerCreated(state.beer!),
           ),
         ],

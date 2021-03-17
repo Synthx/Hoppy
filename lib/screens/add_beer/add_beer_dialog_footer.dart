@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
+import 'package:hoppy/screens/add_beer/add_beer.dart';
 import 'package:reactive_forms/reactive_forms.dart';
-
-import 'add_beer_cubit.dart';
 
 class AddBeerDialogFooter extends StatelessWidget {
   final FormGroup form;

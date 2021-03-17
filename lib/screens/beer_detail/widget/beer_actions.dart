@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
+import 'package:hoppy/screens/screens.dart';
 import 'package:hoppy/widget/widget.dart';
 
 import '../beer_detail_cubit.dart';
@@ -13,6 +14,17 @@ class BeerActions extends StatelessWidget {
   const BeerActions({
     required this.beer,
   });
+
+  Future<void> _openEditBeerDialog(BuildContext context) async {
+    final result = await Navigator.push<Beer?>(
+      context,
+      EditBeerDialog.route(beer),
+    );
+
+    if (result != null) {
+      context.read<BeerDetailCubit>().setBeer(result);
+    }
+  }
 
   Future<void> _deleteBeer(BuildContext context) async {
     final result = await showCupertinoDialog<bool?>(
@@ -40,10 +52,10 @@ class BeerActions extends StatelessWidget {
             child: _RoundedButton(
               iconData: Icons.edit,
               color: Theme.of(context).textTheme.bodyText2!.color!,
-              onTap: null,
+              onTap: () => _openEditBeerDialog(context),
             ),
           ),
-          const SizedBox(width: 20),
+          const SizedBox(width: 10),
           Flexible(
             child: _RoundedButton(
               iconData: Icons.delete,
