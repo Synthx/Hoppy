@@ -8,10 +8,12 @@ import 'add_beer_state.dart';
 class AddBeerCubit extends Cubit<AddBeerState> {
   final BeerRepository beerRepository;
   final StatisticCubit statisticCubit;
+  final SearchCubit searchCubit;
 
   AddBeerCubit({
     required this.beerRepository,
     required this.statisticCubit,
+    required this.searchCubit,
   }) : super(AddBeerState(
           loading: false,
         ));
@@ -28,6 +30,7 @@ class AddBeerCubit extends Cubit<AddBeerState> {
 
       // change statistic
       statisticCubit.addBeer(createdBeer);
+      searchCubit.addBeer(createdBeer);
 
       emit(state.copyWith(loading: false, beer: createdBeer));
     } catch (e) {

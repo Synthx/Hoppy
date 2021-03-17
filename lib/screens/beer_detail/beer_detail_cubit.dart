@@ -8,11 +8,15 @@ class BeerDetailCubit extends Cubit<BeerDetailState> {
   final BeerRepository beerRepository;
   final CheckInRepository checkInRepository;
   final StatisticCubit statisticCubit;
+  final FavoriteCubit favoriteCubit;
+  final SearchCubit searchCubit;
 
   BeerDetailCubit({
     required this.beerRepository,
     required this.checkInRepository,
     required this.statisticCubit,
+    required this.searchCubit,
+    required this.favoriteCubit,
   }) : super(BeerDetailState(
           loading: false,
           haveNewCheckin: false,
@@ -34,9 +38,11 @@ class BeerDetailCubit extends Cubit<BeerDetailState> {
 
   Future<void> delete(Beer beer) async {
     emit(state.copyWith(loading: true));
+    await favoriteCubit.removeBeer(beer);
     await beerRepository.delete(beer.id!);
     await checkInRepository.deleteAssociated(beer);
     await statisticCubit.load();
+    searchCubit.deleteBeer(beer);
     emit(state.copyWith(loading: false, beer: null));
   }
 }

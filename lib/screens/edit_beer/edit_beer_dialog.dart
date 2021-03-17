@@ -64,7 +64,7 @@ class _EditBeerDialogState extends State<EditBeerDialog> {
       title: 'Bière modifié avec succès',
       content:
           'Et une plus dans votre collection, ça commence à faire beaucoup non ?',
-      icon: Text('🍺', style: TextStyle(fontSize: 50)),
+      icon: Text('🍺', style: TextStyle(fontSize: 50, color: Colors.black)),
     );
     context.pop(beer);
   }
@@ -81,6 +81,7 @@ class _EditBeerDialogState extends State<EditBeerDialog> {
       create: (_) => EditBeerCubit(
         beerRepository: getIt(),
         statisticCubit: context.read(),
+        searchCubit: context.read(),
       ),
       child: MultiBlocListener(
         listeners: [

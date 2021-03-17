@@ -47,6 +47,12 @@ class Hoppy extends StatelessWidget {
                   checkInRepository: getIt(),
                 ),
               ),
+              BlocProvider(
+                lazy: false,
+                create: (_) => SearchCubit(
+                  beerRepository: getIt(),
+                ),
+              ),
             ],
             child: MaterialApp(
               debugShowCheckedModeBanner: false,

@@ -1,8 +1,8 @@
+import 'package:equatable/equatable.dart';
 import 'package:hive/hive.dart';
 import 'package:hoppy/data/data.dart';
 import 'package:hoppy/data/model/auditable.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:uuid/uuid.dart';
 
 export 'beer_color.dart';
 export 'beer_country.dart';
@@ -14,7 +14,7 @@ part 'beer.g.dart';
 
 @HiveType(typeId: 0)
 @JsonSerializable(explicitToJson: true)
-class Beer extends Auditable {
+class Beer extends Auditable with EquatableMixin {
   @HiveField(3)
   String name;
 
@@ -66,4 +66,16 @@ class Beer extends Auditable {
   factory Beer.fromJson(Map<String, dynamic> json) => _$BeerFromJson(json);
 
   Map<String, dynamic> toJson() => _$BeerToJson(this);
+
+  @override
+  List<Object?> get props => [
+        id,
+        picturePath,
+        name,
+        title,
+        degree,
+        color,
+        style,
+        country,
+      ];
 }

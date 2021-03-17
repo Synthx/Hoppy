@@ -101,6 +101,7 @@ class _AddBeerDialogState extends State<AddBeerDialog> {
       create: (_) => AddBeerCubit(
         beerRepository: getIt(),
         statisticCubit: context.read(),
+        searchCubit: context.read(),
       ),
       child: MultiBlocListener(
         listeners: [

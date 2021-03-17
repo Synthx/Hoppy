@@ -50,6 +50,8 @@ class _BeerDetailDialogState extends State<BeerDetailDialog> {
         beerRepository: getIt(),
         checkInRepository: getIt(),
         statisticCubit: context.read(),
+        searchCubit: context.read(),
+        favoriteCubit: context.read(),
       )..load(widget.beer.id!),
       child: MultiBlocListener(
         listeners: [
