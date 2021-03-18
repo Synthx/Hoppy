@@ -87,7 +87,10 @@ class _EmptyFavoriteCard extends StatelessWidget {
       child: Column(
         children: [
           AnimatedIcon(
-            icon: Text('💡', style: TextStyle(fontSize: 50)),
+            icon: Text(
+              '💡',
+              style: TextStyle(fontSize: 50, color: Colors.black),
+            ),
           ),
           const SizedBox(height: 20),
           Text(

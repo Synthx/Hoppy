@@ -15,21 +15,25 @@ enum BeerColor {
   DARK,
   @HiveField(4)
   RED,
+  @HiveField(5)
+  WHITE,
 }
 
 extension BeerColorExtension on BeerColor {
   Color get color {
     switch (this) {
       case BeerColor.AMBER:
-        return Colors.orange;
+        return Color(0xFFF26A38);
       case BeerColor.BLOND:
-        return Colors.yellow;
+        return Color(0xFFF6D02E);
       case BeerColor.BROWN:
-        return Colors.brown;
+        return Color(0xFFA94126);
       case BeerColor.DARK:
-        return Colors.black;
+        return Color(0xFF1E0F0C);
       case BeerColor.RED:
-        return Colors.red;
+        return Color(0xFFD52027);
+      case BeerColor.WHITE:
+        return Color(0xFFFBDEA6);
     }
   }
 
@@ -45,6 +49,25 @@ extension BeerColorExtension on BeerColor {
         return 'Noire';
       case BeerColor.RED:
         return 'Rouge';
+      case BeerColor.WHITE:
+        return 'Blanche';
+    }
+  }
+
+  String get fileName {
+    switch (this) {
+      case BeerColor.AMBER:
+        return 'amber.jpg';
+      case BeerColor.BLOND:
+        return 'blond.jpg';
+      case BeerColor.BROWN:
+        return 'brown.jpg';
+      case BeerColor.DARK:
+        return 'dark.jpg';
+      case BeerColor.RED:
+        return 'red.jpg';
+      case BeerColor.WHITE:
+        return 'white.jpg';
     }
   }
 }

@@ -47,12 +47,12 @@ class _MainScreenState extends State<MainScreen> {
         SearchBeerDialog.route(),
       );
     } else {
-      if (index > 2) {
-        index -= 1;
-      }
       setState(() {
         _currentViewIndex = index;
       });
+      if (index > 2) {
+        index -= 1;
+      }
       _viewController.jumpToPage(index);
     }
   }

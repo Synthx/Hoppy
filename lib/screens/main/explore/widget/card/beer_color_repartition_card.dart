@@ -84,7 +84,10 @@ class _EmptyBeerColorRepartition extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         AnimatedIcon(
-          icon: Text('📈', style: TextStyle(fontSize: 50)),
+          icon: Text(
+            '📈',
+            style: TextStyle(fontSize: 50, color: Colors.black),
+          ),
         ),
         const SizedBox(height: 10),
         Text(
