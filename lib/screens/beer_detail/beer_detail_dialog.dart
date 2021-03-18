@@ -8,7 +8,7 @@ import 'package:hoppy/widget/widget.dart';
 import 'beer_detail.dart';
 
 class BeerDetailDialog extends StatefulWidget {
-  static route(Beer beer) => MaterialPageRoute<bool?>(
+  static MaterialPageRoute<bool?> route(Beer beer) => MaterialPageRoute<bool?>(
         builder: (_) => BeerDetailDialog(
           beer: beer,
         ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hoppy/screens/screens.dart';
 
 import 'explore.dart';
 
@@ -16,7 +15,7 @@ class _ExploreViewState extends State<ExploreView>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    List<Widget> widgets = [
+    var widgets = <Widget>[
       BeerColorList(),
       MostDrunkenBeerCountryCard(),
       BeerColorRepartitionCard(),
@@ -31,7 +30,7 @@ class _ExploreViewState extends State<ExploreView>
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Hoppy"),
+        title: const Text('Hoppy'),
       ),
       body: ListView(
         physics: const BouncingScrollPhysics(),

@@ -3,15 +3,16 @@ import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
 
 class BeerCountrySelectorDialog extends StatelessWidget {
-  static route() => MaterialPageRoute<BeerCountry?>(
+  static MaterialPageRoute<BeerCountry?> route() =>
+      MaterialPageRoute<BeerCountry?>(
         builder: (_) => BeerCountrySelectorDialog(),
       );
 
-  _closeDialog(BuildContext context) {
+  void _closeDialog(BuildContext context) {
     context.pop();
   }
 
-  _selectBeerCountry(BuildContext context, BeerCountry beerCountry) {
+  void _selectBeerCountry(BuildContext context, BeerCountry beerCountry) {
     context.pop(beerCountry);
   }
 

@@ -41,7 +41,7 @@ class NameInputTileState extends State<NameInputTile> {
       height: 64,
       child: Center(
         child: ListTile(
-          title: const Text("Prénom"),
+          title: const Text('Prénom'),
           trailing: Container(
             width: 160,
             child: TextField(

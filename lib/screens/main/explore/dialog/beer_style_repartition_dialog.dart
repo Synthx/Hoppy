@@ -9,7 +9,7 @@ import 'package:hoppy/store/store.dart';
 import 'package:hoppy/widget/widget.dart';
 
 class BeerStyleRepartitionDialog extends StatefulWidget {
-  static route() => MaterialPageRoute(
+  static MaterialPageRoute route() => MaterialPageRoute(
         builder: (_) => BeerStyleRepartitionDialog(),
         fullscreenDialog: true,
       );
@@ -115,8 +115,7 @@ class _BeerStyleRepartitionDialogState
                         ),
                       ),
                       itemBuilder: (context, index) {
-                        BeerStyle value =
-                            styleRepartition.keys.elementAt(index);
+                        var value = styleRepartition.keys.elementAt(index);
                         final count = styleRepartition.values.elementAt(index);
                         return ChartTile(
                           title: value.name,

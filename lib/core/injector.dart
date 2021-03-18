@@ -8,6 +8,6 @@ void setupInjector() {
   getIt.registerLazySingleton(() => SettingsRepository());
   getIt.registerLazySingleton(() => BeerRepository());
   getIt.registerLazySingleton(() => CheckInRepository(
-    beerRepository: getIt(),
-  ));
+        beerRepository: getIt(),
+      ));
 }

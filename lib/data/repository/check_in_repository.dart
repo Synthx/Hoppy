@@ -9,7 +9,7 @@ class CheckInRepository extends AuditableRepository<CheckIn> {
   }) : super('check-ins');
 
   Future<CheckInStatistic> statistic() async {
-    final checkIns = await this.findAll();
+    final checkIns = await findAll();
     final drunkenBeers = checkIns.map((c) => c.beer);
 
     return CheckInStatistic(
@@ -29,7 +29,7 @@ class CheckInRepository extends AuditableRepository<CheckIn> {
 
   Future<DrunkenBeerStatistic> beerStatistic(Beer beer) async {
     final checkIns =
-        (await this.findAll()).where((e) => e.beer.id == beer.id).toList();
+        (await findAll()).where((e) => e.beer.id == beer.id).toList();
 
     return DrunkenBeerStatistic(
       count: checkIns.length,
@@ -44,7 +44,7 @@ class CheckInRepository extends AuditableRepository<CheckIn> {
   }
 
   Future<void> deleteAssociated(Beer beer) async {
-    final box = await this.openBox();
+    final box = await openBox();
     final checkIns = box.values.where((e) => e.beer.id == beer.id);
     for (var checkIn in checkIns) {
       await checkIn.delete();

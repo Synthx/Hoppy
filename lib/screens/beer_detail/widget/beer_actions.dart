@@ -36,7 +36,7 @@ class BeerActions extends StatelessWidget {
     );
 
     if (result != null && result) {
-      context.read<BeerDetailCubit>().delete(beer);
+      await context.read<BeerDetailCubit>().delete(beer);
     }
   }
 
@@ -83,11 +83,7 @@ class _RoundedButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return OutlinedButton(
-      onPressed: this.onTap,
-      child: Icon(
-        iconData,
-        color: color,
-      ),
+      onPressed: onTap,
       style: OutlinedButton.styleFrom(
         minimumSize: const Size.fromHeight(60),
         shape: RoundedRectangleBorder(
@@ -96,6 +92,10 @@ class _RoundedButton extends StatelessWidget {
         side: BorderSide(
           color: color,
         ),
+      ),
+      child: Icon(
+        iconData,
+        color: color,
       ),
     );
   }

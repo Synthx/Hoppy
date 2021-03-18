@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class SearchBeerFilterDialog extends StatefulWidget {
-  static route() => MaterialPageRoute(
+  static MaterialPageRoute route() => MaterialPageRoute(
         builder: (_) => SearchBeerFilterDialog(),
         fullscreenDialog: true,
       );

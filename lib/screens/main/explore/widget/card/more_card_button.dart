@@ -26,7 +26,7 @@ class MoreCardButton extends StatelessWidget {
             iconData,
             color: Colors.white,
           ),
-        )
+        ),
       ),
     );
   }

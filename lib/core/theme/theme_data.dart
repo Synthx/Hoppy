@@ -10,10 +10,10 @@ final bottomBarTheme = const BottomNavigationBarThemeData(
   type: BottomNavigationBarType.fixed,
   showSelectedLabels: false,
   showUnselectedLabels: false,
-  selectedIconTheme: const IconThemeData(
+  selectedIconTheme: IconThemeData(
     size: 26,
   ),
-  unselectedIconTheme: const IconThemeData(
+  unselectedIconTheme: IconThemeData(
     size: 26,
   ),
 );

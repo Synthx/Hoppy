@@ -15,21 +15,21 @@ class ConfirmActionDialog extends StatelessWidget {
       content: Text(content),
       actions: [
         CupertinoButton(
-          child: const Text('Annuler'),
           onPressed: () {
             Navigator.pop(context);
           },
+          child: const Text('Annuler'),
         ),
         CupertinoButton(
+          onPressed: () {
+            Navigator.pop(context, true);
+          },
           child: const Text(
             'Confirmer',
             style: TextStyle(
               color: Colors.red,
             ),
           ),
-          onPressed: () {
-            Navigator.pop(context, true);
-          },
         ),
       ],
     );

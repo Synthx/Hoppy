@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AboutView extends StatelessWidget {
-  static route() => MaterialPageRoute(
+  static MaterialPageRoute route() => MaterialPageRoute(
         builder: (_) => AboutView(),
       );
 

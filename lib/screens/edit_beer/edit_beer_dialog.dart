@@ -7,7 +7,7 @@ import 'package:hoppy/widget/widget.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 class EditBeerDialog extends StatefulWidget {
-  static route(Beer beer) => MaterialPageRoute<Beer?>(
+  static MaterialPageRoute<Beer?> route(Beer beer) => MaterialPageRoute<Beer?>(
         builder: (_) => EditBeerDialog(
           beer: beer,
         ),

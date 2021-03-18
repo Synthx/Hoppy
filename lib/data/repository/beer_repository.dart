@@ -9,7 +9,7 @@ class BeerRepository extends AuditableRepository<Beer> {
     required int page,
     required int size,
   }) async {
-    final box = await this.openBox();
+    final box = await openBox();
     final beers = box.values.where((beer) =>
         beer.name.toLowerCase().contains(filter.keyword?.toLowerCase() ?? ''));
     final count = beers.length;
@@ -24,12 +24,12 @@ class BeerRepository extends AuditableRepository<Beer> {
   }
 
   Future<List<Beer>> findAllFavorite() async {
-    final box = await this.openBox();
+    final box = await openBox();
     return box.values.where((beer) => beer.favorite).toList();
   }
 
   Future<BeerStatistic> statistic() async {
-    final beers = await this.findAll();
+    final beers = await findAll();
 
     var highestDegree = double.nan;
     if (beers.isNotEmpty) {
@@ -38,7 +38,7 @@ class BeerRepository extends AuditableRepository<Beer> {
       highestDegree = degrees.last;
     }
 
-    Beer? mostDrunk = null;
+    Beer? mostDrunk;
     if (beers.isNotEmpty) {
       var beerList = beers.where((e) => e.drinkCount > 0).toList();
       if (beerList.isNotEmpty) {

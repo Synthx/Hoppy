@@ -1,4 +1,9 @@
+include: package:pedantic/analysis_options.yaml
+
 analyzer:
   exclude:
     - '**/*.g.dart'
     - '**/*.freezed.dart'
+  errors:
+    # to enable when all package successfully migrate
+    import_of_legacy_library_into_null_safe: ignore
