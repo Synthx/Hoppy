@@ -10,6 +10,6 @@ const kLightCardColor = Color(0xFFF8F8F8);
 const kLightContentColor = Color(0xFF1D1D35);
 
 // dark theme
-const kDarkBackgroundColor = Color(0xFF212121);
-const kDarkCardColor = Color(0xFF040404);
+const kDarkBackgroundColor = Color(0xFF1D1D1D);
+const kDarkCardColor = Color(0xFF212121);
 const kDarkContentColor = Color(0xFFF5FCF9);

@@ -59,7 +59,7 @@ class Hoppy extends StatelessWidget {
               debugShowMaterialGrid: false,
               title: 'Hoppy',
               theme: lightThemeData(context),
-              darkTheme: darkThemeData,
+              darkTheme: darkThemeData(context),
               themeMode: _getCurrentThemeMode(state.value.darkMode),
               localizationsDelegates: AppLocalizations.localizationsDelegates,
               supportedLocales: AppLocalizations.supportedLocales,

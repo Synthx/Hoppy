@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hoppy/core/core.dart';
 
 final appBarTheme = const AppBarTheme(
@@ -31,7 +30,6 @@ final elevatedButtonTheme = ElevatedButtonThemeData(
 );
 
 ThemeData lightThemeData(BuildContext context) {
-  final font = GoogleFonts.montserrat();
   return ThemeData.light().copyWith(
     splashColor: Colors.transparent,
     highlightColor: Colors.transparent,
@@ -47,7 +45,7 @@ ThemeData lightThemeData(BuildContext context) {
       backgroundColor: kLightBackgroundColor,
       textTheme: Theme.of(context).textTheme.copyWith(
             headline6: TextStyle(
-              fontFamily: font.fontFamily,
+              fontFamily: 'SFPro',
               color: kLightContentColor,
             ),
           ),
@@ -55,16 +53,17 @@ ThemeData lightThemeData(BuildContext context) {
     dividerColor: Color(0xFFA0A0A0),
     bottomNavigationBarTheme: bottomBarTheme.copyWith(
       backgroundColor: kLightBackgroundColor,
-      selectedItemColor: kPrimaryColor,
-      unselectedItemColor: kLightContentColor.withOpacity(0.85),
+      selectedItemColor: kLightContentColor,
+      unselectedItemColor: kLightContentColor.withOpacity(0.32),
     ),
-    textTheme: GoogleFonts.montserratTextTheme()
+    textTheme: Theme.of(context)
+        .textTheme
         .apply(
           bodyColor: kLightContentColor,
+          fontFamily: 'SFPro',
         )
         .copyWith(
           bodyText2: TextStyle(
-            fontFamily: font.fontFamily,
             color: kLightContentColor.withOpacity(0.6),
           ),
         ),
@@ -76,11 +75,48 @@ ThemeData lightThemeData(BuildContext context) {
   );
 }
 
-ThemeData darkThemeData = ThemeData.dark().copyWith(
-  primaryColor: kPrimaryColor,
-  scaffoldBackgroundColor: kDarkBackgroundColor,
-  cardColor: kDarkCardColor,
-  iconTheme: IconThemeData(
-    color: kDarkContentColor,
-  ),
-);
+ThemeData darkThemeData(BuildContext context) {
+  return ThemeData.dark().copyWith(
+    splashColor: Colors.transparent,
+    highlightColor: Colors.transparent,
+    primaryColor: kPrimaryColor,
+    scaffoldBackgroundColor: kDarkBackgroundColor,
+    backgroundColor: kDarkBackgroundColor,
+    cardColor: kDarkCardColor,
+    iconTheme: IconThemeData(
+      color: kDarkContentColor,
+      opacity: 0.8,
+    ),
+    appBarTheme: appBarTheme.copyWith(
+      iconTheme: IconThemeData(
+        color: kDarkContentColor,
+        opacity: 0.8,
+      ),
+      shadowColor: Colors.white.withOpacity(0.25),
+      backgroundColor: kDarkCardColor,
+      textTheme: Theme.of(context).textTheme.copyWith(
+            headline6: TextStyle(
+              color: kDarkContentColor,
+            ),
+          ),
+    ),
+    dividerColor: Color(0xFFA0A0A0),
+    bottomNavigationBarTheme: bottomBarTheme.copyWith(
+      backgroundColor: kDarkCardColor,
+      selectedItemColor: kDarkContentColor,
+      unselectedItemColor: kDarkContentColor.withOpacity(0.35),
+    ),
+    textTheme: Theme.of(context)
+        .textTheme
+        .apply(
+          bodyColor: kDarkContentColor,
+          fontFamily: 'SFPro',
+        )
+        .copyWith(
+          bodyText2: TextStyle(
+            color: kDarkContentColor.withOpacity(0.6),
+          ),
+        ),
+    elevatedButtonTheme: elevatedButtonTheme,
+  );
+}
