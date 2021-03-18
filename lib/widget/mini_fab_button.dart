@@ -22,6 +22,7 @@ class MiniFabButton extends StatelessWidget {
         onPressed: onTap,
         child: icon,
         backgroundColor: Colors.black.withOpacity(0.35),
+        foregroundColor: Colors.white,
         elevation: 1,
       ),
     );

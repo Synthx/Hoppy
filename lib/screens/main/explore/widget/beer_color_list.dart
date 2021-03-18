@@ -73,6 +73,11 @@ class _BeerColorCard extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Theme.of(context).cardColor,
                 borderRadius: BorderRadius.circular(kDefaultRadius),
+                image: DecorationImage(
+                  image:
+                      AssetImage('assets/images/beer-colors/${color.fileName}'),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),
