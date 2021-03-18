@@ -1,11 +1,9 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:hoppy/core/core.dart';
-import 'package:path/path.dart' as p;
-import 'package:path_provider/path_provider.dart';
 
 class UploadBeerPictureDialog extends StatefulWidget {
-  static route() => MaterialPageRoute<String?>(
+  static MaterialPageRoute<String?> route() => MaterialPageRoute<String?>(
         builder: (_) => UploadBeerPictureDialog(),
       );
 
@@ -29,16 +27,6 @@ class _UploadBeerPictureDialogState extends State<UploadBeerPictureDialog> {
     if (!mounted) {
       return;
     }
-  }
-
-  void _takePicture() async {
-    await _cameraInitialized;
-
-    final path = p.join(
-      (await getTemporaryDirectory()).path,
-      'temp_beer_picture.png',
-    );
-    print(path);
   }
 
   @override

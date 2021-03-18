@@ -12,12 +12,12 @@ class AuditableRepository<T extends Auditable> {
   }
 
   Future<T?> find(String id) async {
-    final box = await this.openBox();
+    final box = await openBox();
     return box.get(id);
   }
 
   Future<Iterable<T>> findAll() async {
-    final box = await this.openBox();
+    final box = await openBox();
     return box.values;
   }
 
@@ -25,25 +25,25 @@ class AuditableRepository<T extends Auditable> {
     object.id = Uuid().v1();
     object.creationDate = DateTime.now();
     object.lastModifiedDate = DateTime.now();
-    final box = await this.openBox();
+    final box = await openBox();
     await box.put(object.id, object);
     return box.get(object.id)!;
   }
 
   Future<T> update(T object) async {
     object.lastModifiedDate = DateTime.now();
-    final box = await this.openBox();
+    final box = await openBox();
     await box.put(object.id, object);
     return box.get(object.id)!;
   }
 
   Future<void> delete(String id) async {
-    final box = await this.openBox();
+    final box = await openBox();
     await box.delete(id);
   }
 
   Future<int> count() async {
-    final box = await this.openBox();
+    final box = await openBox();
     return box.length;
   }
 }

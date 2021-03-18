@@ -12,7 +12,7 @@ class BeerStyleChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<ChartData<BeerStyle>> dataList = [];
+    final dataList = <ChartData<BeerStyle>>[];
     repartition.forEach((key, value) {
       dataList.add(ChartData(
         key: key,

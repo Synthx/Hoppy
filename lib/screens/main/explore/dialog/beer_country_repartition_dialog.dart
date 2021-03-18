@@ -8,7 +8,7 @@ import 'package:hoppy/store/store.dart';
 import 'package:hoppy/widget/widget.dart';
 
 class BeerCountryRepartitionDialog extends StatefulWidget {
-  static route() => MaterialPageRoute(
+  static MaterialPageRoute route() => MaterialPageRoute(
         builder: (_) => BeerCountryRepartitionDialog(),
         fullscreenDialog: true,
       );
@@ -114,8 +114,7 @@ class _BeerCountryRepartitionDialogState
                         ),
                       ),
                       itemBuilder: (context, index) {
-                        BeerCountry value =
-                            countryRepartition.keys.elementAt(index);
+                        var value = countryRepartition.keys.elementAt(index);
                         final count =
                             countryRepartition.values.elementAt(index);
                         return ChartTile(

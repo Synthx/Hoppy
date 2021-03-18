@@ -8,7 +8,7 @@ class Util {
     required String directoryPath,
   }) async {
     final appDirectory = await getApplicationDocumentsDirectory();
-    Directory directory = Directory('${appDirectory.path}/$directoryPath/');
+    var directory = Directory('${appDirectory.path}/$directoryPath/');
     if (await directory.exists()) {
       return directory.path;
     }

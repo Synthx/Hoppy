@@ -8,7 +8,8 @@ import 'package:reactive_forms/reactive_forms.dart';
 import 'new_check_in.dart';
 
 class NewCheckInDialog extends StatefulWidget {
-  static route(Beer beer) => MaterialPageRoute<CheckIn?>(
+  static MaterialPageRoute<CheckIn?> route(Beer beer) =>
+      MaterialPageRoute<CheckIn?>(
         builder: (_) => NewCheckInDialog(
           beer: beer,
         ),

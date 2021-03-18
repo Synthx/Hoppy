@@ -3,7 +3,7 @@ import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
 
 class BeerStyleSelectorDialog extends StatelessWidget {
-  static route() => MaterialPageRoute<BeerStyle?>(
+  static MaterialPageRoute<BeerStyle?> route() => MaterialPageRoute<BeerStyle?>(
         builder: (_) => BeerStyleSelectorDialog(),
       );
 

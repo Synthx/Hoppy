@@ -15,8 +15,8 @@ class DatePickerPopup extends StatefulWidget {
 }
 
 class _DatePickerPopupState extends State<DatePickerPopup> {
-  _onDateChanged(DateTime date) {
-    this.widget.onDateChanged(date);
+  void _onDateChanged(DateTime date) {
+    widget.onDateChanged(date);
   }
 
   @override

@@ -6,7 +6,7 @@ class MiniFabButton extends StatelessWidget {
 
   const MiniFabButton({
     required this.icon,
-    this.onTap = null,
+    this.onTap,
   });
 
   @override
@@ -20,10 +20,10 @@ class MiniFabButton extends StatelessWidget {
       height: 44,
       child: FloatingActionButton(
         onPressed: onTap,
-        child: icon,
         backgroundColor: Colors.black.withOpacity(0.35),
         foregroundColor: Colors.white,
         elevation: 1,
+        child: icon,
       ),
     );
   }

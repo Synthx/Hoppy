@@ -6,7 +6,7 @@ import 'package:hoppy/store/cubit/cubit.dart';
 import 'main.dart';
 
 class MainScreen extends StatefulWidget {
-  static route() => MaterialPageRoute(
+  static MaterialPageRoute route() => MaterialPageRoute(
         builder: (_) => MainScreen(),
       );
 
@@ -58,7 +58,7 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   void _onAskToChangePage(BuildContext context, int pageIndex) {
-    this._goToView(pageIndex);
+    _goToView(pageIndex);
     context.read<MainScreenCubit>().resetPageIndex();
   }
 
@@ -79,9 +79,9 @@ class _MainScreenState extends State<MainScreen> {
           key: _mainScreenKey,
           body: PageView(
             controller: _viewController,
-            children: _views,
             physics: const NeverScrollableScrollPhysics(),
             scrollDirection: Axis.horizontal,
+            children: _views,
           ),
           bottomNavigationBar: BottomNavigationBar(
             onTap: (index) => _goToView(index),

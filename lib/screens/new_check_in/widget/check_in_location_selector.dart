@@ -39,7 +39,7 @@ class _CheckInLocationSelectorState extends State<CheckInLocationSelector> {
               horizontal: kDefaultPadding,
             ),
             child: Text(
-              "Location",
+              'Location',
               style: Theme.of(context).textTheme.bodyText1!.copyWith(
                     fontSize: 16,
                   ),
@@ -90,7 +90,7 @@ class _CheckInLocationPreview extends StatelessWidget {
         ? Theme.of(context).primaryColor
         : Theme.of(context).textTheme.bodyText2!.color!;
     return GestureDetector(
-      onTap: this.onTap,
+      onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),

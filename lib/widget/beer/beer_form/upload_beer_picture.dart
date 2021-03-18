@@ -25,7 +25,7 @@ class _UploadBeerPictureState extends State<UploadBeerPicture> {
 
   void _openActionSheetPopup() async {
     // retrieve current cameras to see if some are available
-    final cameras = (await availableCameras()).length > 0;
+    final cameras = (await availableCameras()).isNotEmpty;
     // open modal
     final action = await showCupertinoModalPopup(
       context: context,

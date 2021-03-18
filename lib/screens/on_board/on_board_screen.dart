@@ -10,7 +10,7 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Hoppy"),
+        title: const Text('Hoppy'),
         elevation: 0,
       ),
       body: SafeArea(

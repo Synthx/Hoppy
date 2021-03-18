@@ -14,8 +14,8 @@ class BeerServingStyleRepartition extends StatelessWidget {
           child: Text(
             'Derniers check-ins',
             style: Theme.of(context).textTheme.bodyText1!.copyWith(
-              fontSize: 16,
-            ),
+                  fontSize: 16,
+                ),
           ),
         ),
         const SizedBox(height: 20),

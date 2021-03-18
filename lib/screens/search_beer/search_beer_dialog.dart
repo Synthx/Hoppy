@@ -15,7 +15,7 @@ import 'widget/search_input.dart';
 import 'widget/waiting_for_keyword.dart';
 
 class SearchBeerDialog extends StatefulWidget {
-  static route() => MaterialPageRoute(
+  static MaterialPageRoute route() => MaterialPageRoute(
         builder: (context) => BlocProvider<SearchBeerCubit>(
           create: (_) => SearchBeerCubit(
             beerRepository: getIt(),
@@ -109,10 +109,10 @@ class _SearchBeerDialogState extends State<SearchBeerDialog> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _openAddBeerDialog(),
-        child: Icon(Icons.add),
         backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.white,
         elevation: 1,
+        child: const Icon(Icons.add),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: BlocBuilder<SearchBeerCubit, SearchBeerState>(

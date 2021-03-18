@@ -3,6 +3,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 class CheckInRatingBar extends ReactiveFormField<double> {
+  @override
   final String formControlName;
 
   CheckInRatingBar({

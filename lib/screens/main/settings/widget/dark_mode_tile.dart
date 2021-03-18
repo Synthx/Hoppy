@@ -33,7 +33,7 @@ class DarkModeTileState extends State<DarkModeTile> {
       height: 64,
       child: Center(
         child: ListTile(
-          title: const Text("Mode nuit"),
+          title: const Text('Mode nuit'),
           trailing: CupertinoSwitch(
             value: selected,
             onChanged: (value) => onValueChanged(value),

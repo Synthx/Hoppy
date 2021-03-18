@@ -22,9 +22,9 @@ class SuccessNotificationDialog extends StatelessWidget {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () => _closeDialog(context),
-        child: const Icon(Icons.clear),
         backgroundColor: Theme.of(context).primaryColor,
         elevation: 1,
+        child: const Icon(Icons.clear),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       backgroundColor: Theme.of(context).cardColor,

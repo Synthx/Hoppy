@@ -14,16 +14,16 @@ class SettingsRepository {
 
   Future<void> setDarkMode(bool value) async {
     var box = await Hive.openBox('settings');
-    box.put('darkMode', value);
+    await box.put('darkMode', value);
   }
 
   Future<void> setFirstVisit(bool value) async {
     var box = await Hive.openBox('settings');
-    box.put('firstVisit', value);
+    await box.put('firstVisit', value);
   }
 
   Future<void> setName(String value) async {
     var box = await Hive.openBox('settings');
-    box.put('name', value);
+    await box.put('name', value);
   }
 }

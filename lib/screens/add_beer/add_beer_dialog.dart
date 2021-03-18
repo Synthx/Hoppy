@@ -9,7 +9,8 @@ import 'package:reactive_forms/reactive_forms.dart';
 import 'add_beer.dart';
 
 class AddBeerDialog extends StatefulWidget {
-  static route(bool fullscreen) => MaterialPageRoute<Beer?>(
+  static MaterialPageRoute<Beer?> route(bool fullscreen) =>
+      MaterialPageRoute<Beer?>(
         builder: (_) => AddBeerDialog(
           fullscreen: fullscreen,
         ),

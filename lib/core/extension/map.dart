@@ -2,7 +2,7 @@ import 'dart:collection';
 
 extension GenericIntegerMapExtension<T> on Map<T, int> {
   void increment(T value, {int step = 1}) {
-    if (this.containsKey(value)) {
+    if (containsKey(value)) {
       this[value] = this[value]! + step;
     } else {
       this[value] = step;
@@ -17,12 +17,12 @@ extension GenericIntegerMapExtension<T> on Map<T, int> {
   }
 
   void decrement(T value, {int step = 1}) {
-    if (this.containsKey(value)) {
+    if (containsKey(value)) {
       final current = this[value]!;
       if (current > step) {
         this[value] = current - step;
       } else {
-        this.remove(value);
+        remove(value);
       }
     }
   }

@@ -54,12 +54,12 @@ class _SettingsViewState extends State<SettingsView> {
           DarkModeTile(),
           const SizedBox(height: 48),
           LinkTile(
-            label: "A propos",
+            label: 'A propos',
             onTap: () => _goToAboutScreen(),
           ),
           const Divider(height: 0),
           LinkTile(
-            label: "Aide",
+            label: 'Aide',
             onTap: () => _goToHelpScreen(),
           ),
           const Divider(height: 0),
