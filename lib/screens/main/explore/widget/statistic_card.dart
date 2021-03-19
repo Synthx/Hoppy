@@ -3,6 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hoppy/core/core.dart';
 import 'package:hoppy/store/store.dart';
 
+const statisticCardHeight = 100.0;
+const numberSize = 26.0;
+
 class StatisticCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -11,26 +14,19 @@ class StatisticCard extends StatelessWidget {
       margin: const EdgeInsets.symmetric(
         vertical: 10,
       ),
-      decoration: BoxDecoration(
-        color: Theme.of(context).scaffoldBackgroundColor,
-      ),
       child: Column(
         children: [
+          _BeerCount(),
+          const SizedBox(height: 15),
           Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Flexible(child: _BeerCount()),
-              const SizedBox(width: 10),
-              Flexible(child: _BeerAverageDegree()),
-            ],
-          ),
-          const SizedBox(height: 20),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Flexible(child: _CheckInCount()),
-              const SizedBox(width: 10),
-              Flexible(child: _CheckInAverageRating()),
+              Expanded(
+                child: _BeerAverageDegree(),
+              ),
+              const SizedBox(width: 15),
+              Expanded(
+                child: _CheckInCount(),
+              ),
             ],
           ),
         ],
@@ -42,27 +38,37 @@ class StatisticCard extends StatelessWidget {
 class _BeerCount extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Nombre de bières ajoutées',
-          style: Theme.of(context).textTheme.bodyText2,
-        ),
-        const SizedBox(height: 5),
-        BlocBuilder<StatisticCubit, StatisticState>(
-          buildWhen: (prev, curr) =>
-              prev.beerStatistic.count != curr.beerStatistic.count,
-          builder: (context, state) {
-            return Text(
-              '${state.beerStatistic.count}',
-              style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                    fontSize: 18,
-                  ),
-            );
-          },
-        ),
-      ],
+    return Container(
+      height: statisticCardHeight,
+      width: double.infinity,
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: Theme.of(context).cardColor,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            'Nombre de bières différentes',
+            style: Theme.of(context).textTheme.bodyText2,
+          ),
+          const SizedBox(height: 5),
+          BlocBuilder<StatisticCubit, StatisticState>(
+            buildWhen: (prev, curr) =>
+                prev.beerStatistic.count != curr.beerStatistic.count,
+            builder: (context, state) {
+              return Text(
+                '${state.beerStatistic.count}',
+                style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                      fontSize: numberSize,
+                    ),
+              );
+            },
+          ),
+        ],
+      ),
     );
   }
 }
@@ -70,28 +76,37 @@ class _BeerCount extends StatelessWidget {
 class _BeerAverageDegree extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Degré moyen',
-          style: Theme.of(context).textTheme.bodyText2,
-        ),
-        const SizedBox(height: 5),
-        BlocBuilder<StatisticCubit, StatisticState>(
-          buildWhen: (prev, curr) =>
-              prev.beerStatistic.averageDegree !=
-              curr.beerStatistic.averageDegree,
-          builder: (context, state) {
-            return Text(
-              '${state.beerStatistic.averageDegree}°',
-              style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                    fontSize: 18,
-                  ),
-            );
-          },
-        ),
-      ],
+    return Container(
+      height: statisticCardHeight,
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: Theme.of(context).cardColor,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            'Degré moyen',
+            style: Theme.of(context).textTheme.bodyText2,
+          ),
+          const SizedBox(height: 5),
+          BlocBuilder<StatisticCubit, StatisticState>(
+            buildWhen: (prev, curr) =>
+                prev.beerStatistic.averageDegree !=
+                curr.beerStatistic.averageDegree,
+            builder: (context, state) {
+              return Text(
+                '${state.beerStatistic.averageDegree}°',
+                style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                      fontSize: numberSize,
+                    ),
+              );
+            },
+          ),
+        ],
+      ),
     );
   }
 }
@@ -99,56 +114,36 @@ class _BeerAverageDegree extends StatelessWidget {
 class _CheckInCount extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Nombre de bières bues',
-          style: Theme.of(context).textTheme.bodyText2,
-        ),
-        const SizedBox(height: 5),
-        BlocBuilder<StatisticCubit, StatisticState>(
-          buildWhen: (prev, curr) =>
-              prev.checkInStatistic.count != curr.checkInStatistic.count,
-          builder: (context, state) {
-            return Text(
-              '${state.checkInStatistic.count}',
-              style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                    fontSize: 18,
-                  ),
-            );
-          },
-        ),
-      ],
-    );
-  }
-}
-
-class _CheckInAverageRating extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Notation moyenne',
-          style: Theme.of(context).textTheme.bodyText2,
-        ),
-        const SizedBox(height: 5),
-        BlocBuilder<StatisticCubit, StatisticState>(
-          buildWhen: (prev, curr) =>
-              prev.checkInStatistic.averageRating !=
-              curr.checkInStatistic.averageRating,
-          builder: (context, state) {
-            return Text(
-              '${state.checkInStatistic.averageRating}',
-              style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                    fontSize: 18,
-                  ),
-            );
-          },
-        ),
-      ],
+    return Container(
+      height: statisticCardHeight,
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: Theme.of(context).cardColor,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            'Nombre de bières bues',
+            style: Theme.of(context).textTheme.bodyText2,
+          ),
+          const SizedBox(height: 5),
+          BlocBuilder<StatisticCubit, StatisticState>(
+            buildWhen: (prev, curr) =>
+                prev.checkInStatistic.count != curr.checkInStatistic.count,
+            builder: (context, state) {
+              return Text(
+                '${state.checkInStatistic.count}',
+                style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                      fontSize: numberSize,
+                    ),
+              );
+            },
+          ),
+        ],
+      ),
     );
   }
 }
