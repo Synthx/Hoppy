@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hoppy/screens/screens.dart';
-import 'package:hoppy/store/cubit/cubit.dart';
 
 import 'main.dart';
 
@@ -27,12 +26,6 @@ class _MainScreenState extends State<MainScreen> {
   ];
 
   int _currentViewIndex = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    context.read<SettingsCubit>().setKey(_mainScreenKey);
-  }
 
   @override
   void dispose() {
