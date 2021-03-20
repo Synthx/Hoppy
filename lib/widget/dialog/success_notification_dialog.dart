@@ -23,6 +23,7 @@ class SuccessNotificationDialog extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () => _closeDialog(context),
         backgroundColor: Theme.of(context).primaryColor,
+        foregroundColor: Colors.white,
         elevation: 1,
         child: const Icon(Icons.clear),
       ),

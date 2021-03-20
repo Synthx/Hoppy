@@ -8,5 +8,6 @@ class FavoriteState with _$FavoriteState {
   factory FavoriteState({
     required List<Beer> beers,
     required bool loading,
+    Object? error,
   }) = _FavoriteState;
 }

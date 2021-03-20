@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hoppy/core/core.dart';
@@ -38,31 +36,31 @@ class _FavoriteViewState extends State<FavoriteView> {
             return EmptyFavorite();
           }
 
-          return GridView.builder(
-            padding: EdgeInsets.only(
-              top: kDefaultPadding,
-              left: kDefaultPadding,
-              right: kDefaultPadding,
-              bottom: max(
-                MediaQuery.of(context).padding.bottom,
-                kDefaultPadding,
-              ),
-            ),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 15,
-              mainAxisSpacing: 15,
-              childAspectRatio: kBeerCardAspectRatio,
-            ),
+          return ListView(
             physics: const BouncingScrollPhysics(),
-            itemCount: beers.length,
-            itemBuilder: (context, index) {
-              final beer = beers[index];
-              return BeerCard(
-                onTap: () => _openBeerDetailDialog(beer),
-                beer: beer,
-              );
-            },
+            padding: const EdgeInsets.all(kDefaultPadding),
+            children: [
+              Text('${beers.length}/$kMaxFavorite'),
+              const SizedBox(height: 10),
+              GridView.builder(
+                shrinkWrap: true,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 15,
+                  mainAxisSpacing: 15,
+                  childAspectRatio: kBeerCardAspectRatio,
+                ),
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: beers.length,
+                itemBuilder: (context, index) {
+                  final beer = beers[index];
+                  return BeerCard(
+                    onTap: () => _openBeerDetailDialog(beer),
+                    beer: beer,
+                  );
+                },
+              ),
+            ],
           );
         },
       ),

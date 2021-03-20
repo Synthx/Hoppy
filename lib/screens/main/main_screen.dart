@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hoppy/screens/screens.dart';
+import 'package:hoppy/store/store.dart';
+import 'package:hoppy/widget/widget.dart';
 
 import 'main.dart';
 
@@ -55,6 +57,13 @@ class _MainScreenState extends State<MainScreen> {
     context.read<MainScreenCubit>().resetPageIndex();
   }
 
+  void _onMaxFavoriteNumber() {
+    showGeneralDialog(
+      context: context,
+      pageBuilder: (context, _, __) => MaxFavoriteNumberDialog(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -66,6 +75,13 @@ class _MainScreenState extends State<MainScreen> {
                 prev.pageIndex != curr.pageIndex && curr.pageIndex != null,
             listener: (context, state) =>
                 _onAskToChangePage(context, state.pageIndex!),
+          ),
+          BlocListener<FavoriteCubit, FavoriteState>(
+            listenWhen: (prev, curr) =>
+                prev.error != curr.error &&
+                curr.error != null &&
+                curr.error is MaxFavoriteNumberException,
+            listener: (context, _) => _onMaxFavoriteNumber(),
           ),
         ],
         child: Scaffold(

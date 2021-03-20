@@ -41,7 +41,7 @@ class _BeerCount extends StatelessWidget {
     return Container(
       height: statisticCardHeight,
       width: double.infinity,
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
         color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(10),
@@ -78,7 +78,7 @@ class _BeerAverageDegree extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: statisticCardHeight,
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
         color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(10),
@@ -116,7 +116,7 @@ class _CheckInCount extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: statisticCardHeight,
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
         color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(10),

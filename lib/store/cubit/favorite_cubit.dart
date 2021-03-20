@@ -14,13 +14,13 @@ class FavoriteCubit extends Cubit<FavoriteState> {
         ));
 
   Future<void> load() async {
-    emit(state.copyWith(loading: true));
+    emit(state.copyWith(loading: true, error: null));
     final beers = await beerRepository.findAllFavorite();
     emit(state.copyWith(loading: false, beers: beers));
   }
 
   Future<void> addBeer(Beer beer) async {
-    emit(state.copyWith(loading: true));
+    emit(state.copyWith(loading: true, error: null));
     try {
       if (state.beers.length + 1 > kMaxFavorite) {
         throw MaxFavoriteNumberException();
@@ -32,20 +32,23 @@ class FavoriteCubit extends Cubit<FavoriteState> {
         beers: state.beers + [beer],
         loading: false,
       ));
-    } catch (e) {
-      print(e.runtimeType);
+    } on MaxFavoriteNumberException catch (e) {
+      emit(state.copyWith(loading: false, error: e));
+    } catch (e, stackTrace) {
+      addError(e, stackTrace);
       emit(state.copyWith(loading: false));
     }
   }
 
   Future<void> removeBeer(Beer beer) async {
-    emit(state.copyWith(loading: true));
+    emit(state.copyWith(loading: true, error: null));
     try {
       beer.favorite = false;
       await beerRepository.update(beer);
       final beers = state.beers.where((b) => b.key != beer.key).toList();
       emit(state.copyWith(beers: beers, loading: false));
-    } catch (e) {
+    } catch (e, stackTrace) {
+      addError(e, stackTrace);
       emit(state.copyWith(loading: false));
     }
   }
