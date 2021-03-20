@@ -1,15 +1,19 @@
 import 'package:bloc/bloc.dart';
+import 'package:hoppy/core/core.dart';
+import 'package:logging/logging.dart';
 
 class StoreObserver extends BlocObserver {
+  final _logger = Logger('Store');
+
   @override
-  void onTransition(Bloc bloc, Transition transition) {
-    print('${bloc.runtimeType}: ${transition.nextState}');
-    super.onTransition(bloc, transition);
+  void onChange(BlocBase bloc, Change change) {
+    _logger.info('${bloc.runtimeType}');
+    super.onChange(bloc, change);
   }
 
   @override
   void onError(BlocBase bloc, Object error, StackTrace stackTrace) {
-    print('${bloc.runtimeType}: $error $stackTrace');
+    ErrorHandler.catchError(error, stackTrace);
     super.onError(bloc, error, stackTrace);
   }
 }

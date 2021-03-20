@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter/widgets.dart';
 import 'package:hoppy/data/data.dart';
 import 'package:hoppy/store/store.dart';
 
@@ -27,9 +26,5 @@ class SettingsCubit extends Cubit<SettingsState> {
   void nameChanged(String name) async {
     await settingsRepository.setName(name);
     emit(state.copyWith.value(name: name));
-  }
-
-  void setKey(GlobalKey mainKey) {
-    emit(state.copyWith(mainKey: mainKey));
   }
 }

@@ -55,6 +55,7 @@ class Hoppy extends StatelessWidget {
               ),
             ],
             child: MaterialApp(
+              navigatorKey: ErrorHandler.navigatorKey,
               debugShowCheckedModeBanner: false,
               debugShowMaterialGrid: false,
               title: 'Hoppy',
