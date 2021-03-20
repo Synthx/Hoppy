@@ -30,6 +30,9 @@ dependencies:
   intl: ^0.17.0
   charts_flutter: ^0.10.0
   uuid: 3.0.1
+  logging: 1.0.0
+  device_info: 2.0.0
+  share: 2.0.1
 
 dev_dependencies:
   flutter_test:
