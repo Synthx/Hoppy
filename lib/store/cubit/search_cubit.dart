@@ -16,17 +16,27 @@ class SearchCubit extends Cubit<SearchState> {
         ));
 
   Future<void> search() async {
-    emit(state.copyWith(loading: true));
-    final datasource = await beerRepository.search(
-      filter: state.filter,
-      page: state.page,
-      size: state.size,
-    );
     emit(state.copyWith(
-      loading: false,
-      beers: datasource.content,
-      totalElements: datasource.totalElements,
+      loading: true,
+      page: 0,
+      beers: [],
+      totalElements: null,
     ));
+    try {
+      final datasource = await beerRepository.search(
+        filter: state.filter,
+        page: state.page,
+        size: state.size,
+      );
+      emit(state.copyWith(
+        loading: false,
+        beers: datasource.content,
+        totalElements: datasource.totalElements,
+      ));
+    } catch (e, stackTrace) {
+      addError(e, stackTrace);
+      emit(state.copyWith(loading: false));
+    }
   }
 
   Future<void> nextPage() async {
@@ -45,7 +55,7 @@ class SearchCubit extends Cubit<SearchState> {
   }
 
   void addBeer(Beer beer) {
-    var currentList = state.beers;
+    var currentList = state.beers.toList();
     currentList.add(beer);
     emit(state.copyWith(
       beers: currentList,
@@ -54,8 +64,8 @@ class SearchCubit extends Cubit<SearchState> {
   }
 
   void editBeer(Beer beer) {
-    var index = state.beers.indexWhere((e) => e.id == beer.id);
-    var currentList = state.beers;
+    var currentList = state.beers.toList();
+    var index = currentList.indexWhere((e) => e.id == beer.id);
     if (index != -1) {
       currentList[index] = beer;
       emit(state.copyWith(
