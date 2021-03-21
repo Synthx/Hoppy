@@ -39,10 +39,6 @@ class _BeerDetailDialogState extends State<BeerDetailDialog> {
     context.pop(true);
   }
 
-  void _onLoadingChanged() {
-    print('loading changed');
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider<BeerDetailCubit>(
@@ -55,10 +51,6 @@ class _BeerDetailDialogState extends State<BeerDetailDialog> {
       )..load(widget.beer.id!),
       child: MultiBlocListener(
         listeners: [
-          BlocListener<BeerDetailCubit, BeerDetailState>(
-            listenWhen: (prev, curr) => prev.loading != curr.loading,
-            listener: (_, state) => _onLoadingChanged(),
-          ),
           BlocListener<BeerDetailCubit, BeerDetailState>(
             listenWhen: (prev, curr) =>
                 prev.beer != curr.beer &&

@@ -16,7 +16,7 @@ class SearchView extends StatefulWidget {
 
 class _SearchViewState extends State<SearchView>
     with AutomaticKeepAliveClientMixin {
-  final ScrollController _scrollController = ScrollController(
+  final _scrollController = ScrollController(
     initialScrollOffset: 0,
   );
 
@@ -43,6 +43,11 @@ class _SearchViewState extends State<SearchView>
     }
   }
 
+  Future<void> _onRefresh() async {
+    await context.read<SearchCubit>().search();
+    setState(() {});
+  }
+
   @override
   void initState() {
     super.initState();
@@ -66,55 +71,59 @@ class _SearchViewState extends State<SearchView>
       appBar: AppBar(
         title: const Text('Rechercher'),
       ),
-      body: Scrollbar(
-        isAlwaysShown: true,
-        controller: _scrollController,
-        child: BlocBuilder<SearchCubit, SearchState>(
-          builder: (context, state) {
-            final beers = state.beers;
-            return ListView(
+      body: BlocBuilder<SearchCubit, SearchState>(
+        builder: (context, state) {
+          final beers = state.beers;
+          return RefreshIndicator(
+            onRefresh: () => _onRefresh(),
+            backgroundColor: Theme.of(context).cardColor,
+            color: Theme.of(context).primaryColor,
+            child: Scrollbar(
               controller: _scrollController,
-              physics: const BouncingScrollPhysics(),
-              padding: EdgeInsets.only(
-                top: kDefaultPadding,
-                left: kDefaultPadding,
-                right: kDefaultPadding,
-                bottom: max(
-                  MediaQuery.of(context).padding.bottom,
-                  kDefaultPadding,
-                ),
-              ),
-              children: [
-                GridView.builder(
-                  shrinkWrap: true,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 15,
-                    mainAxisSpacing: 15,
-                    childAspectRatio: kBeerCardAspectRatio,
+              child: ListView(
+                controller: _scrollController,
+                padding: EdgeInsets.only(
+                  top: kDefaultPadding,
+                  left: kDefaultPadding,
+                  right: kDefaultPadding,
+                  bottom: max(
+                    MediaQuery.of(context).padding.bottom,
+                    kDefaultPadding,
                   ),
-                  physics: const BouncingScrollPhysics(),
-                  itemCount: beers.length,
-                  itemBuilder: (context, index) {
-                    final beer = beers[index];
-                    return BeerCard(
-                      onTap: () => _openBeerDetailDialog(beer),
-                      beer: beer,
-                    );
-                  },
                 ),
-                if (state.loading)
-                  Center(
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        Theme.of(context).primaryColor,
+                children: [
+                  GridView.builder(
+                    shrinkWrap: true,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 15,
+                      mainAxisSpacing: 15,
+                      childAspectRatio: kBeerCardAspectRatio,
+                    ),
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: beers.length,
+                    itemBuilder: (context, index) {
+                      final beer = beers[index];
+                      return BeerCard(
+                        onTap: () => _openBeerDetailDialog(beer),
+                        beer: beer,
+                      );
+                    },
+                  ),
+                  if (state.loading)
+                    Center(
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                          Theme.of(context).primaryColor,
+                        ),
                       ),
                     ),
-                  ),
-              ],
-            );
-          },
-        ),
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }
