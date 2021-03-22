@@ -113,11 +113,7 @@ class _SearchViewState extends State<SearchView>
                   ),
                   if (state.loading)
                     Center(
-                      child: CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color>(
-                          Theme.of(context).primaryColor,
-                        ),
-                      ),
+                      child: CircularProgressIndicator(),
                     ),
                 ],
               ),

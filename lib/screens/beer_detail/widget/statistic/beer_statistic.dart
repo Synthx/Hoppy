@@ -25,11 +25,7 @@ class BeerStatistic extends StatelessWidget {
               return Container(
                 height: 100,
                 child: Center(
-                  child: CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation<Color>(
-                      Theme.of(context).primaryColor,
-                    ),
-                  ),
+                  child: CircularProgressIndicator(),
                 ),
               );
             }

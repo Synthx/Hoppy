@@ -12,11 +12,7 @@ class LoadingDialog extends StatelessWidget {
             color: Theme.of(context).cardColor,
             borderRadius: BorderRadius.circular(10),
           ),
-          child: CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(
-              Theme.of(context).primaryColor,
-            ),
-          ),
+          child: CircularProgressIndicator(),
         ),
       ),
     );

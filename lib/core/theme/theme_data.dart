@@ -34,9 +34,14 @@ ThemeData lightThemeData(BuildContext context) {
     splashColor: Colors.transparent,
     highlightColor: Colors.transparent,
     primaryColor: kPrimaryColor,
+    accentColor: kPrimaryColor,
+    errorColor: kRedColor,
     scaffoldBackgroundColor: kLightBackgroundColor,
     backgroundColor: kLightDarkerBackgroundColor,
     cardColor: kLightCardColor,
+    bottomAppBarTheme: BottomAppBarTheme(
+      color: kLightBackgroundColor,
+    ),
     appBarTheme: appBarTheme.copyWith(
       iconTheme: IconThemeData(
         color: kLightContentColor,
@@ -80,12 +85,17 @@ ThemeData darkThemeData(BuildContext context) {
     splashColor: Colors.transparent,
     highlightColor: Colors.transparent,
     primaryColor: kPrimaryColor,
+    accentColor: kPrimaryColor,
+    errorColor: kRedColor,
     scaffoldBackgroundColor: kDarkBackgroundColor,
     backgroundColor: kDarkBackgroundColor,
     cardColor: kDarkCardColor,
     iconTheme: IconThemeData(
       color: kDarkContentColor,
       opacity: 0.8,
+    ),
+    bottomAppBarTheme: BottomAppBarTheme(
+      color: kDarkCardColor,
     ),
     appBarTheme: appBarTheme.copyWith(
       iconTheme: IconThemeData(

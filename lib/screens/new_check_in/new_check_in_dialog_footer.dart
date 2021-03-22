@@ -32,7 +32,6 @@ class NewCheckInDialogFooter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
-      color: Theme.of(context).cardColor,
       child: Container(
         margin: const EdgeInsets.symmetric(
           horizontal: kDefaultPadding,

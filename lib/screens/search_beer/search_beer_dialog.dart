@@ -124,11 +124,7 @@ class _SearchBeerDialogState extends State<SearchBeerDialog> {
 
           if (state.beers!.isEmpty && state.loading) {
             return Center(
-              child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(
-                  Theme.of(context).primaryColor,
-                ),
-              ),
+              child: CircularProgressIndicator(),
             );
           }
 
