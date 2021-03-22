@@ -19,28 +19,6 @@ class _UploadBeerPictureDialogState extends State<UploadBeerPictureDialog> {
     context.pop();
   }
 
-  Future<void> _initializeCamera() async {
-    final cameras = await availableCameras();
-    final camera = cameras.first;
-    _cameraController = CameraController(camera, ResolutionPreset.high);
-    _cameraInitialized = _cameraController.initialize();
-    if (!mounted) {
-      return;
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _initializeCamera();
-  }
-
-  @override
-  void dispose() {
-    _cameraController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

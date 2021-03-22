@@ -20,7 +20,7 @@ dependencies:
   package_info: ^2.0.0
   reactive_forms: ^9.1.0
   camera: ^0.8.0
-  path: ^1.7.0
+  path: ^1.8.0
   path_provider: ^2.0.1
   image_picker: ^0.7.2
   json_annotation: ^4.0.0
@@ -33,6 +33,7 @@ dependencies:
   logging: 1.0.0
   device_info: 2.0.0
   share: 2.0.1
+  permission_handler: 6.1.1
 
 dev_dependencies:
   flutter_test:
