@@ -45,20 +45,21 @@ class _AddBeerDialogState extends State<AddBeerDialog> {
     'country': FormControl<BeerCountry>(
       validators: [Validators.required],
     ),
-    'degree': FormControl<double>(
-      validators: [Validators.required],
+    'degree': FormControl<String>(
+      validators: [
+        Validators.required,
+        Validators.pattern(r'^[0-9]{1,2}((.|,)[0-9]{1,2})?$'),
+      ],
     ),
   });
 
   Future<void> _onClose() async {
     if (_addBeerForm.dirty) {
-      final result = await showCupertinoDialog<bool?>(
-        context: context,
-        barrierDismissible: false,
-        builder: (_) => ConfirmActionDialog(
-          content:
-              'Il semblerait que vous ayez saisi des informations, êtes-vous sur de vouloir quitter cette page ?',
-        ),
+      final result = await context.showConfirmActionDialog(
+        title: 'Attention',
+        content:
+            'Il semblerait que vous avez commencé à remplir des champs, êtes-vous sur de vouloir quitter la page ?',
+        action: 'Quitter',
       );
 
       if (result != null && result) {
@@ -78,7 +79,7 @@ class _AddBeerDialogState extends State<AddBeerDialog> {
   }
 
   Future<void> _onBeerCreated(Beer beer) async {
-    await context.showSuccessDialog(
+    await context.showNotificationDialog(
       title: 'Bière ajoutée avec succès',
       content:
           'Et une plus dans votre collection, ça commence à faire beaucoup non ?',

@@ -44,16 +44,20 @@ class _CheckInDateSelectorState extends State<CheckInDateSelector> {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
+    return ListTileTheme(
+      textColor: Theme.of(context).textTheme.bodyText1!.color,
+      iconColor: Theme.of(context).textTheme.bodyText1!.color,
       contentPadding: const EdgeInsets.symmetric(
         horizontal: kDefaultPadding,
         vertical: 10,
       ),
-      onTap: () => _openDatePicker(),
-      title: const Text('Date *'),
-      subtitle: Text(AppLocalizations.of(context)!.date(_selectedDate)),
-      isThreeLine: false,
-      trailing: const Icon(Icons.chevron_right),
+      child: ListTile(
+        onTap: () => _openDatePicker(),
+        title: const Text('Date *'),
+        subtitle: Text(AppLocalizations.of(context)!.date(_selectedDate)),
+        isThreeLine: false,
+        trailing: const Icon(Icons.chevron_right),
+      ),
     );
   }
 }

@@ -41,23 +41,27 @@ class _BeerStyleSelectorState extends State<BeerStyleSelector> {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
+    return ListTileTheme(
+      textColor: Theme.of(context).textTheme.bodyText1!.color,
+      iconColor: Theme.of(context).textTheme.bodyText1!.color,
       contentPadding: const EdgeInsets.symmetric(
         horizontal: kDefaultPadding,
         vertical: 10,
       ),
-      onTap: () => _openBeerStyleDialog(),
-      title: Padding(
-        padding: EdgeInsets.only(
-          bottom: _selectedBeerStyle != null ? 6 : 0,
+      child: ListTile(
+        onTap: () => _openBeerStyleDialog(),
+        title: Padding(
+          padding: EdgeInsets.only(
+            bottom: _selectedBeerStyle != null ? 6 : 0,
+          ),
+          child: const Text('Style *'),
         ),
-        child: const Text('Style *'),
+        isThreeLine: false,
+        subtitle: _selectedBeerStyle != null
+            ? Text('${_selectedBeerStyle!.name}')
+            : null,
+        trailing: Icon(Icons.chevron_right),
       ),
-      isThreeLine: false,
-      subtitle: _selectedBeerStyle != null
-          ? Text('${_selectedBeerStyle!.name}')
-          : null,
-      trailing: Icon(Icons.chevron_right),
     );
   }
 }

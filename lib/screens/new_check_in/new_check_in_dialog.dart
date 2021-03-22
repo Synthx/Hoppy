@@ -55,7 +55,7 @@ class _NewCheckInDialogState extends State<NewCheckInDialog> {
   }
 
   Future<void> _onCheckInCreated(CheckIn checkIn) async {
-    await context.showSuccessDialog(
+    await context.showNotificationDialog(
       title: 'Check-in enregistré avec succès',
       content: 'Alors, elle était bonne ?',
       icon: Text(

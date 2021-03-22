@@ -31,7 +31,7 @@ class _BeerDetailDialogState extends State<BeerDetailDialog> {
   }
 
   Future<void> _onBeerDeleted() async {
-    await context.showSuccessDialog(
+    await context.showNotificationDialog(
       title: 'Bière supprimée avec succès',
       content: 'Espérons que ce soit juste une erreur...',
       icon: Icon(Icons.check),

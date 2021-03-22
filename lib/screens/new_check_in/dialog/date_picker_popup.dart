@@ -30,12 +30,19 @@ class _DatePickerPopupState extends State<DatePickerPopup> {
           topRight: Radius.circular(20),
         ),
       ),
-      child: CupertinoDatePicker(
-        initialDateTime: widget.initialDate,
-        maximumDate: DateTime.now(),
-        onDateTimeChanged: (value) => _onDateChanged(value),
-        mode: CupertinoDatePickerMode.date,
-        use24hFormat: true,
+      child: CupertinoTheme(
+        data: CupertinoThemeData(
+          textTheme: CupertinoTextThemeData(
+            dateTimePickerTextStyle: Theme.of(context).textTheme.bodyText1,
+          ),
+        ),
+        child: CupertinoDatePicker(
+          initialDateTime: widget.initialDate,
+          maximumDate: DateTime.now(),
+          onDateTimeChanged: (value) => _onDateChanged(value),
+          mode: CupertinoDatePickerMode.date,
+          use24hFormat: true,
+        ),
       ),
     );
   }

@@ -41,23 +41,27 @@ class _BeerCountrySelectorState extends State<BeerCountrySelector> {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
+    return ListTileTheme(
+      textColor: Theme.of(context).textTheme.bodyText1!.color,
+      iconColor: Theme.of(context).textTheme.bodyText1!.color,
       contentPadding: const EdgeInsets.symmetric(
         horizontal: kDefaultPadding,
         vertical: 10,
       ),
-      onTap: () => _openBeerCountryDialog(),
-      title: Padding(
-        padding: EdgeInsets.only(
-          bottom: _selectedBeerCountry != null ? 6 : 0,
+      child: ListTile(
+        onTap: () => _openBeerCountryDialog(),
+        title: Padding(
+          padding: EdgeInsets.only(
+            bottom: _selectedBeerCountry != null ? 6 : 0,
+          ),
+          child: const Text('Origine *'),
         ),
-        child: const Text('Origine *'),
+        isThreeLine: false,
+        subtitle: _selectedBeerCountry != null
+            ? Text('${_selectedBeerCountry!.name}')
+            : null,
+        trailing: const Icon(Icons.chevron_right),
       ),
-      isThreeLine: false,
-      subtitle: _selectedBeerCountry != null
-          ? Text('${_selectedBeerCountry!.name}')
-          : null,
-      trailing: const Icon(Icons.chevron_right),
     );
   }
 }

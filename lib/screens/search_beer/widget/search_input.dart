@@ -90,6 +90,8 @@ class _SearchInputState extends State<SearchInput> {
                       autocorrect: false,
                       enableSuggestions: false,
                       onSubmitted: (value) => _onFieldSubmitted(value),
+                      keyboardType: TextInputType.text,
+                      textInputAction: TextInputAction.search,
                       decoration: const InputDecoration(
                         hintText: 'Paix Dieu, Anosteke, ...',
                         border: InputBorder.none,

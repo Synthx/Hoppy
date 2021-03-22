@@ -30,8 +30,10 @@ class BeerActions extends StatelessWidget {
     final result = await showCupertinoDialog<bool?>(
       context: context,
       builder: (_) => ConfirmActionDialog(
+        title: 'Supprimer cette bière',
         content:
             'Cette action est irréversible, êtes-vous sur de vouloir continuer ?',
+        action: 'Supprimer',
       ),
     );
 
@@ -59,7 +61,7 @@ class BeerActions extends StatelessWidget {
           Flexible(
             child: _RoundedButton(
               iconData: Icons.delete,
-              color: Colors.red,
+              color: Theme.of(context).errorColor,
               onTap: () => _deleteBeer(context),
             ),
           ),

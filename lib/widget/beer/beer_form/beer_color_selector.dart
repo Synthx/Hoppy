@@ -107,7 +107,9 @@ class BeerColorPreview extends StatelessWidget {
               color: beerColor.color,
               borderRadius: BorderRadius.circular(36),
               border: Border.all(
-                color: Theme.of(context).dividerColor,
+                color: isSelected
+                    ? Theme.of(context).primaryColor
+                    : Theme.of(context).dividerColor,
               ),
             ),
             child: Center(

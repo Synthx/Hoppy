@@ -48,8 +48,10 @@ class NameInputTileState extends State<NameInputTile> {
               controller: _controller,
               focusNode: _focusNode,
               keyboardType: TextInputType.name,
+              textInputAction: TextInputAction.done,
               textAlign: TextAlign.end,
               enableSuggestions: false,
+              autocorrect: false,
               decoration: InputDecoration(
                 border: InputBorder.none,
               ),

@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' hide AnimatedIcon;
 import 'package:hoppy/core/core.dart';
 import 'package:hoppy/widget/widget.dart';
@@ -50,14 +49,13 @@ class ErrorDialog extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               const Spacer(flex: 2),
-              if (kDebugMode)
-                TextButton(
-                  onPressed: () => _openReportErrorScreen(context),
-                  style: TextButton.styleFrom(
-                    primary: Theme.of(context).primaryColor,
-                  ),
-                  child: Text('Voir le rapport'),
+              TextButton(
+                onPressed: () => _openReportErrorScreen(context),
+                style: TextButton.styleFrom(
+                  primary: Theme.of(context).primaryColor,
                 ),
+                child: Text('Voir le rapport'),
+              ),
               const SizedBox(height: 10),
               Container(
                 height: kFooterButtonHeight,
