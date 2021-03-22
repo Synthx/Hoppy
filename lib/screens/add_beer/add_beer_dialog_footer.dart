@@ -14,9 +14,10 @@ class AddBeerDialogFooter extends StatelessWidget {
 
   void _addBeer(BuildContext context) {
     final value = form.value;
+    final degreeStr = (value['degree'] as String).replaceAll(',', '.');
     final beer = Beer(
       name: value['name'],
-      degree: value['degree'],
+      degree: double.parse(degreeStr),
       color: value['color'],
       style: value['style'],
       country: value['country'],
@@ -29,7 +30,6 @@ class AddBeerDialogFooter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
-      color: Theme.of(context).cardColor,
       child: Container(
         margin: const EdgeInsets.symmetric(
           horizontal: kDefaultPadding,

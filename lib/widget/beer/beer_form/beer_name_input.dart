@@ -25,6 +25,8 @@ class BeerNameInput extends StatelessWidget {
             formControlName: 'name',
             enableSuggestions: false,
             autocorrect: false,
+            keyboardType: TextInputType.name,
+            textInputAction: TextInputAction.done,
             showErrors: (_) => false,
             style: TextStyle(
               color: Theme.of(context).textTheme.bodyText2!.color,
