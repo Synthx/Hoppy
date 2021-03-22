@@ -60,7 +60,7 @@ class _EditBeerDialogState extends State<EditBeerDialog> {
   }
 
   Future<void> _onBeerEdited(Beer beer) async {
-    await context.showSuccessDialog(
+    await context.showNotificationDialog(
       title: 'Bière modifié avec succès',
       content:
           'Et une plus dans votre collection, ça commence à faire beaucoup non ?',
@@ -113,11 +113,7 @@ class _EditBeerDialogState extends State<EditBeerDialog> {
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
                   return Center(
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        Theme.of(context).primaryColor,
-                      ),
-                    ),
+                    child: CircularProgressIndicator(),
                   );
                 }
 
