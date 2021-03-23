@@ -25,9 +25,11 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>Explanation on why the camera access is needed.</string>
+	<string>Hoppy uses the camera to take photo for beer</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Explanation on why the camera access is needed.</string>
+	<string>Hoppy uses the photo library to select previously taken photos for beers</string>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>Hoppy uses the local network to debug application</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

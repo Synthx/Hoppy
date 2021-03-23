@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
 import 'package:hoppy/widget/widget.dart';
@@ -9,10 +10,12 @@ import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class SelectPicture extends StatefulWidget {
+  final String? picturePath;
   final Function(String?) onPictureChanged;
   final double size;
 
   const SelectPicture({
+    required this.picturePath,
     required this.onPictureChanged,
     this.size = 72,
   });
@@ -28,7 +31,9 @@ class _SelectPictureState extends State<SelectPicture> {
     final action = await showModalBottomSheet<UploadPictureAction?>(
       context: context,
       backgroundColor: Colors.transparent,
-      builder: (_) => SelectUploadPictureAction(),
+      builder: (_) => SelectUploadPictureAction(
+        havePicture: _picturePath != null,
+      ),
     );
 
     if (action != null) {
@@ -40,12 +45,20 @@ class _SelectPictureState extends State<SelectPicture> {
         case UploadPictureAction.GALLERY:
           picturePath = await _openPictureGallery();
           break;
+        case UploadPictureAction.DELETE:
+          widget.onPictureChanged(null);
+          setState(() {
+            _picturePath = null;
+          });
+          break;
       }
 
-      widget.onPictureChanged(picturePath);
-      setState(() {
-        _picturePath = picturePath;
-      });
+      if (picturePath != null) {
+        widget.onPictureChanged(picturePath);
+        setState(() {
+          _picturePath = picturePath;
+        });
+      }
     }
   }
 
@@ -62,14 +75,13 @@ class _SelectPictureState extends State<SelectPicture> {
     } on PlatformException catch (e) {
       if (e.code == 'photo_access_denied') {
         await context.showActionDialog(
-          title: 'Permission requise',
-          content:
-              'Veuillez autoriser Hoppy à accéder à vos photos pour pouvoir utiliser cette fonctionnalité',
+          title: AppLocalizations.of(context)!.need_permission,
+          content: AppLocalizations.of(context)!.need_permission_gallery,
           icon: Text(
             '📷',
             style: TextStyle(fontSize: 50, color: Colors.black),
           ),
-          action: 'Ouvrir les réglages',
+          action: AppLocalizations.of(context)!.open_settings,
           onAction: () => openAppSettings(),
         );
       } else {
@@ -79,10 +91,18 @@ class _SelectPictureState extends State<SelectPicture> {
   }
 
   Future<String?> _openTakePictureScreen() async {
-    await Navigator.push<String?>(
+    final picturePath = await Navigator.push<String?>(
       context,
       TakePictureScreen.route(),
     );
+
+    return picturePath;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _picturePath = widget.picturePath;
   }
 
   @override

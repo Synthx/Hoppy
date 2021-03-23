@@ -18,6 +18,11 @@ class UploadBeerPicture extends StatefulWidget {
 class _UploadBeerPictureState extends State<UploadBeerPicture> {
   String? _beerImagePath;
 
+  void _onPicturePathChanged(String? path) {
+    _beerImagePath = path;
+    widget.form.control('picturePath').value = path;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -61,7 +66,8 @@ class _UploadBeerPictureState extends State<UploadBeerPicture> {
             ),
           ),
           SelectPicture(
-            onPictureChanged: (picture) {},
+            picturePath: _beerImagePath,
+            onPictureChanged: (picture) => _onPicturePathChanged(picture),
           ),
         ],
       ),

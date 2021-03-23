@@ -5,5 +5,5 @@ analyzer:
     - '**/*.g.dart'
     - '**/*.freezed.dart'
   errors:
-    # to enable when all package successfully migrate
+    # to enable when all package successfully migrate to null safety
     import_of_legacy_library_into_null_safe: ignore

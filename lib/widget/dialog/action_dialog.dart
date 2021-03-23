@@ -55,7 +55,7 @@ class ActionDialog extends StatelessWidget {
               Container(
                 height: kFooterButtonHeight,
                 child: ElevatedButton(
-                  onPressed: () => onAction,
+                  onPressed: () => onAction(),
                   child: Text(action),
                 ),
               ),
