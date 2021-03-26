@@ -51,7 +51,7 @@ class ActionDialog extends StatelessWidget {
                 style: Theme.of(context).textTheme.bodyText2,
                 textAlign: TextAlign.center,
               ),
-              const Spacer(flex: 2),
+              const Spacer(flex: 1),
               Container(
                 height: kFooterButtonHeight,
                 child: ElevatedButton(

@@ -4,6 +4,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hoppy/core/core.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class TakePictureScreen extends StatefulWidget {
   static MaterialPageRoute<String?> route() => MaterialPageRoute(
@@ -23,16 +24,34 @@ class _TakePictureScreenState extends State<TakePictureScreen>
 
   Future<void> _initializeCamera() async {
     final cameras = await availableCameras();
-    if (cameras.isNotEmpty) {
+    final isGranted = await Permission.camera.isGranted;
+
+    if (!isGranted) {
+      await context.showActionDialog(
+        title: AppLocalizations.of(context)!.need_permission,
+        content: AppLocalizations.of(context)!.need_permission_camera,
+        icon: Text(
+          '📷',
+          style: TextStyle(fontSize: 50, color: Colors.black),
+        ),
+        action: AppLocalizations.of(context)!.open_settings,
+        onAction: () => openAppSettings(),
+      );
+      context.pop();
+    } else if (cameras.isNotEmpty) {
       final camera = cameras.first;
       await _onCameraSelected(
         camera: camera,
       );
     } else {
       await context.showNotificationDialog(
-        title: '',
-        content: '',
-        icon: Container(),
+        title: AppLocalizations.of(context)!.error,
+        content: AppLocalizations.of(context)!.take_picture_no_camera,
+        icon: Icon(
+          Icons.error_outline,
+          color: Colors.red,
+          size: 32,
+        ),
       );
       context.pop();
     }
@@ -324,10 +343,18 @@ class _CameraPreview extends StatelessWidget {
       );
     }
 
+    final size = MediaQuery.of(context).size;
+    var scale = size.aspectRatio * controller.value.aspectRatio;
+    if (scale < 1) {
+      scale = 1 / scale;
+    }
+
     return Transform.scale(
-      scale: controller.value.aspectRatio,
-      child: CameraPreview(
-        controller,
+      scale: scale,
+      child: Center(
+        child: CameraPreview(
+          controller,
+        ),
       ),
     );
   }
