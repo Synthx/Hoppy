@@ -343,10 +343,18 @@ class _CameraPreview extends StatelessWidget {
       );
     }
 
+    final size = MediaQuery.of(context).size;
+    var scale = size.aspectRatio * controller.value.aspectRatio;
+    if (scale < 1) {
+      scale = 1 / scale;
+    }
+
     return Transform.scale(
-      scale: controller.value.aspectRatio,
-      child: CameraPreview(
-        controller,
+      scale: scale,
+      child: Center(
+        child: CameraPreview(
+          controller,
+        ),
       ),
     );
   }
