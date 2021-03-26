@@ -16,13 +16,13 @@ class AddBeerDialogFooter extends StatelessWidget {
     final value = form.value;
     final degreeStr = (value['degree'] as String).replaceAll(',', '.');
     final beer = Beer(
-      name: value['name'],
+      name: value['name'] as String,
       degree: double.parse(degreeStr),
-      color: value['color'],
-      style: value['style'],
-      country: value['country'],
-      picturePath: value['picturePath'],
-      title: value['title'],
+      color: value['color'] as BeerColor,
+      style: value['style'] as BeerStyle,
+      country: value['country'] as BeerCountry,
+      picturePath: value['picturePath'] as String?,
+      title: value['title'] as String?,
     );
     context.read<AddBeerCubit>().addBeer(beer);
   }

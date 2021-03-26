@@ -27,5 +27,28 @@
         "format": "yMd"
       }
     }
-  }
+  },
+  "name_input": "Nom",
+  "color_input": "Couleur",
+  "degree_input": "Degré",
+  "style_input": "Style",
+  "country_input": "Origine",
+  "add": "Ajouter",
+  "delete": "Supprimer",
+  "edit": "Modifier",
+  "cancel": "Annuler",
+  "add_beer": "Ajouter une bière",
+  "picture_action_gallery": "Sélectionner une photo",
+  "picture_action_camera": "Prendre une photo",
+  "picture_action_delete": "Effacer la photo",
+  "need_permission": "Permission requise",
+  "need_permission_gallery": "Veuillez autoriser Hoppy à accéder à vos photos pour pouvoir utiliser cette fonctionnalité",
+  "open_settings": "Ouvrir les réglages",
+  "take_picture": "Prendre une photo",
+  "take_picture_no_camera": "Impossible d'afficher la caméra",
+  "settings": "Paramètres",
+  "settings_about": "A propos",
+  "settings_help": "Aide",
+  "settings_github": "Github",
+  "settings_contact": "Nous contacter"
 }

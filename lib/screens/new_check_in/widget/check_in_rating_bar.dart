@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
-class CheckInRatingBar extends ReactiveFormField<double> {
+class CheckInRatingBar extends ReactiveFormField<double, double> {
   @override
   final String formControlName;
 
@@ -10,9 +10,9 @@ class CheckInRatingBar extends ReactiveFormField<double> {
     required this.formControlName,
   }) : super(
           formControlName: formControlName,
-          builder: (ReactiveFormFieldState<double> field) {
+          builder: (ReactiveFormFieldState<double, double> field) {
             return RatingBar.builder(
-              initialRating: field.value,
+              initialRating: field.value ?? 1,
               onRatingUpdate: (value) => field.didChange(value),
               minRating: 1,
               maxRating: 5,
@@ -29,6 +29,6 @@ class CheckInRatingBar extends ReactiveFormField<double> {
         );
 
   @override
-  ReactiveFormFieldState<double> createState() =>
-      ReactiveFormFieldState<double>();
+  ReactiveFormFieldState<double, double> createState() =>
+      ReactiveFormFieldState<double, double>();
 }

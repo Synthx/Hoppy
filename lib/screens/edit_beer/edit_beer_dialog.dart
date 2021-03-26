@@ -25,12 +25,12 @@ class EditBeerDialog extends StatefulWidget {
 
 class _EditBeerDialogState extends State<EditBeerDialog> {
   final _editBeerForm = FormGroup({
-    'id': FormControl(),
-    'picturePath': FormControl(),
-    'name': FormControl(
+    'id': FormControl<String>(),
+    'picturePath': FormControl<String?>(),
+    'name': FormControl<String>(
       validators: [Validators.required, Validators.maxLength(64)],
     ),
-    'title': FormControl(
+    'title': FormControl<String?>(
       validators: [Validators.maxLength(100)],
     ),
     'color': FormControl<BeerColor>(
