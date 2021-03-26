@@ -15,14 +15,14 @@ class EditBeerDialogFooter extends StatelessWidget {
   void _editBeer(BuildContext context) {
     final value = form.value;
     final beer = Beer(
-      id: value['id'],
-      name: value['name'],
-      degree: value['degree'],
-      color: value['color'],
-      style: value['style'],
-      country: value['country'],
-      picturePath: value['picturePath'],
-      title: value['title'],
+      id: value['id'] as String,
+      name: value['name'] as String,
+      degree: value['degree'] as double,
+      color: value['color'] as BeerColor,
+      style: value['style'] as BeerStyle,
+      country: value['country'] as BeerCountry,
+      picturePath: value['picturePath'] as String?,
+      title: value['title'] as String?,
     );
     context.read<EditBeerCubit>().edit(beer);
   }

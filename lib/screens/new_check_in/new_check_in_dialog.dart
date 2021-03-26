@@ -39,7 +39,7 @@ class _NewCheckInDialogState extends State<NewCheckInDialog> {
       validators: [Validators.required],
     ),
     'location': FormControl<CheckInLocation>(),
-    'description': FormControl(),
+    'description': FormControl<String>(),
   });
 
   void _closeDialog() {
