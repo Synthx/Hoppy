@@ -16,7 +16,6 @@ class _ExploreViewState extends State<ExploreView>
   Widget build(BuildContext context) {
     super.build(context);
     var widgets = <Widget>[
-      BeerColorList(),
       MostDrunkenBeerCountryCard(),
       BeerColorRepartitionCard(),
       LastAddedBeerCard(),

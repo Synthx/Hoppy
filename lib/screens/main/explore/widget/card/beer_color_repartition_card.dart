@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart' hide AnimatedIcon;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hoppy/core/core.dart';
+import 'package:hoppy/generated/l10n.dart';
 import 'package:hoppy/screens/main/explore/explore.dart';
 import 'package:hoppy/screens/screens.dart';
 import 'package:hoppy/store/store.dart';
@@ -32,9 +33,9 @@ class BeerColorRepartitionCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Theme.of(context).cardColor,
       ),
-      child: Column(
+      child: Stack(
         children: [
-          Expanded(
+          Positioned.fill(
             child: BlocBuilder<StatisticCubit, StatisticState>(
               buildWhen: (prev, curr) =>
                   prev.checkInStatistic.count != curr.checkInStatistic.count,
@@ -43,33 +44,47 @@ class BeerColorRepartitionCard extends StatelessWidget {
                   return _EmptyBeerColorRepartition();
                 }
 
-                return BeerColorChart(
-                  repartition:
-                      state.checkInStatistic.drunkenColorRepartition.sort(),
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      Localization.of(context).explore_beer_color_repartition,
+                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                            fontSize: 16,
+                          ),
+                    ),
+                    const SizedBox(height: 10),
+                    Expanded(
+                      child: BeerColorChart(
+                        repartition: state
+                            .checkInStatistic.drunkenColorRepartition
+                            .sort(),
+                      ),
+                    ),
+                  ],
                 );
               },
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              BlocBuilder<StatisticCubit, StatisticState>(
-                buildWhen: (prev, curr) =>
-                    prev.checkInStatistic.count != curr.checkInStatistic.count,
-                builder: (context, state) {
-                  if (state.checkInStatistic.count > 0) {
-                    return MoreCardButton(
-                      onTap: () => _openBeerColorRepartitionDialog(context),
-                    );
-                  }
-
+          Positioned(
+            bottom: 0,
+            right: 0,
+            child: BlocBuilder<StatisticCubit, StatisticState>(
+              buildWhen: (prev, curr) =>
+                  prev.checkInStatistic.count != curr.checkInStatistic.count,
+              builder: (context, state) {
+                if (state.checkInStatistic.count > 0) {
                   return MoreCardButton(
-                    onTap: () => _openAddBeerDialog(context),
-                    iconData: Icons.add,
+                    onTap: () => _openBeerColorRepartitionDialog(context),
                   );
-                },
-              ),
-            ],
+                }
+
+                return MoreCardButton(
+                  onTap: () => _openAddBeerDialog(context),
+                  iconData: Icons.add,
+                );
+              },
+            ),
           ),
         ],
       ),

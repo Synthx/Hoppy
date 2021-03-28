@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
-import 'package:hoppy/generated/l10n.dart';
+import 'package:intl/intl.dart';
 
 class BeerSomeStatistic extends StatelessWidget {
   final DrunkenBeerStatistic beerStatistic;
@@ -15,18 +15,6 @@ class BeerSomeStatistic extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: kDefaultPadding,
-          ),
-          child: Text(
-            'Quelques statistiques',
-            style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                  fontSize: 16,
-                ),
-          ),
-        ),
-        const SizedBox(height: 20),
         Container(
           height: 100,
           child: ListView(
@@ -43,8 +31,8 @@ class BeerSomeStatistic extends StatelessWidget {
               const VerticalDivider(width: 0),
               _BeerStatisticCard(
                 title: 'Dernière fois',
-                value: Localization.of(context)
-                    .date(beerStatistic.lastCheckIns.first.date),
+                value: DateFormat.yMd()
+                    .format(beerStatistic.lastCheckIns.first.date),
               ),
               const VerticalDivider(width: 0),
               _BeerStatisticCard(

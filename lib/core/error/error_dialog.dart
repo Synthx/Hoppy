@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart' hide AnimatedIcon;
 import 'package:hoppy/core/core.dart';
+import 'package:hoppy/generated/l10n.dart';
 import 'package:hoppy/widget/widget.dart';
 
 class ErrorDialog extends StatelessWidget {
@@ -39,29 +40,33 @@ class ErrorDialog extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               Text(
-                'Oops ! Quelque chose ne s\'est pas bien passé',
+                Localization.of(context).error_title,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headline6,
               ),
               const SizedBox(height: 10),
               Text(
-                'Veuillez réessayer plus tard, si le problème persiste, un rapport d\'erreur a été généré',
+                Localization.of(context).error_content,
                 textAlign: TextAlign.center,
               ),
-              const Spacer(flex: 2),
+              const Spacer(flex: 1),
               TextButton(
                 onPressed: () => _openReportErrorScreen(context),
                 style: TextButton.styleFrom(
                   primary: Theme.of(context).primaryColor,
                 ),
-                child: Text('Voir le rapport'),
+                child: Text(
+                  Localization.of(context).error_see_report,
+                ),
               ),
               const SizedBox(height: 10),
               Container(
                 height: kFooterButtonHeight,
                 child: ElevatedButton(
                   onPressed: () => _closeDialog(context),
-                  child: const Text('Fermer'),
+                  child: Text(
+                    Localization.of(context).close,
+                  ),
                 ),
               ),
             ],

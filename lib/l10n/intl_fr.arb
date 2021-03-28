@@ -1,33 +1,8 @@
 {
   "@@locale": "fr",
   "home": "Bonjour",
-  "date": "{date}",
-  "@date": {
-    "placeholders": {
-      "date": {
-        "type": "DateTime",
-        "format": "yMd"
-      }
-    }
-  },
   "creation_date": "Ajouté le {date}",
-  "@creation_date": {
-    "placeholders": {
-      "date": {
-        "type": "DateTime",
-        "format": "yMd"
-      }
-    }
-  },
   "last_modified_date": "Dernière modification le {date}",
-  "@last_modified_date": {
-    "placeholders": {
-      "date": {
-        "type": "DateTime",
-        "format": "yMd"
-      }
-    }
-  },
   "name_input": "Nom",
   "color_input": "Couleur",
   "degree_input": "Degré",
@@ -38,6 +13,7 @@
   "edit": "Modifier",
   "cancel": "Annuler",
   "error": "Erreur",
+  "close": "Fermer",
   "add_beer": "Ajouter une bière",
   "picture_action_gallery": "Sélectionner une photo",
   "picture_action_camera": "Prendre une photo",
@@ -48,6 +24,19 @@
   "open_settings": "Ouvrir les réglages",
   "take_picture": "Prendre une photo",
   "take_picture_no_camera": "Aucune camera n'est disponible pour prendre une photo",
+  "error_title": "Oops ! Quelque chose ne s'est pas bien passé",
+  "error_content": "Veuillez réessayer plus tard, si le problème persiste, un rapport d'erreur a été généré",
+  "error_see_report": "Voir le rapport",
+  "explore": "Explorer",
+  "explore_beer_color_repartition": "Couleurs de bière les plus appréciées",
+  "explore_last_added_beer": "Dernière bière ajoutée",
+  "explore_most_drunken_beer_style": "Style de bière le plus apprecié",
+  "explore_most_drunken_beer_country": "Pays le plus apprecié",
+  "explore_most_drunken_beer": "Bière la plus bue",
+  "explore_favorite_list": "On se refait une valeur sûre",
+  "explore_drink_count": "Bue {count} fois",
+  "favorites": "Favoris",
+  "favorites_count": "{count}/{total} Bières en favoris",
   "settings": "Paramètres",
   "settings_about": "A propos",
   "settings_about_hoppy_title": "Qu'est-ce que Hoppy ?",

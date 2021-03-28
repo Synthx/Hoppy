@@ -7,6 +7,7 @@ import 'package:hoppy/screens/main/explore/explore.dart';
 import 'package:hoppy/screens/screens.dart';
 import 'package:hoppy/store/store.dart';
 import 'package:hoppy/widget/widget.dart';
+import 'package:intl/intl.dart';
 
 class LastAddedBeerCard extends StatelessWidget {
   ImageProvider _getBackgroundImage(String? imagePath) {
@@ -76,7 +77,8 @@ class LastAddedBeerCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    Localization.of(context).creation_date(beer.creationDate!),
+                    Localization.of(context).creation_date(
+                        DateFormat.yMd().format(beer.creationDate!)),
                     style: cardContentStyle(context),
                   ),
                   MoreCardButton(

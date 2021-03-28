@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
-import 'package:hoppy/generated/l10n.dart';
+import 'package:intl/intl.dart';
 
 class BeerLastCheckIns extends StatelessWidget {
   final List<CheckIn> checkIns;
@@ -53,7 +53,7 @@ class BeerLastCheckIns extends StatelessWidget {
                         ),
                       ),
                     ),
-                  Text(Localization.of(context).date(checkIn.date)),
+                  Text(DateFormat.yMd().format(checkIn.date)),
                   const Spacer(flex: 1),
                   const SizedBox(width: 20),
                   Text('${checkIn.rating} ⭐'),
