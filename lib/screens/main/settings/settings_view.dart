@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'settings.dart';
@@ -8,8 +9,14 @@ class SettingsView extends StatefulWidget {
   State createState() => _SettingsViewState();
 }
 
-class _SettingsViewState extends State<SettingsView> {
-  void _goToHelpScreen() {}
+class _SettingsViewState extends State<SettingsView>
+    with AutomaticKeepAliveClientMixin {
+  void _goToHelpScreen() {
+    Navigator.push(
+      context,
+      TermsView.route(),
+    );
+  }
 
   void _goToAboutScreen() {
     Navigator.push(
@@ -21,7 +28,11 @@ class _SettingsViewState extends State<SettingsView> {
   Future<void> _openGithub() async {
     final githubUri = 'https://github.com/Synthx/Hoppy';
     if (await canLaunch(githubUri)) {
-      await launch(githubUri, forceWebView: true, enableJavaScript: true);
+      await launch(
+        githubUri,
+        forceWebView: true,
+        enableJavaScript: true,
+      );
     }
   }
 
@@ -39,10 +50,14 @@ class _SettingsViewState extends State<SettingsView> {
   }
 
   @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Paramètres'),
+        title: Text(AppLocalizations.of(context)!.settings),
       ),
       backgroundColor: Theme.of(context).cardColor,
       body: ListView(
@@ -54,22 +69,22 @@ class _SettingsViewState extends State<SettingsView> {
           DarkModeTile(),
           const SizedBox(height: 48),
           LinkTile(
-            label: 'A propos',
+            label: AppLocalizations.of(context)!.settings_about,
             onTap: () => _goToAboutScreen(),
           ),
           const Divider(height: 0),
           LinkTile(
-            label: 'Aide',
+            label: AppLocalizations.of(context)!.settings_terms,
             onTap: () => _goToHelpScreen(),
           ),
           const Divider(height: 0),
           LinkTile(
-            label: 'Github',
+            label: AppLocalizations.of(context)!.settings_github,
             onTap: () => _openGithub(),
           ),
           const Divider(height: 0),
           LinkTile(
-            label: 'Nous contacter',
+            label: AppLocalizations.of(context)!.settings_contact,
             onTap: () => _sendMailTo(),
           ),
           const SizedBox(height: 48),
