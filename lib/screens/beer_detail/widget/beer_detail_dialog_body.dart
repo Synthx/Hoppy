@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hoppy/core/core.dart';
 import 'package:hoppy/generated/l10n.dart';
 import 'package:hoppy/screens/beer_detail/beer_detail.dart';
+import 'package:intl/intl.dart';
 
 class BeerDetailDialogBody extends StatelessWidget {
   @override
@@ -49,13 +50,13 @@ class BeerDetailDialogBody extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        Localization.of(context)
-                            .creation_date(beer.creationDate!),
+                        Localization.of(context).creation_date(
+                            DateFormat.yMd().format(beer.creationDate!)),
                       ),
                       const SizedBox(height: 10),
                       Text(
-                        Localization.of(context)
-                            .last_modified_date(beer.lastModifiedDate!),
+                        Localization.of(context).last_modified_date(
+                            DateFormat.yMd().format(beer.lastModifiedDate!)),
                       ),
                     ],
                   ),

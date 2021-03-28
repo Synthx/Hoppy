@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
+import 'package:hoppy/generated/l10n.dart';
 import 'package:hoppy/screens/main/explore/explore.dart';
 import 'package:hoppy/store/store.dart';
 
@@ -49,7 +50,7 @@ class MostDrunkenBeerCountryCard extends StatelessWidget {
             children: [
               const Spacer(flex: 2),
               Text(
-                'Pays le plus apprecié',
+                Localization.of(context).explore_most_drunken_beer_country,
                 textAlign: TextAlign.center,
                 style: cardSubtitleStyle(context),
               ),
@@ -64,7 +65,8 @@ class MostDrunkenBeerCountryCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Bue ${state.checkInStatistic.drunkenCountryRepartition[country]} fois',
+                    Localization.of(context).explore_drink_count(state
+                        .checkInStatistic.drunkenCountryRepartition[country]!),
                     style: cardContentStyle(context),
                   ),
                   MoreCardButton(

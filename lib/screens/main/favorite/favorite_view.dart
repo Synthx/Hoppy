@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
+import 'package:hoppy/generated/l10n.dart';
 import 'package:hoppy/screens/screens.dart';
 import 'package:hoppy/store/cubit/cubit.dart';
 import 'package:hoppy/store/store.dart';
@@ -26,7 +27,7 @@ class _FavoriteViewState extends State<FavoriteView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Favoris'),
+        title: Text(Localization.of(context).favorites),
       ),
       body: BlocBuilder<FavoriteCubit, FavoriteState>(
         buildWhen: (prev, curr) => prev.beers != curr.beers,
@@ -40,7 +41,8 @@ class _FavoriteViewState extends State<FavoriteView> {
             physics: const BouncingScrollPhysics(),
             padding: const EdgeInsets.all(kDefaultPadding),
             children: [
-              Text('${beers.length}/$kMaxFavorite'),
+              Text(Localization.of(context)
+                  .favorites_count(beers.length, kMaxFavorite)),
               const SizedBox(height: 10),
               GridView.builder(
                 shrinkWrap: true,

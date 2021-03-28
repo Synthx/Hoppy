@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hoppy/core/core.dart';
-import 'package:hoppy/generated/l10n.dart';
 import 'package:hoppy/screens/new_check_in/new_check_in.dart';
+import 'package:intl/intl.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 class CheckInDateSelector extends StatefulWidget {
@@ -54,7 +54,7 @@ class _CheckInDateSelectorState extends State<CheckInDateSelector> {
       child: ListTile(
         onTap: () => _openDatePicker(),
         title: const Text('Date *'),
-        subtitle: Text(Localization.of(context).date(_selectedDate)),
+        subtitle: Text(DateFormat.yMd().format(_selectedDate)),
         isThreeLine: false,
         trailing: const Icon(Icons.chevron_right),
       ),
