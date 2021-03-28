@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hoppy/core/core.dart';
+import 'package:hoppy/generated/l10n.dart';
 import 'package:hoppy/screens/screens.dart';
 import 'package:hoppy/store/store.dart';
 
@@ -12,9 +13,11 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  late final Timer timer;
   final _settingCompleter = Completer<bool>();
   final _favoriteCompleter = Completer<bool>();
   final _statisticCompleter = Completer<bool>();
+  String? key;
 
   void _completeSetting() {
     _settingCompleter.complete(true);
@@ -28,9 +31,22 @@ class _SplashScreenState extends State<SplashScreen> {
     _statisticCompleter.complete(true);
   }
 
+  void _changeText() {
+    final keys = ['draft', 'liver', 'beer', 'glass', 'other'];
+    setState(() {
+      key = keys.random();
+    });
+  }
+
   @override
   void initState() {
     super.initState();
+    // change text quote
+    _changeText();
+    timer = Timer.periodic(
+      Duration(seconds: 3),
+      (_) => _changeText(),
+    );
     // launch loading
     context.read<SettingsCubit>().load();
     context.read<FavoriteCubit>().load();
@@ -40,6 +56,7 @@ class _SplashScreenState extends State<SplashScreen> {
       _settingCompleter.future,
       _favoriteCompleter.future,
       _statisticCompleter.future,
+      Future.delayed(Duration(seconds: 4)),
     ]).then((_) {
       Navigator.pushAndRemoveUntil(
         context,
@@ -47,6 +64,12 @@ class _SplashScreenState extends State<SplashScreen> {
         (_) => false,
       );
     });
+  }
+
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
   }
 
   @override
@@ -70,21 +93,32 @@ class _SplashScreenState extends State<SplashScreen> {
         backgroundColor: Theme.of(context).primaryColor,
         body: SafeArea(
           child: Container(
-            padding: const EdgeInsets.all(kDefaultPadding),
+            padding: const EdgeInsets.all(kDefaultPadding * 2),
             width: double.infinity,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const SizedBox(),
-                const Text(
-                  'Splash',
+                const Spacer(flex: 1),
+                if (key != null)
+                  Text(
+                    Localization.of(context).splash_texts(key!),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
+                  ),
+                const Spacer(flex: 1),
+                const CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                ),
+                const SizedBox(height: 20),
+                Text(
+                  Localization.of(context).legal_text,
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.white,
                   ),
-                ),
-                const CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                 ),
               ],
             ),

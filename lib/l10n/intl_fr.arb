@@ -77,5 +77,7 @@
   "settings_terms_right_content": "La législation française s'applique au présent contrat. En cas d'absence de résolution amiable d'un litige né entre les parties, les tribunaux français seront seuls compétents pour en connaître.\nPour toute question relative à l’application des présentes CGU, vous pouvez joindre l’éditeur aux coordonnées inscrites à l’ARTICLE 1.",
   "settings_help": "Aide",
   "settings_github": "Github",
-  "settings_contact": "Nous contacter"
+  "settings_contact": "Nous contacter",
+  "legal_text": "L'abus d'alcool est dangereux pour la santé, à consommer avec modération",
+  "splash_texts": "{quote, select, draft {Remplissage du fut...} liver {Préparation du foie...} beer {Une petite bière pour la route ?} glass {Nettoyage du verre...} other {Qu'est-ce qu'on boit ?}}"
 }
