@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:hoppy/generated/l10n.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'settings.dart';
@@ -57,7 +57,7 @@ class _SettingsViewState extends State<SettingsView>
     super.build(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.settings),
+        title: Text(Localization.of(context).settings),
       ),
       backgroundColor: Theme.of(context).cardColor,
       body: ListView(
@@ -69,22 +69,22 @@ class _SettingsViewState extends State<SettingsView>
           DarkModeTile(),
           const SizedBox(height: 48),
           LinkTile(
-            label: AppLocalizations.of(context)!.settings_about,
+            label: Localization.of(context).settings_about,
             onTap: () => _goToAboutScreen(),
           ),
           const Divider(height: 0),
           LinkTile(
-            label: AppLocalizations.of(context)!.settings_terms,
+            label: Localization.of(context).settings_terms,
             onTap: () => _goToHelpScreen(),
           ),
           const Divider(height: 0),
           LinkTile(
-            label: AppLocalizations.of(context)!.settings_github,
+            label: Localization.of(context).settings_github,
             onTap: () => _openGithub(),
           ),
           const Divider(height: 0),
           LinkTile(
-            label: AppLocalizations.of(context)!.settings_contact,
+            label: Localization.of(context).settings_contact,
             onTap: () => _sendMailTo(),
           ),
           const SizedBox(height: 48),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
+import 'package:hoppy/generated/l10n.dart';
 
 class BeerSomeStatistic extends StatelessWidget {
   final DrunkenBeerStatistic beerStatistic;
@@ -43,7 +43,7 @@ class BeerSomeStatistic extends StatelessWidget {
               const VerticalDivider(width: 0),
               _BeerStatisticCard(
                 title: 'Dernière fois',
-                value: AppLocalizations.of(context)!
+                value: Localization.of(context)
                     .date(beerStatistic.lastCheckIns.first.date),
               ),
               const VerticalDivider(width: 0),

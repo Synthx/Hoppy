@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hoppy/core/core.dart';
+import 'package:hoppy/generated/l10n.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class TakePictureScreen extends StatefulWidget {
@@ -28,13 +28,13 @@ class _TakePictureScreenState extends State<TakePictureScreen>
 
     if (!isGranted) {
       await context.showActionDialog(
-        title: AppLocalizations.of(context)!.need_permission,
-        content: AppLocalizations.of(context)!.need_permission_camera,
+        title: Localization.of(context).need_permission,
+        content: Localization.of(context).need_permission_camera,
         icon: Text(
           '📷',
           style: TextStyle(fontSize: 50, color: Colors.black),
         ),
-        action: AppLocalizations.of(context)!.open_settings,
+        action: Localization.of(context).open_settings,
         onAction: () => openAppSettings(),
       );
       context.pop();
@@ -45,8 +45,8 @@ class _TakePictureScreenState extends State<TakePictureScreen>
       );
     } else {
       await context.showNotificationDialog(
-        title: AppLocalizations.of(context)!.error,
-        content: AppLocalizations.of(context)!.take_picture_no_camera,
+        title: Localization.of(context).error,
+        content: Localization.of(context).take_picture_no_camera,
         icon: Icon(
           Icons.error_outline,
           color: Colors.red,
@@ -194,7 +194,7 @@ class _TakePictureScreenState extends State<TakePictureScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.take_picture),
+        title: Text(Localization.of(context).take_picture),
         leading: IconButton(
           onPressed: () => _closeScreen(),
           icon: Icon(Icons.chevron_left),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hoppy/core/core.dart';
+import 'package:hoppy/generated/l10n.dart';
 
 class AboutView extends StatelessWidget {
   static MaterialPageRoute route() => MaterialPageRoute(
@@ -15,7 +15,7 @@ class AboutView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.settings_about),
+        title: Text(Localization.of(context).settings_about),
         leading: IconButton(
           onPressed: () => _back(context),
           icon: const Icon(Icons.chevron_left),
@@ -63,26 +63,24 @@ class AboutView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    AppLocalizations.of(context)!.settings_about_hoppy_title,
+                    Localization.of(context).settings_about_hoppy_title,
                     style: Theme.of(context).textTheme.headline6,
                   ),
                   const SizedBox(height: 20),
                   Text(
-                    AppLocalizations.of(context)!.settings_about_hoppy_content,
+                    Localization.of(context).settings_about_hoppy_content,
                     style: Theme.of(context).textTheme.bodyText2!.copyWith(
                           fontSize: 16,
                         ),
                   ),
                   const SizedBox(height: 40),
                   Text(
-                    AppLocalizations.of(context)!
-                        .settings_about_good_know_title,
+                    Localization.of(context).settings_about_good_know_title,
                     style: Theme.of(context).textTheme.headline6,
                   ),
                   const SizedBox(height: 20),
                   Text(
-                    AppLocalizations.of(context)!
-                        .settings_about_good_know_content,
+                    Localization.of(context).settings_about_good_know_content,
                     style: Theme.of(context).textTheme.bodyText2!.copyWith(
                           fontSize: 16,
                         ),

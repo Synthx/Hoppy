@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
+import 'package:hoppy/generated/l10n.dart';
 import 'package:hoppy/screens/main/explore/explore.dart';
 import 'package:hoppy/screens/screens.dart';
 import 'package:hoppy/store/store.dart';
@@ -76,8 +76,7 @@ class LastAddedBeerCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    AppLocalizations.of(context)!
-                        .creation_date(beer.creationDate!),
+                    Localization.of(context).creation_date(beer.creationDate!),
                     style: cardContentStyle(context),
                   ),
                   MoreCardButton(

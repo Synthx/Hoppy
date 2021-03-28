@@ -12,6 +12,7 @@
 # Generated files
 **/*.g.dart
 **/*.freezed.dart
+lib/generated/
 
 # IntelliJ related
 *.iml
