@@ -1,9 +1,9 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
+import 'package:hoppy/generated/l10n.dart';
 
 class SelectUploadPictureAction extends StatelessWidget {
   final bool havePicture;
@@ -40,7 +40,7 @@ class SelectUploadPictureAction extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           ListTile(
-            title: Text(AppLocalizations.of(context)!.picture_action_gallery),
+            title: Text(Localization.of(context).picture_action_gallery),
             leading: const Icon(Icons.image),
             onTap: () => _selectAction(context, UploadPictureAction.GALLERY),
             contentPadding: const EdgeInsets.symmetric(
@@ -49,7 +49,7 @@ class SelectUploadPictureAction extends StatelessWidget {
             ),
           ),
           ListTile(
-            title: Text(AppLocalizations.of(context)!.picture_action_camera),
+            title: Text(Localization.of(context).picture_action_camera),
             leading: const Icon(Icons.add_a_photo),
             onTap: () => _selectAction(context, UploadPictureAction.CAMERA),
             contentPadding: const EdgeInsets.symmetric(
@@ -59,7 +59,7 @@ class SelectUploadPictureAction extends StatelessWidget {
           ),
           if (havePicture)
             ListTile(
-              title: Text(AppLocalizations.of(context)!.picture_action_delete),
+              title: Text(Localization.of(context).picture_action_delete),
               leading: const Icon(Icons.clear),
               onTap: () => _selectAction(context, UploadPictureAction.DELETE),
               contentPadding: const EdgeInsets.symmetric(
@@ -71,7 +71,7 @@ class SelectUploadPictureAction extends StatelessWidget {
           const Divider(height: 0),
           ListTile(
             title: Center(
-              child: Text(AppLocalizations.of(context)!.cancel),
+              child: Text(Localization.of(context).cancel),
             ),
             onTap: () => _closeDialog(context),
             contentPadding: const EdgeInsets.symmetric(

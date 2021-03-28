@@ -47,7 +47,7 @@ dev_dependencies:
   pedantic: ^1.11.0
 
 flutter:
-  generate: true
+  generate: false
   uses-material-design: true
   fonts:
     - family: SFPro
@@ -60,3 +60,10 @@ flutter:
     - assets/images/
     - assets/images/beer-colors/
     - assets/fonts/
+
+flutter_intl:
+  enabled: true
+  class_name: Localization
+  main_locale: fr
+  arb_dir: lib/l10n
+  output_dir: lib/generated

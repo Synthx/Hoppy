@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
+import 'package:hoppy/generated/l10n.dart';
 import 'package:hoppy/widget/widget.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -75,13 +75,13 @@ class _SelectPictureState extends State<SelectPicture> {
     } on PlatformException catch (e) {
       if (e.code == 'photo_access_denied') {
         await context.showActionDialog(
-          title: AppLocalizations.of(context)!.need_permission,
-          content: AppLocalizations.of(context)!.need_permission_gallery,
+          title: Localization.of(context).need_permission,
+          content: Localization.of(context).need_permission_gallery,
           icon: Text(
             '📷',
             style: TextStyle(fontSize: 50, color: Colors.black),
           ),
-          action: AppLocalizations.of(context)!.open_settings,
+          action: Localization.of(context).open_settings,
           onAction: () => openAppSettings(),
         );
       } else {
