@@ -7,7 +7,7 @@ class StoreObserver extends BlocObserver {
 
   @override
   void onChange(BlocBase bloc, Change change) {
-    _logger.info('${bloc.runtimeType}');
+    _logger.info('${bloc.runtimeType} : ${change.nextState}');
     super.onChange(bloc, change);
   }
 
