@@ -1,5 +1,6 @@
 import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
+import 'package:uuid/uuid.dart';
 
 class BeerRepository extends AuditableRepository<Beer> {
   const BeerRepository() : super('beers');
@@ -54,5 +55,32 @@ class BeerRepository extends AuditableRepository<Beer> {
       lastAdded: beers.isNotEmpty ? beers.first : null,
       mostDrunk: mostDrunk,
     );
+  }
+
+  @override
+  Future<Beer> insert(Beer object) async {
+    final id = Uuid().v1();
+    final box = await openBox();
+    await box.put(
+      id,
+      object.copyWith(
+        id: id,
+        creationDate: DateTime.now(),
+        lastModifiedDate: DateTime.now(),
+      ),
+    );
+    return box.get(id)!;
+  }
+
+  @override
+  Future<Beer> update(Beer object) async {
+    final box = await openBox();
+    await box.put(
+      object.id,
+      object.copyWith(
+        lastModifiedDate: DateTime.now(),
+      ),
+    );
+    return box.get(object.id)!;
   }
 }

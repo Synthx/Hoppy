@@ -1,5 +1,6 @@
 import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
+import 'package:uuid/uuid.dart';
 
 class CheckInRepository extends AuditableRepository<CheckIn> {
   final BeerRepository beerRepository;
@@ -47,17 +48,38 @@ class CheckInRepository extends AuditableRepository<CheckIn> {
     final box = await openBox();
     final checkIns = box.values.where((e) => e.beer.id == beer.id);
     for (var checkIn in checkIns) {
-      await checkIn.delete();
+      await delete(checkIn.id!);
     }
   }
 
   @override
   Future<CheckIn> insert(CheckIn object) async {
+    final id = Uuid().v1();
     final beer = object.beer;
-    beer.drinkCount += 1;
-    beer.averageRating = beer.averageRating.average(object.rating);
-    await beerRepository.update(beer);
+    await beerRepository.update(beer.copyWith(
+      drinkCount: beer.drinkCount + 1,
+      averageRating: beer.averageRating.average(object.rating),
+    ));
 
-    return super.insert(object);
+    final box = await openBox();
+    await box.put(
+        id,
+        object.copyWith(
+          id: id,
+          creationDate: DateTime.now(),
+          lastModifiedDate: DateTime.now(),
+        ));
+    return box.get(id)!;
+  }
+
+  @override
+  Future<CheckIn> update(CheckIn object) async {
+    final box = await openBox();
+    await box.put(
+        object.id,
+        object.copyWith(
+          lastModifiedDate: DateTime.now(),
+        ));
+    return box.get(object.id)!;
   }
 }

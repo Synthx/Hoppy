@@ -18,12 +18,12 @@ class NewCheckInDialogFooter extends StatelessWidget {
 
   void _addCheckIn(BuildContext context) {
     final value = form.value;
-    final checkIn = CheckIn(
+    final checkIn = CheckInDto(
       rating: value['rating'] as double,
       date: value['date'] as DateTime,
       servingStyle: value['servingStyle'] as ServingStyle,
-      description: value['description'] as String?,
-      location: value['location'] as CheckInLocation,
+      comment: value['comment'] as String?,
+      location: value['location'] as CheckInLocation?,
       beer: beer,
     );
     context.read<NewCheckInCubit>().addCheckIn(checkIn);
