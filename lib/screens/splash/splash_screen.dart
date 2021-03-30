@@ -56,7 +56,7 @@ class _SplashScreenState extends State<SplashScreen> {
       _settingCompleter.future,
       _favoriteCompleter.future,
       _statisticCompleter.future,
-      Future.delayed(Duration(seconds: 4)),
+      Future.delayed(Duration(seconds: 2)),
     ]).then((_) {
       Navigator.pushAndRemoveUntil(
         context,

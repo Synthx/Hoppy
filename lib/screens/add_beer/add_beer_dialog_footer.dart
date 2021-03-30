@@ -15,7 +15,7 @@ class AddBeerDialogFooter extends StatelessWidget {
   void _addBeer(BuildContext context) {
     final value = form.value;
     final degreeStr = (value['degree'] as String).replaceAll(',', '.');
-    final beer = Beer(
+    final beerDto = BeerDto(
       name: value['name'] as String,
       degree: double.parse(degreeStr),
       color: value['color'] as BeerColor,
@@ -24,7 +24,7 @@ class AddBeerDialogFooter extends StatelessWidget {
       picturePath: value['picturePath'] as String?,
       title: value['title'] as String?,
     );
-    context.read<AddBeerCubit>().addBeer(beer);
+    context.read<AddBeerCubit>().addBeer(beerDto);
   }
 
   @override

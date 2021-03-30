@@ -26,8 +26,9 @@ class FavoriteCubit extends Cubit<FavoriteState> {
         throw MaxFavoriteNumberException();
       }
 
-      beer.favorite = true;
-      await beerRepository.update(beer);
+      await beerRepository.update(beer.copyWith(
+        favorite: true,
+      ));
       emit(state.copyWith(
         beers: state.beers + [beer],
         loading: false,
@@ -43,13 +44,25 @@ class FavoriteCubit extends Cubit<FavoriteState> {
   Future<void> removeBeer(Beer beer) async {
     emit(state.copyWith(loading: true, error: null));
     try {
-      beer.favorite = false;
-      await beerRepository.update(beer);
-      final beers = state.beers.where((b) => b.key != beer.key).toList();
+      await beerRepository.update(beer.copyWith(
+        favorite: false,
+      ));
+      final beers = state.beers.where((b) => b.id != beer.id).toList();
       emit(state.copyWith(beers: beers, loading: false));
     } catch (e, stackTrace) {
       addError(e, stackTrace);
       emit(state.copyWith(loading: false));
+    }
+  }
+
+  void beerEdited(Beer beer) {
+    var currentList = state.beers.toList();
+    var index = currentList.indexWhere((e) => e.id == beer.id);
+    if (index != -1) {
+      currentList[index] = beer;
+      emit(state.copyWith(
+        beers: currentList,
+      ));
     }
   }
 }

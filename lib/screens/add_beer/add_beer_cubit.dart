@@ -18,26 +18,34 @@ class AddBeerCubit extends Cubit<AddBeerState> {
           loading: false,
         ));
 
-  Future<void> addBeer(Beer beer) async {
+  Future<void> addBeer(BeerDto beerDto) async {
     emit(state.copyWith(loading: true, error: null));
 
-    try {
-      // save picture into app path
-      beer.picturePath = await Util.saveFileWithPath(beer.picturePath);
+    // save picture into app path
+    beerDto = beerDto.copyWith(
+      picturePath: await Util.saveFileWithPath(beerDto.picturePath),
+    );
 
-      // save beer
-      final createdBeer = await beerRepository.insert(beer);
+    // create beer entity
+    final beer = Beer(
+      creationDate: DateTime.now(),
+      lastModifiedDate: DateTime.now(),
+      name: beerDto.name,
+      degree: beerDto.degree,
+      color: beerDto.color,
+      style: beerDto.style,
+      country: beerDto.country,
+      title: beerDto.title,
+      picturePath: beerDto.picturePath,
+    );
 
-      // change statistic
-      statisticCubit.addBeer(createdBeer);
-      searchCubit.addBeer(createdBeer);
+    // save beer
+    final createdBeer = await beerRepository.insert(beer);
 
-      emit(state.copyWith(loading: false, beer: createdBeer));
-    } catch (e) {
-      // TODO: write into log file (or send it to firebase?)
-      print(e);
+    // update state
+    statisticCubit.addBeer(createdBeer);
+    searchCubit.addBeer(createdBeer);
 
-      emit(state.copyWith(loading: false, error: e));
-    }
+    emit(state.copyWith(loading: false, beer: createdBeer));
   }
 }
