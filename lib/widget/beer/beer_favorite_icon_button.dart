@@ -24,7 +24,7 @@ class BeerFavoriteIconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<FavoriteCubit, FavoriteState>(
-      buildWhen: (prev, curr) => prev.beers.length != curr.beers.length,
+      buildWhen: (prev, curr) => prev.beers != curr.beers,
       builder: (context, state) {
         if (state.beers.contains(beer)) {
           return IconButton(
