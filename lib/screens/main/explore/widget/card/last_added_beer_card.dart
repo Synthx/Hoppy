@@ -78,7 +78,7 @@ class LastAddedBeerCard extends StatelessWidget {
                 children: [
                   Text(
                     Localization.of(context).creation_date(
-                        DateFormat.yMd().format(beer.creationDate!)),
+                        DateFormat.yMd().format(beer.creationDate)),
                     style: cardContentStyle(context),
                   ),
                   MoreCardButton(

@@ -53,7 +53,7 @@ class BeerActions extends StatelessWidget {
           Flexible(
             child: _RoundedButton(
               iconData: Icons.edit,
-              color: Theme.of(context).textTheme.bodyText2!.color!,
+              color: Theme.of(context).textTheme.bodyText1!.color!,
               onTap: () => _openEditBeerDialog(context),
             ),
           ),
@@ -92,7 +92,8 @@ class _RoundedButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(30),
         ),
         side: BorderSide(
-          color: color,
+          color: Theme.of(context).textTheme.bodyText2!.color!,
+          width: 0.4,
         ),
       ),
       child: Icon(

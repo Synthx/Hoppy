@@ -24,7 +24,7 @@ class _TakePictureScreenState extends State<TakePictureScreen>
 
   Future<void> _initializeCamera() async {
     final cameras = await availableCameras();
-    final isGranted = await Permission.camera.isGranted;
+    final isGranted = await Permission.camera.request().isGranted;
 
     if (!isGranted) {
       await context.showActionDialog(
@@ -50,7 +50,7 @@ class _TakePictureScreenState extends State<TakePictureScreen>
         icon: Icon(
           Icons.error_outline,
           color: Colors.red,
-          size: 32,
+          size: 50,
         ),
       );
       context.pop();

@@ -51,12 +51,12 @@ class BeerDetailDialogBody extends StatelessWidget {
                     children: [
                       Text(
                         Localization.of(context).creation_date(
-                            DateFormat.yMd().format(beer.creationDate!)),
+                            DateFormat.yMd().format(beer.creationDate)),
                       ),
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 4),
                       Text(
                         Localization.of(context).last_modified_date(
-                            DateFormat.yMd().format(beer.lastModifiedDate!)),
+                            DateFormat.yMd().format(beer.lastModifiedDate)),
                       ),
                     ],
                   ),

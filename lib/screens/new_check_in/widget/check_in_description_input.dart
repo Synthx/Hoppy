@@ -14,18 +14,20 @@ class CheckInDescriptionInput extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Description',
+            'Commentaire',
             style: Theme.of(context).textTheme.bodyText1!.copyWith(
                   fontSize: 16,
                 ),
           ),
           const SizedBox(height: 10),
           ReactiveTextField(
-            formControlName: 'description',
+            formControlName: 'comment',
             maxLines: 4,
             showErrors: (_) => false,
+            keyboardType: TextInputType.text,
+            textInputAction: TextInputAction.done,
             decoration: InputDecoration(
-              hintText: 'Laissez une note',
+              hintText: 'Laissez un commentaire sur votre bière',
               hintStyle: TextStyle(
                 fontSize: 14,
               ),

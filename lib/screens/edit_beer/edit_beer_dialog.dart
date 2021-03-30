@@ -25,7 +25,6 @@ class EditBeerDialog extends StatefulWidget {
 
 class _EditBeerDialogState extends State<EditBeerDialog> {
   final _editBeerForm = FormGroup({
-    'id': FormControl<String>(),
     'picturePath': FormControl<String?>(),
     'name': FormControl<String>(
       validators: [Validators.required, Validators.maxLength(64)],
@@ -42,8 +41,11 @@ class _EditBeerDialogState extends State<EditBeerDialog> {
     'country': FormControl<BeerCountry>(
       validators: [Validators.required],
     ),
-    'degree': FormControl<double>(
-      validators: [Validators.required],
+    'degree': FormControl<String>(
+      validators: [
+        Validators.required,
+        Validators.pattern(r'^[0-9]{1,2}((.|,)[0-9]{1,2})?$'),
+      ],
     ),
   });
 
@@ -81,6 +83,7 @@ class _EditBeerDialogState extends State<EditBeerDialog> {
       create: (_) => EditBeerCubit(
         beerRepository: getIt(),
         statisticCubit: context.read(),
+        favoriteCubit: context.read(),
         searchCubit: context.read(),
       ),
       child: MultiBlocListener(
@@ -107,9 +110,10 @@ class _EditBeerDialogState extends State<EditBeerDialog> {
             ),
             bottomNavigationBar: EditBeerDialogFooter(
               form: _editBeerForm,
+              beer: widget.beer,
             ),
             body: FutureBuilder<Beer?>(
-              future: getIt<BeerRepository>().find(widget.beer.key),
+              future: getIt<BeerRepository>().find(widget.beer.id!),
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
                   return Center(
@@ -124,12 +128,13 @@ class _EditBeerDialogState extends State<EditBeerDialog> {
                 }
 
                 _editBeerForm.patchValue({
-                  'id': beer.id,
                   'name': beer.name,
                   'color': beer.color,
-                  'degree': beer.degree,
+                  'degree': beer.degree.toString(),
                   'style': beer.style,
                   'country': beer.country,
+                  'title': beer.title,
+                  'picturePath': beer.picturePath,
                 });
                 return SingleChildScrollView(
                   child: Column(

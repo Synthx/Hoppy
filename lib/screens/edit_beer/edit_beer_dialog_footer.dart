@@ -7,24 +7,29 @@ import 'package:reactive_forms/reactive_forms.dart';
 
 class EditBeerDialogFooter extends StatelessWidget {
   final FormGroup form;
+  final Beer beer;
 
   const EditBeerDialogFooter({
     required this.form,
+    required this.beer,
   });
 
   void _editBeer(BuildContext context) {
     final value = form.value;
-    final beer = Beer(
-      id: value['id'] as String,
+    final degreeStr = (value['degree'] as String).replaceAll(',', '.');
+    final beerDto = BeerDto(
       name: value['name'] as String,
-      degree: value['degree'] as double,
+      degree: double.parse(degreeStr),
       color: value['color'] as BeerColor,
       style: value['style'] as BeerStyle,
       country: value['country'] as BeerCountry,
       picturePath: value['picturePath'] as String?,
       title: value['title'] as String?,
     );
-    context.read<EditBeerCubit>().edit(beer);
+    context.read<EditBeerCubit>().edit(
+          id: beer.id!,
+          beerDto: beerDto,
+        );
   }
 
   @override
