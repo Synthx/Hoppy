@@ -69,9 +69,6 @@ class AboutView extends StatelessWidget {
                   const SizedBox(height: 20),
                   Text(
                     Localization.of(context).settings_about_hoppy_content,
-                    style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                          fontSize: 16,
-                        ),
                   ),
                   const SizedBox(height: 40),
                   Text(
@@ -81,9 +78,6 @@ class AboutView extends StatelessWidget {
                   const SizedBox(height: 20),
                   Text(
                     Localization.of(context).settings_about_good_know_content,
-                    style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                          fontSize: 16,
-                        ),
                   ),
                 ],
               ),
