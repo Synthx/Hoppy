@@ -13,23 +13,23 @@ dependencies:
     sdk: flutter
   get_it: ^6.0.0
   equatable: ^2.0.0
-  hive: ^2.0.0
+  hive: ^2.0.2
   hive_flutter: ^1.0.0
   bloc: ^7.0.0-nullsafety.3
   flutter_bloc: ^7.0.0-nullsafety.3
   package_info: ^2.0.0
-  reactive_forms: ^10.0.2
+  reactive_forms: ^10.0.3
   camera: ^0.8.1
   path: ^1.8.0
   path_provider: ^2.0.1
-  image_picker: ^0.7.2
+  image_picker: ^0.7.4
   json_annotation: ^4.0.0
   freezed_annotation: ^0.14.0
   flutter_rating_bar: ^4.0.0
   url_launcher: ^6.0.3
   intl: ^0.17.0
   charts_flutter: ^0.10.0
-  uuid: ^3.0.2
+  uuid: ^3.0.3
   logging: ^1.0.1
   device_info: ^2.0.0
   share: ^2.0.1
@@ -39,11 +39,11 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   bloc_test: ^8.0.0-nullsafety.2
-  mockito: ^5.0.2
-  hive_generator: ^1.0.0
-  json_serializable: ^4.0.2
-  freezed: ^0.14.0+1
-  build_runner: ^1.11.5
+  mockito: ^5.0.3
+  hive_generator: ^1.0.1
+  json_serializable: ^4.1.0
+  freezed: ^0.14.1+1
+  build_runner: ^1.12.2
   pedantic: ^1.11.0
 
 flutter:
