@@ -5,21 +5,21 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
-import 'package:hoppy/generated/l10n.dart';
 import 'package:hoppy/screens/screens.dart';
-import 'package:hoppy/screens/search_beer/search_beer_dialog_header.dart';
 import 'package:hoppy/widget/widget.dart';
 
 import 'search_beer_cubit.dart';
 import 'search_beer_state.dart';
 import 'widget/no_beers_found.dart';
+import 'widget/search_input.dart';
+import 'widget/waiting_for_keyword.dart';
 
 class SearchBeerDialog extends StatefulWidget {
   static MaterialPageRoute route() => MaterialPageRoute(
         builder: (context) => BlocProvider<SearchBeerCubit>(
           create: (_) => SearchBeerCubit(
             beerRepository: getIt(),
-          )..load(),
+          ),
           child: SearchBeerDialog(),
         ),
         fullscreenDialog: true,
@@ -33,7 +33,10 @@ class _SearchBeerDialogState extends State<SearchBeerDialog> {
   final ScrollController _scrollController = ScrollController(
     initialScrollOffset: 0,
   );
-  bool _inputFocused = false;
+
+  void _closeDialog() {
+    Navigator.pop(context);
+  }
 
   Future<void> _openAddBeerDialog() async {
     final beer = await Navigator.push<Beer?>(
@@ -79,12 +82,6 @@ class _SearchBeerDialogState extends State<SearchBeerDialog> {
     context.read<SearchBeerCubit>().keywordChanged(value);
   }
 
-  void _onInputFocused(bool focused) {
-    setState(() {
-      _inputFocused = focused;
-    });
-  }
-
   @override
   void initState() {
     super.initState();
@@ -101,26 +98,30 @@ class _SearchBeerDialogState extends State<SearchBeerDialog> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
-        toolbarHeight: 70,
-        title: SearchBeerDialogHeader(
+        title: const Text('Rechercher'),
+        leading: IconButton(
+          icon: const Icon(Icons.close),
+          onPressed: () => _closeDialog(),
+        ),
+        bottom: SearchInput(
           onValueChanged: (value) => _onKeywordChanged(value),
-          onFocused: (focused) => _onInputFocused(focused),
         ),
       ),
-      floatingActionButton: _inputFocused
-          ? null
-          : FloatingActionButton(
-              onPressed: () => _openAddBeerDialog(),
-              backgroundColor: Theme.of(context).primaryColor,
-              foregroundColor: Colors.white,
-              elevation: 1,
-              child: const Icon(Icons.add),
-            ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => _openAddBeerDialog(),
+        backgroundColor: Theme.of(context).primaryColor,
+        foregroundColor: Colors.white,
+        elevation: 1,
+        child: const Icon(Icons.add),
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: BlocBuilder<SearchBeerCubit, SearchBeerState>(
         buildWhen: (prev, curr) => prev.loading != curr.loading,
         builder: (context, state) {
+          if (state.beers == null) {
+            return WaitingForKeyword();
+          }
+
           if (state.beers!.isEmpty && state.loading) {
             return Center(
               child: CircularProgressIndicator(),
@@ -148,8 +149,6 @@ class _SearchBeerDialogState extends State<SearchBeerDialog> {
                 ),
               ),
               children: [
-                Text(Localization.of(context).search_count(beers.length)),
-                const SizedBox(height: 20),
                 GridView.builder(
                   shrinkWrap: true,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

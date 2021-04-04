@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
-import 'package:hoppy/generated/l10n.dart';
 import 'package:hoppy/store/store.dart';
 import 'package:hoppy/widget/widget.dart';
 
@@ -129,7 +128,7 @@ class _BeerColorRepartitionDialogState
                               borderRadius: BorderRadius.circular(20),
                             ),
                           ),
-                          title: Localization.of(context).beer_color(value.key),
+                          title: value.name,
                           value: count,
                         );
                       },

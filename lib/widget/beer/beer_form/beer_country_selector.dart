@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
-import 'package:hoppy/generated/l10n.dart';
 import 'package:hoppy/screens/add_beer/add_beer.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
@@ -59,10 +58,7 @@ class _BeerCountrySelectorState extends State<BeerCountrySelector> {
         ),
         isThreeLine: false,
         subtitle: _selectedBeerCountry != null
-            ? Text(
-                Localization.of(context)
-                    .beer_country(_selectedBeerCountry!.key),
-              )
+            ? Text('${_selectedBeerCountry!.name}')
             : null,
         trailing: const Icon(Icons.chevron_right),
       ),

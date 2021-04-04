@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
-import 'package:hoppy/generated/l10n.dart';
 
 class BeerStyleSelectorDialog extends StatelessWidget {
   static MaterialPageRoute<BeerStyle?> route() => MaterialPageRoute<BeerStyle?>(
@@ -39,9 +38,7 @@ class BeerStyleSelectorDialog extends StatelessWidget {
               vertical: 3,
             ),
             onTap: () => _selectBeerStyle(context, beerStyle),
-            title: Text(
-              Localization.of(context).beer_style(beerStyle.key),
-            ),
+            title: Text('${beerStyle.name}'),
           );
         },
       ),

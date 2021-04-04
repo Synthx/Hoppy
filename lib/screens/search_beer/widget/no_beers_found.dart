@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart' hide AnimatedIcon;
+import 'package:flutter/material.dart';
 import 'package:hoppy/core/core.dart';
 
 class NoBeersFound extends StatelessWidget {
@@ -10,7 +10,6 @@ class NoBeersFound extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox(height: 20),
             Text(
               'Oops, nous sommes à sec',
               style: Theme.of(context).textTheme.headline6,

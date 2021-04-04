@@ -25,26 +25,26 @@ enum BeerCountry {
 }
 
 extension BeerCountryExtension on BeerCountry {
-  String get key {
+  String get name {
     switch (this) {
       case BeerCountry.FRANCE:
-        return 'france';
+        return 'France';
       case BeerCountry.BELGIUM:
-        return 'belgium';
+        return 'Belgique';
       case BeerCountry.GERMANY:
-        return 'germany';
+        return 'Allemagne';
       case BeerCountry.UNITED_STATES:
-        return 'united_states';
+        return 'Etats-unis';
       case BeerCountry.ENGLAND:
-        return 'england';
+        return 'Angleterre';
       case BeerCountry.SPAIN:
-        return 'spain';
+        return 'Espagne';
       case BeerCountry.NETHERLANDS:
-        return 'netherlands';
+        return 'Pays-bas';
       case BeerCountry.SWEDEN:
-        return 'sweden';
+        return 'Suède';
       case BeerCountry.IRELAND:
-        return 'ireland';
+        return 'Irelande';
     }
   }
 

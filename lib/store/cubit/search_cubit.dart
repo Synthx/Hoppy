@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter/material.dart';
 import 'package:hoppy/data/data.dart';
 import 'package:hoppy/store/store.dart';
 
@@ -79,65 +78,6 @@ class SearchCubit extends Cubit<SearchState> {
     emit(state.copyWith(
       beers: state.beers.where((e) => e.id != beer.id).toList(),
       totalElements: state.totalElements! - 1,
-    ));
-  }
-
-  void resetFilter() {
-    emit(state.copyWith.filter(
-      keyword: null,
-      colors: [],
-      styles: [],
-      countries: [],
-      degreeRange: RangeValues(0, 100),
-      havePicture: null,
-    ));
-  }
-
-  void setKeywordFilter(String? keyword) {
-    emit(state.copyWith.filter(keyword: keyword));
-  }
-
-  void setDegreeRangeFilter(RangeValues degreeRange) {
-    emit(state.copyWith.filter(degreeRange: degreeRange));
-  }
-
-  void setHavePictureFilter(bool? havePicture) {
-    emit(state.copyWith.filter(havePicture: havePicture));
-  }
-
-  void addBeerStyleFilter(BeerStyle style) {
-    var currentList = state.filter.styles.toList();
-    currentList.add(style);
-    emit(state.copyWith.filter(styles: currentList));
-  }
-
-  void removeBeerStyleFilter(BeerStyle style) {
-    emit(state.copyWith.filter(
-      styles: state.filter.styles.where((e) => e != style).toList(),
-    ));
-  }
-
-  void addBeerColorFilter(BeerColor color) {
-    var currentList = state.filter.colors.toList();
-    currentList.add(color);
-    emit(state.copyWith.filter(colors: currentList));
-  }
-
-  void removeBeerColorFilter(BeerColor color) {
-    emit(state.copyWith.filter(
-      colors: state.filter.colors.where((e) => e != color).toList(),
-    ));
-  }
-
-  void addBeerCountryFilter(BeerCountry country) {
-    var currentList = state.filter.countries.toList();
-    currentList.add(country);
-    emit(state.copyWith.filter(countries: currentList));
-  }
-
-  void removeBeerCountryFilter(BeerCountry country) {
-    emit(state.copyWith.filter(
-      countries: state.filter.countries.where((e) => e != country).toList(),
     ));
   }
 }

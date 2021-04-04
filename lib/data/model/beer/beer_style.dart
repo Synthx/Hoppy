@@ -19,20 +19,20 @@ enum BeerStyle {
 }
 
 extension BeerStyleExtension on BeerStyle {
-  String get key {
+  String get name {
     switch (this) {
       case BeerStyle.IPA:
-        return 'ipa';
+        return 'IPA';
       case BeerStyle.TRIPEL:
-        return 'tripel';
+        return 'Triple';
       case BeerStyle.QUADRUPEL:
-        return 'quadrupel';
+        return 'Quadruple';
       case BeerStyle.PALE_ALE:
-        return 'pale_ale';
+        return 'Pale Ale';
       case BeerStyle.STRONG_ALE:
-        return 'strong_ale';
+        return 'Strong Ale';
       case BeerStyle.STOUT:
-        return 'stout';
+        return 'Stout';
     }
   }
 }
