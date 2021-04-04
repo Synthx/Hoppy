@@ -3,10 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
 import 'package:hoppy/generated/l10n.dart';
-import 'package:hoppy/screens/main/search/dialog/beer_filter_country_dialog.dart';
 import 'package:hoppy/store/store.dart';
 import 'package:hoppy/widget/widget.dart';
 
+import '../beer_filter_constants.dart';
+import 'beer_filter_country_dialog.dart';
 import 'beer_filter_country_selector.dart';
 
 class BeerFilterCountry extends StatelessWidget {
@@ -26,9 +27,7 @@ class BeerFilterCountry extends StatelessWidget {
         children: [
           Text(
             Localization.of(context).beer_filter_countries,
-            style: Theme.of(context).textTheme.headline6!.copyWith(
-                  fontSize: 18,
-                ),
+            style: beerFilterTitleStyle(context),
           ),
           const SizedBox(height: 20),
           BlocBuilder<SearchCubit, SearchState>(

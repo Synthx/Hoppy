@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
-import 'package:hoppy/screens/main/search/dialog/beer_filter_style_selector.dart';
+import 'package:hoppy/generated/l10n.dart';
 import 'package:hoppy/store/store.dart';
+
+import 'beer_filter_style_selector.dart';
 
 class BeerFilterStyleDialog extends StatelessWidget {
   static MaterialPageRoute route() => MaterialPageRoute(
@@ -18,7 +20,9 @@ class BeerFilterStyleDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Styles de bière'),
+        title: Text(
+          Localization.of(context).beer_filter_styles,
+        ),
         leading: IconButton(
           icon: Icon(Icons.chevron_left),
           onPressed: () => _closeDialog(context),

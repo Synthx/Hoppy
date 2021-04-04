@@ -5,6 +5,8 @@ import 'package:hoppy/core/core.dart';
 import 'package:hoppy/generated/l10n.dart';
 import 'package:hoppy/store/store.dart';
 
+import 'beer_filter_constants.dart';
+
 class BeerFilterOther extends StatelessWidget {
   void _havePictureChanged(BuildContext context, bool selected) {
     context.read<SearchCubit>().setHavePictureFilter(selected ? true : null);
@@ -19,9 +21,7 @@ class BeerFilterOther extends StatelessWidget {
         children: [
           Text(
             Localization.of(context).beer_filter_others,
-            style: Theme.of(context).textTheme.headline6!.copyWith(
-                  fontSize: 18,
-                ),
+            style: beerFilterTitleStyle(context),
           ),
           const SizedBox(height: 20),
           BlocBuilder<SearchCubit, SearchState>(

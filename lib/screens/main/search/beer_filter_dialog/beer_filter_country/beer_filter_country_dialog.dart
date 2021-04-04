@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
-import 'package:hoppy/screens/main/search/dialog/beer_filter_country_selector.dart';
+import 'package:hoppy/generated/l10n.dart';
 import 'package:hoppy/store/store.dart';
+
+import 'beer_filter_country_selector.dart';
 
 class BeerFilterCountryDialog extends StatelessWidget {
   static MaterialPageRoute route() => MaterialPageRoute(
@@ -18,7 +20,9 @@ class BeerFilterCountryDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Origine'),
+        title: Text(
+          Localization.of(context).beer_filter_countries,
+        ),
         leading: IconButton(
           icon: Icon(Icons.chevron_left),
           onPressed: () => _closeDialog(context),

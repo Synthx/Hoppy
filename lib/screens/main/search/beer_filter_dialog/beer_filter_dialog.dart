@@ -5,22 +5,22 @@ import 'package:hoppy/generated/l10n.dart';
 import 'package:hoppy/store/store.dart';
 
 import 'beer_filter_color.dart';
-import 'beer_filter_country.dart';
+import 'beer_filter_country/beer_filter_country.dart';
 import 'beer_filter_degree.dart';
 import 'beer_filter_other.dart';
-import 'beer_filter_style.dart';
+import 'beer_filter_style/beer_filter_style.dart';
 
-class SearchBeerFilterDialog extends StatefulWidget {
+class BeerFilterDialog extends StatefulWidget {
   static MaterialPageRoute route() => MaterialPageRoute(
-        builder: (_) => SearchBeerFilterDialog(),
+        builder: (_) => BeerFilterDialog(),
         fullscreenDialog: true,
       );
 
   @override
-  _SearchBeerFilterDialogState createState() => _SearchBeerFilterDialogState();
+  State createState() => _BeerFilterDialogState();
 }
 
-class _SearchBeerFilterDialogState extends State<SearchBeerFilterDialog> {
+class _BeerFilterDialogState extends State<BeerFilterDialog> {
   void _closeDialog() {
     context.pop();
   }

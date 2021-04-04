@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hoppy/core/core.dart';
-import 'package:hoppy/screens/main/search/search.dart';
 import 'package:hoppy/store/store.dart';
 import 'package:hoppy/widget/widget.dart';
+
+import 'beer_filter_dialog/beer_filter_dialog.dart';
 
 class SearchViewHeader extends StatefulWidget with PreferredSizeWidget {
   @override
@@ -19,7 +20,7 @@ class _SearchViewHeaderState extends State<SearchViewHeader> {
   void _openFilterDialog() {
     Navigator.push(
       context,
-      SearchBeerFilterDialog.route(),
+      BeerFilterDialog.route(),
     );
   }
 

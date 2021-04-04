@@ -6,6 +6,8 @@ import 'package:hoppy/generated/l10n.dart';
 import 'package:hoppy/store/store.dart';
 import 'package:hoppy/widget/widget.dart';
 
+import 'beer_filter_constants.dart';
+
 class BeerFilterColor extends StatelessWidget {
   void _onColorSelected(BuildContext context, Selectable<BeerColor> color) {
     if (color.selected) {
@@ -30,9 +32,7 @@ class BeerFilterColor extends StatelessWidget {
             ),
             child: Text(
               Localization.of(context).beer_filter_colors,
-              style: Theme.of(context).textTheme.headline6!.copyWith(
-                    fontSize: 18,
-                  ),
+              style: beerFilterTitleStyle(context),
             ),
           ),
           const SizedBox(height: 20),
