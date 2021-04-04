@@ -24,69 +24,72 @@ class BeerColorRepartitionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: kCardHeight,
-      margin: const EdgeInsets.symmetric(
-        vertical: kCardVerticalMargin,
-      ),
-      padding: const EdgeInsets.all(kDefaultPadding),
-      decoration: BoxDecoration(
-        color: Theme.of(context).cardColor,
-      ),
-      child: Stack(
-        children: [
-          Positioned.fill(
-            child: BlocBuilder<StatisticCubit, StatisticState>(
-              buildWhen: (prev, curr) =>
-                  prev.checkInStatistic.count != curr.checkInStatistic.count,
-              builder: (context, state) {
-                if (state.checkInStatistic.count == 0) {
-                  return _EmptyBeerColorRepartition();
-                }
+    return GestureDetector(
+      onTap: () => _openAddBeerDialog(context),
+      child: Container(
+        height: kCardHeight,
+        margin: const EdgeInsets.symmetric(
+          vertical: kCardVerticalMargin,
+        ),
+        padding: const EdgeInsets.all(kDefaultPadding),
+        decoration: BoxDecoration(
+          color: Theme.of(context).cardColor,
+        ),
+        child: Stack(
+          children: [
+            Positioned.fill(
+              child: BlocBuilder<StatisticCubit, StatisticState>(
+                buildWhen: (prev, curr) =>
+                    prev.checkInStatistic.count != curr.checkInStatistic.count,
+                builder: (context, state) {
+                  if (state.checkInStatistic.count == 0) {
+                    return _EmptyBeerColorRepartition();
+                  }
 
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      Localization.of(context).explore_beer_color_repartition,
-                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                            fontSize: 16,
-                          ),
-                    ),
-                    const SizedBox(height: 10),
-                    Expanded(
-                      child: BeerColorChart(
-                        repartition: state
-                            .checkInStatistic.drunkenColorRepartition
-                            .sort(),
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        Localization.of(context).explore_beer_color_repartition,
+                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                              fontSize: 16,
+                            ),
                       ),
-                    ),
-                  ],
-                );
-              },
-            ),
-          ),
-          Positioned(
-            bottom: 0,
-            right: 0,
-            child: BlocBuilder<StatisticCubit, StatisticState>(
-              buildWhen: (prev, curr) =>
-                  prev.checkInStatistic.count != curr.checkInStatistic.count,
-              builder: (context, state) {
-                if (state.checkInStatistic.count > 0) {
-                  return MoreCardButton(
-                    onTap: () => _openBeerColorRepartitionDialog(context),
+                      const SizedBox(height: 10),
+                      Expanded(
+                        child: BeerColorChart(
+                          repartition: state
+                              .checkInStatistic.drunkenColorRepartition
+                              .sort(),
+                        ),
+                      ),
+                    ],
                   );
-                }
-
-                return MoreCardButton(
-                  onTap: () => _openAddBeerDialog(context),
-                  iconData: Icons.add,
-                );
-              },
+                },
+              ),
             ),
-          ),
-        ],
+            Positioned(
+              bottom: 0,
+              right: 0,
+              child: BlocBuilder<StatisticCubit, StatisticState>(
+                buildWhen: (prev, curr) =>
+                    prev.checkInStatistic.count != curr.checkInStatistic.count,
+                builder: (context, state) {
+                  if (state.checkInStatistic.count > 0) {
+                    return MoreCardButton(
+                      onTap: () => _openBeerColorRepartitionDialog(context),
+                    );
+                  }
+
+                  return MoreCardButton(
+                    onTap: () => _openAddBeerDialog(context),
+                    iconData: Icons.add,
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
