@@ -88,7 +88,7 @@ ThemeData darkThemeData(BuildContext context) {
     accentColor: kPrimaryColor,
     errorColor: kRedColor,
     scaffoldBackgroundColor: kDarkBackgroundColor,
-    backgroundColor: kDarkBackgroundColor,
+    backgroundColor: kDarkDarkerBackgroundColor,
     cardColor: kDarkCardColor,
     iconTheme: IconThemeData(
       color: kDarkContentColor,
