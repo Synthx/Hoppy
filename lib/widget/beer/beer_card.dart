@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hoppy/data/data.dart';
+import 'package:hoppy/generated/l10n.dart';
 import 'package:hoppy/widget/widget.dart';
 
 class BeerCard extends StatelessWidget {
@@ -40,7 +41,7 @@ class BeerCard extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           Text(
-            '${beer.color.name} - ${beer.style.name}',
+            '${Localization.of(context).beer_color(beer.color.key)} - ${Localization.of(context).beer_style(beer.style.key)}',
             style: Theme.of(context).textTheme.bodyText2,
           ),
           Text(

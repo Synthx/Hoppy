@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hoppy/data/data.dart';
+import 'package:hoppy/generated/l10n.dart';
 
 class BeerColorPreview extends StatelessWidget {
   final BeerColor beerColor;
@@ -40,7 +41,7 @@ class BeerColorPreview extends StatelessWidget {
             ),
           ),
           Text(
-            '${beerColor.name}',
+            Localization.of(context).beer_color(beerColor.key),
             style: TextStyle(
               color: isSelected
                   ? Theme.of(context).primaryColor

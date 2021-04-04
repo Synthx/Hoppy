@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
+import 'package:hoppy/generated/l10n.dart';
 import 'package:hoppy/store/store.dart';
 import 'package:hoppy/widget/widget.dart';
 
@@ -118,7 +119,7 @@ class _BeerStyleRepartitionDialogState
                         var value = styleRepartition.keys.elementAt(index);
                         final count = styleRepartition.values.elementAt(index);
                         return ChartTile(
-                          title: value.name,
+                          title: Localization.of(context).beer_style(value.key),
                           value: count,
                         );
                       },
