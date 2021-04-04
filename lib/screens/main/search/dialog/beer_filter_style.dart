@@ -2,19 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
+import 'package:hoppy/generated/l10n.dart';
 import 'package:hoppy/screens/main/search/dialog/beer_filter_style_dialog.dart';
+import 'package:hoppy/screens/main/search/dialog/beer_filter_style_selector.dart';
 import 'package:hoppy/store/store.dart';
 import 'package:hoppy/widget/widget.dart';
 
 class BeerFilterStyle extends StatelessWidget {
-  void _onStyleSelected(BuildContext context, Selectable<BeerStyle> style) {
-    if (style.selected) {
-      context.read<SearchCubit>().removeBeerStyleFilter(style.value);
-    } else {
-      context.read<SearchCubit>().addBeerStyleFilter(style.value);
-    }
-  }
-
   void _openBeerFilterStyleDialog(BuildContext context) {
     Navigator.push(
       context,
@@ -30,7 +24,7 @@ class BeerFilterStyle extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Style de bière',
+            Localization.of(context).beer_filter_styles,
             style: Theme.of(context).textTheme.headline6!.copyWith(
                   fontSize: 18,
                 ),
@@ -47,14 +41,8 @@ class BeerFilterStyle extends StatelessWidget {
                   ));
               return Column(
                 children: styles
-                    .map((e) => ListTile(
-                          title: Text(e.value.name),
-                          contentPadding: const EdgeInsets.all(0),
-                          onTap: () => _onStyleSelected(context, e),
-                          trailing: CustomCheckbox(
-                            checked: e.selected,
-                            onChanged: (_) => _onStyleSelected(context, e),
-                          ),
+                    .map((e) => BeerFilterStyleSelector(
+                          style: e,
                         ))
                     .toList(),
               );
@@ -62,7 +50,7 @@ class BeerFilterStyle extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           UnderlineTextButton(
-            text: 'Afficher tous les styles',
+            text: Localization.of(context).beer_filter_styles_all,
             onTap: () => _openBeerFilterStyleDialog(context),
           ),
         ],

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
+import 'package:hoppy/screens/main/search/dialog/beer_filter_style_selector.dart';
 import 'package:hoppy/store/store.dart';
-import 'package:hoppy/widget/widget.dart';
 
 class BeerFilterStyleDialog extends StatelessWidget {
   static MaterialPageRoute route() => MaterialPageRoute(
@@ -12,14 +12,6 @@ class BeerFilterStyleDialog extends StatelessWidget {
 
   void _closeDialog(BuildContext context) {
     context.pop();
-  }
-
-  void _onStyleSelected(BuildContext context, Selectable<BeerStyle> style) {
-    if (style.selected) {
-      context.read<SearchCubit>().removeBeerStyleFilter(style.value);
-    } else {
-      context.read<SearchCubit>().addBeerStyleFilter(style.value);
-    }
   }
 
   @override
@@ -47,14 +39,8 @@ class BeerFilterStyleDialog extends StatelessWidget {
             itemCount: styles.length,
             itemBuilder: (context, index) {
               final style = styles[index];
-              return ListTile(
-                title: Text(style.value.name),
-                contentPadding: const EdgeInsets.all(0),
-                onTap: () => _onStyleSelected(context, style),
-                trailing: CustomCheckbox(
-                  checked: style.selected,
-                  onChanged: (_) => _onStyleSelected(context, style),
-                ),
+              return BeerFilterStyleSelector(
+                style: style,
               );
             },
           );
