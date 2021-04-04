@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
+import 'package:hoppy/generated/l10n.dart';
 import 'package:hoppy/screens/main/main.dart';
 
 class BeerColorList extends StatelessWidget {
@@ -75,7 +76,7 @@ class _BeerColorCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(kDefaultRadius),
                 image: DecorationImage(
                   image:
-                      AssetImage('assets/images/beer-colors/${color.fileName}'),
+                      AssetImage('assets/images/beer-colors/${color.key}.jpg'),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -83,7 +84,7 @@ class _BeerColorCard extends StatelessWidget {
           ),
           const SizedBox(height: 15),
           Text(
-            'Bière ${color.name}',
+            Localization.of(context).beer_color(color.key),
             style: Theme.of(context).textTheme.bodyText1,
           ),
         ],
