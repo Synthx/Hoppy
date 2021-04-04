@@ -9,11 +9,22 @@ class SearchBeerCubit extends Cubit<SearchBeerState> {
   SearchBeerCubit({
     required this.beerRepository,
   }) : super(SearchBeerState(
+          beers: [],
           loading: false,
           filter: BeerFilter(),
           page: 0,
           size: 20,
         ));
+
+  void load() async {
+    emit(state.copyWith(loading: true));
+    final datasource = await _searchBeers();
+    emit(state.copyWith(
+      loading: false,
+      beers: datasource.content,
+      totalElements: datasource.totalElements,
+    ));
+  }
 
   void nextPage() async {
     var currentList = state.beers ?? [];

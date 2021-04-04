@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
+import 'package:hoppy/generated/l10n.dart';
 
 class BeerInformation extends StatelessWidget {
   final Beer beer;
@@ -20,7 +21,7 @@ class BeerInformation extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            beer.style.name,
+            Localization.of(context).beer_style(beer.style.key),
             style: textStyle.copyWith(
               fontSize: 16,
             ),
@@ -34,14 +35,14 @@ class BeerInformation extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           Text(
-            '${beer.color.name} - ${beer.degree}°',
+            '${Localization.of(context).beer_color(beer.color.key)} - ${beer.degree}°',
             style: textStyle.copyWith(
               fontSize: 16,
             ),
           ),
           const SizedBox(height: 5),
           Text(
-            beer.country.name,
+            Localization.of(context).beer_country(beer.country.key),
             style: textStyle.copyWith(
               fontSize: 16,
             ),

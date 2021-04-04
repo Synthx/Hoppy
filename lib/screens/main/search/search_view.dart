@@ -5,6 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
+import 'package:hoppy/screens/main/search/search_view_header.dart';
 import 'package:hoppy/screens/screens.dart';
 import 'package:hoppy/store/store.dart';
 import 'package:hoppy/widget/widget.dart';
@@ -68,9 +69,7 @@ class _SearchViewState extends State<SearchView>
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Rechercher'),
-      ),
+      appBar: SearchViewHeader(),
       body: BlocBuilder<SearchCubit, SearchState>(
         builder: (context, state) {
           final beers = state.beers;

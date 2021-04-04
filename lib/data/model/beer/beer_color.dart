@@ -37,37 +37,20 @@ extension BeerColorExtension on BeerColor {
     }
   }
 
-  String get name {
+  String get key {
     switch (this) {
       case BeerColor.AMBER:
-        return 'Ambrée';
+        return 'amber';
       case BeerColor.BLOND:
-        return 'Blonde';
+        return 'blond';
       case BeerColor.BROWN:
-        return 'Brune';
+        return 'brown';
       case BeerColor.DARK:
-        return 'Noire';
+        return 'dark';
       case BeerColor.RED:
-        return 'Rouge';
+        return 'red';
       case BeerColor.WHITE:
-        return 'Blanche';
-    }
-  }
-
-  String get fileName {
-    switch (this) {
-      case BeerColor.AMBER:
-        return 'amber.jpg';
-      case BeerColor.BLOND:
-        return 'blond.jpg';
-      case BeerColor.BROWN:
-        return 'brown.jpg';
-      case BeerColor.DARK:
-        return 'dark.jpg';
-      case BeerColor.RED:
-        return 'red.jpg';
-      case BeerColor.WHITE:
-        return 'white.jpg';
+        return 'white';
     }
   }
 }

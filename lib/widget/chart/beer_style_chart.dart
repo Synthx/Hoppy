@@ -2,6 +2,7 @@ import 'package:charts_flutter/flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
+import 'package:hoppy/generated/l10n.dart';
 
 class BeerStyleChart extends StatelessWidget {
   final Map<BeerStyle, int> repartition;
@@ -22,9 +23,10 @@ class BeerStyleChart extends StatelessWidget {
     final series = Series<ChartData<BeerStyle>, String>(
       id: 'beer-style',
       data: dataList,
-      domainFn: (data, _) => data.key.name,
+      domainFn: (data, _) => Localization.of(context).beer_style(data.key.key),
       measureFn: (data, _) => data.value,
-      labelAccessorFn: (data, _) => data.key.name,
+      labelAccessorFn: (data, _) =>
+          Localization.of(context).beer_style(data.key.key),
     );
 
     return PieChart(

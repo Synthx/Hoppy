@@ -56,7 +56,7 @@ class MostDrunkenBeerCountryCard extends StatelessWidget {
               ),
               const SizedBox(height: 5),
               Text(
-                '${country.name}',
+                Localization.of(context).beer_country(country.key),
                 textAlign: TextAlign.center,
                 style: cardTitleStyle(context),
               ),
