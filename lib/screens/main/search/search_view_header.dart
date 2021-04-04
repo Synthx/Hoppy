@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hoppy/core/core.dart';
 import 'package:hoppy/screens/main/search/search.dart';
+import 'package:hoppy/store/store.dart';
 import 'package:hoppy/widget/widget.dart';
 
 class SearchViewHeader extends StatefulWidget with PreferredSizeWidget {
@@ -42,10 +45,37 @@ class _SearchViewHeaderState extends State<SearchViewHeader> {
               onFocused: (focused) => _onInputFocused(focused),
             ),
           ),
-          IconButton(
-            icon: Icon(Icons.tune),
-            onPressed: () => _openFilterDialog(),
-          ),
+          if (!_inputFocused)
+            Stack(
+              children: [
+                IconButton(
+                  icon: Icon(Icons.tune),
+                  onPressed: () => _openFilterDialog(),
+                ),
+                BlocBuilder<SearchCubit, SearchState>(
+                  buildWhen: (prev, curr) =>
+                      prev.filter.isEmpty() != curr.filter.isEmpty(),
+                  builder: (context, state) {
+                    if (state.filter.isEmpty()) {
+                      return Container();
+                    }
+
+                    return Positioned(
+                      top: 8,
+                      right: 8,
+                      child: Container(
+                        height: 12,
+                        width: 12,
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).primaryColor,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
         ],
       ),
     );
