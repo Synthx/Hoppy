@@ -22,7 +22,11 @@ Future<void> main() async {
   });
   Bloc.observer = StoreObserver();
 
-  ErrorHandler(
-    runAppFunction: () => runApp(Hoppy()),
-  );
+  if (kDebugMode) {
+    runApp(Hoppy());
+  } else {
+    ErrorHandler(
+      runAppFunction: () => runApp(Hoppy()),
+    );
+  }
 }

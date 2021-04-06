@@ -24,3 +24,4 @@ const kChartColorList = <Color>[
   Color(0xFFef6d4a),
   Color(0xFFe45449),
 ];
+const kBeerAssetsDirectory = 'assets/beers';

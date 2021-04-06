@@ -101,7 +101,7 @@ class _AddBeerDialogState extends State<AddBeerDialog> {
   Widget build(BuildContext context) {
     return BlocProvider<AddBeerCubit>(
       create: (_) => AddBeerCubit(
-        beerRepository: getIt(),
+        beerService: getIt(),
         statisticCubit: context.read(),
         searchCubit: context.read(),
       ),

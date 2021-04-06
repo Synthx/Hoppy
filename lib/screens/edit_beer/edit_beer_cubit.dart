@@ -1,17 +1,16 @@
 import 'package:bloc/bloc.dart';
-import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
 import 'package:hoppy/screens/edit_beer/edit_beer.dart';
 import 'package:hoppy/store/store.dart';
 
 class EditBeerCubit extends Cubit<EditBeerState> {
-  final BeerRepository beerRepository;
+  final BeerService beerService;
   final StatisticCubit statisticCubit;
   final FavoriteCubit favoriteCubit;
   final SearchCubit searchCubit;
 
   EditBeerCubit({
-    required this.beerRepository,
+    required this.beerService,
     required this.statisticCubit,
     required this.favoriteCubit,
     required this.searchCubit,
@@ -25,20 +24,8 @@ class EditBeerCubit extends Cubit<EditBeerState> {
   }) async {
     emit(state.copyWith(loading: true, error: null));
 
-    // edit beer entity
-    var beer = (await beerRepository.find(id))!;
-    beer = beer.copyWith(
-      name: beerDto.name,
-      degree: beerDto.degree,
-      color: beerDto.color,
-      style: beerDto.style,
-      country: beerDto.country,
-      title: beerDto.title,
-      picturePath: await Util.saveFileWithPath(beerDto.picturePath),
-    );
-
     // save beer
-    final editedBeer = await beerRepository.update(beer);
+    final editedBeer = await beerService.update(id, beerDto);
 
     // update state
     await statisticCubit.load();
