@@ -3,10 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hoppy/core/core.dart';
+import 'package:hoppy/generated/l10n.dart';
 import 'package:hoppy/screens/screens.dart';
 import 'package:hoppy/store/store.dart';
-
-import 'generated/l10n.dart';
 
 class Hoppy extends StatelessWidget {
   ThemeMode _getCurrentThemeMode(bool? darkModeSelected) {
@@ -28,6 +27,8 @@ class Hoppy extends StatelessWidget {
           lazy: false,
           create: (_) => SettingsCubit(
             settingsRepository: getIt(),
+            beerService: getIt(),
+            checkInRepository: getIt(),
           ),
         ),
       ],

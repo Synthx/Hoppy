@@ -17,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
   final _settingCompleter = Completer<bool>();
   final _favoriteCompleter = Completer<bool>();
   final _statisticCompleter = Completer<bool>();
-  String? key;
+  late String key;
 
   void _completeSetting() {
     _settingCompleter.complete(true);
@@ -41,6 +41,8 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+    // set statistic cubit
+    context.read<SettingsCubit>().setStatisticCubit(context.read());
     // change text quote
     _changeText();
     timer = Timer.periodic(
@@ -99,15 +101,14 @@ class _SplashScreenState extends State<SplashScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const Spacer(flex: 1),
-                if (key != null)
-                  Text(
-                    Localization.of(context).splash_texts(key!),
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                    ),
+                Text(
+                  Localization.of(context).splash_texts(key),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
                   ),
+                ),
                 const Spacer(flex: 1),
                 const CircularProgressIndicator(
                   valueColor: AlwaysStoppedAnimation<Color>(Colors.white),

@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
 import 'package:hoppy/store/store.dart';
 
@@ -40,6 +41,9 @@ class BeerDetailCubit extends Cubit<BeerDetailState> {
     emit(state.copyWith(loading: true));
     await favoriteCubit.removeBeer(beer);
     await beerRepository.delete(beer.id!);
+    if (beer.picturePath != null) {
+      await LocalStorage.delete(beer.picturePath!);
+    }
     await checkInRepository.deleteAssociated(beer);
     await statisticCubit.load();
     searchCubit.deleteBeer(beer);

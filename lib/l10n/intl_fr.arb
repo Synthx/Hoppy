@@ -86,6 +86,8 @@
   "settings_help": "Aide",
   "settings_github": "Github",
   "settings_contact": "Nous contacter",
+  "settings_delete_data": "Supprimer mes données",
+  "settings_delete_data_content": "Attention, vous perdrez toutes vos données, toutes les statistiques accumulées seront perdus et cette action action est irréversible.",
   "legal_text": "L'abus d'alcool est dangereux pour la santé, à consommer avec modération",
   "splash_texts": "{quote, select, draft {Remplissage du fut...} liver {Préparation du foie...} beer {Une petite bière pour la route ?} glass {Nettoyage du verre...} other {Qu'est-ce qu'on boit ?}}"
 }

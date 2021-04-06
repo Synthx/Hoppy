@@ -28,6 +28,11 @@ abstract class AuditableRepository<T> {
     await box.delete(id);
   }
 
+  Future<void> deleteAll() async {
+    final box = await openBox();
+    await box.clear();
+  }
+
   Future<int> count() async {
     final box = await openBox();
     return box.length;

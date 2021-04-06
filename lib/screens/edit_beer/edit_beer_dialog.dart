@@ -81,7 +81,7 @@ class _EditBeerDialogState extends State<EditBeerDialog> {
   Widget build(BuildContext context) {
     return BlocProvider<EditBeerCubit>(
       create: (_) => EditBeerCubit(
-        beerRepository: getIt(),
+        beerService: getIt(),
         statisticCubit: context.read(),
         favoriteCubit: context.read(),
         searchCubit: context.read(),
