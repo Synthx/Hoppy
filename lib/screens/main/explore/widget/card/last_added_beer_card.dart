@@ -32,61 +32,64 @@ class LastAddedBeerCard extends StatelessWidget {
         }
 
         final beer = state.beerStatistic.lastAdded!;
-        return Container(
-          height: kCardHeight,
-          padding: const EdgeInsets.all(kDefaultPadding),
-          margin: const EdgeInsets.symmetric(
-            vertical: kCardVerticalMargin,
-          ),
-          decoration: BoxDecoration(
-            color: Theme.of(context).cardColor,
-            image: DecorationImage(
-              image: _getBackgroundImage(beer.picturePath),
-              fit: BoxFit.cover,
-              colorFilter: ColorFilter.mode(
-                Colors.black.withOpacity(0.4),
-                BlendMode.srcOver,
+        return GestureDetector(
+          onTap: () => _openBeerDetailDialog(context, beer),
+          child: Container(
+            height: kCardHeight,
+            padding: const EdgeInsets.all(kDefaultPadding),
+            margin: const EdgeInsets.symmetric(
+              vertical: kCardVerticalMargin,
+            ),
+            decoration: BoxDecoration(
+              color: Theme.of(context).cardColor,
+              image: DecorationImage(
+                image: _getBackgroundImage(beer.picturePath),
+                fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(0.4),
+                  BlendMode.srcOver,
+                ),
               ),
             ),
-          ),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  BeerFavoriteIconButton(
-                    beer: beer,
-                    size: 32,
-                  ),
-                ],
-              ),
-              const Spacer(flex: 1),
-              Text(
-                'Dernière bière ajoutée',
-                textAlign: TextAlign.center,
-                style: cardSubtitleStyle(context),
-              ),
-              const SizedBox(height: 5),
-              Text(
-                beer.name,
-                textAlign: TextAlign.center,
-                style: cardTitleStyle(context),
-              ),
-              const Spacer(flex: 1),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    Localization.of(context).creation_date(
-                        DateFormat.yMd().format(beer.creationDate)),
-                    style: cardContentStyle(context),
-                  ),
-                  MoreCardButton(
-                    onTap: () => _openBeerDetailDialog(context, beer),
-                  ),
-                ],
-              ),
-            ],
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    BeerFavoriteIconButton(
+                      beer: beer,
+                      size: 32,
+                    ),
+                  ],
+                ),
+                const Spacer(flex: 1),
+                Text(
+                  'Dernière bière ajoutée',
+                  textAlign: TextAlign.center,
+                  style: cardSubtitleStyle(context),
+                ),
+                const SizedBox(height: 5),
+                Text(
+                  beer.name,
+                  textAlign: TextAlign.center,
+                  style: cardTitleStyle(context),
+                ),
+                const Spacer(flex: 1),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      Localization.of(context).creation_date(
+                          DateFormat.yMd().format(beer.creationDate)),
+                      style: cardContentStyle(context),
+                    ),
+                    MoreCardButton(
+                      onTap: () => _openBeerDetailDialog(context, beer),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         );
       },

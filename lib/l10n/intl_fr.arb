@@ -53,6 +53,7 @@
   "beer_style": "{style, select, ipa {IPA} tripel {Triple} quadrupel {Quadruple} pale_ale {Pale Ale} strong_ale {Strong ale} stout {Stout} other {Inconnu}}",
   "filter": "Filtrer",
   "filters": "Filtres",
+  "others": "Autres",
   "favorites": "Favoris",
   "favorites_count": "{count}/{total} Bières en favoris",
   "settings": "Paramètres",

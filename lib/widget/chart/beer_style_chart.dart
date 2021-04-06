@@ -13,20 +13,17 @@ class BeerStyleChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dataList = <ChartData<BeerStyle>>[];
-    repartition.forEach((key, value) {
-      dataList.add(ChartData(
-        key: key,
-        value: value,
-      ));
-    });
-    final series = Series<ChartData<BeerStyle>, String>(
+    final dataList = repartition.generateChartData(
+      labelFn: (style) => Localization.of(context).beer_style(style.key),
+      otherLabel: Localization.of(context).others,
+    );
+    final series = Series<ChartData, String>(
       id: 'beer-style',
       data: dataList,
-      domainFn: (data, _) => Localization.of(context).beer_style(data.key.key),
-      measureFn: (data, _) => data.value,
-      labelAccessorFn: (data, _) =>
-          Localization.of(context).beer_style(data.key.key),
+      domainFn: (data, _) => data.label,
+      measureFn: (data, _) => data.size,
+      colorFn: (data, index) => ColorUtil.fromDartColor(kChartColorList[index]),
+      labelAccessorFn: (data, _) => data.label,
     );
 
     return PieChart(
@@ -35,9 +32,7 @@ class BeerStyleChart extends StatelessWidget {
       defaultRenderer: ArcRendererConfig(
         arcWidth: kChartArcWidth,
         arcRendererDecorators: [
-          ArcLabelDecorator(
-            labelPosition: ArcLabelPosition.auto,
-          ),
+          ArcLabelDecorator(),
         ],
       ),
     );

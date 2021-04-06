@@ -28,53 +28,57 @@ class MostDrunkenBeerCountryCard extends StatelessWidget {
             state.checkInStatistic.drunkenCountryRepartition.sort();
         final country = countryRepartition.firstKey()!;
 
-        return Container(
-          height: kCardHeight,
-          margin: const EdgeInsets.symmetric(
-            vertical: kCardVerticalMargin,
-          ),
-          padding: const EdgeInsets.all(kDefaultPadding),
-          decoration: BoxDecoration(
-            color: Theme.of(context).cardColor,
-            image: DecorationImage(
-              image: const AssetImage('assets/images/beer-country.jpg'),
-              fit: BoxFit.cover,
-              colorFilter: ColorFilter.mode(
-                Colors.black.withOpacity(0.4),
-                BlendMode.srcOver,
+        return GestureDetector(
+          onTap: () => _openBeerCountryRepartitionDialog(context),
+          child: Container(
+            height: kCardHeight,
+            padding: const EdgeInsets.all(kDefaultPadding),
+            margin: const EdgeInsets.symmetric(
+              vertical: kCardVerticalMargin,
+            ),
+            decoration: BoxDecoration(
+              color: Theme.of(context).cardColor,
+              image: DecorationImage(
+                image: const AssetImage('assets/images/beer-country.jpg'),
+                fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(0.4),
+                  BlendMode.srcOver,
+                ),
               ),
             ),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Spacer(flex: 2),
-              Text(
-                Localization.of(context).explore_most_drunken_beer_country,
-                textAlign: TextAlign.center,
-                style: cardSubtitleStyle(context),
-              ),
-              const SizedBox(height: 5),
-              Text(
-                Localization.of(context).beer_country(country.key),
-                textAlign: TextAlign.center,
-                style: cardTitleStyle(context),
-              ),
-              const Spacer(flex: 1),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    Localization.of(context).explore_drink_count(state
-                        .checkInStatistic.drunkenCountryRepartition[country]!),
-                    style: cardContentStyle(context),
-                  ),
-                  MoreCardButton(
-                    onTap: () => _openBeerCountryRepartitionDialog(context),
-                  ),
-                ],
-              ),
-            ],
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Spacer(flex: 2),
+                Text(
+                  Localization.of(context).explore_most_drunken_beer_country,
+                  textAlign: TextAlign.center,
+                  style: cardSubtitleStyle(context),
+                ),
+                const SizedBox(height: 5),
+                Text(
+                  Localization.of(context).beer_country(country.key),
+                  textAlign: TextAlign.center,
+                  style: cardTitleStyle(context),
+                ),
+                const Spacer(flex: 1),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      Localization.of(context).explore_drink_count(state
+                          .checkInStatistic
+                          .drunkenCountryRepartition[country]!),
+                      style: cardContentStyle(context),
+                    ),
+                    MoreCardButton(
+                      onTap: () => _openBeerCountryRepartitionDialog(context),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         );
       },

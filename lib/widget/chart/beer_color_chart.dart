@@ -13,21 +13,21 @@ class BeerColorChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dataList = <ChartData<BeerColor>>[];
-    repartition.forEach((key, value) {
+    final dataList = <ChartData>[];
+    repartition.forEach((value, size) {
       dataList.add(ChartData(
-        key: key,
-        value: value,
+        label: Localization.of(context).beer_color(value.key),
+        color: value.color,
+        size: size,
       ));
     });
-    final series = Series<ChartData<BeerColor>, String>(
+    final series = Series<ChartData, String>(
       id: 'beer-color',
       data: dataList,
-      domainFn: (data, _) => Localization.of(context).beer_color(data.key.key),
-      measureFn: (data, _) => data.value,
-      colorFn: (data, _) => ColorUtil.fromDartColor(data.key.color),
-      labelAccessorFn: (data, _) =>
-          Localization.of(context).beer_color(data.key.key),
+      domainFn: (data, _) => data.label,
+      measureFn: (data, _) => data.size,
+      colorFn: (data, _) => ColorUtil.fromDartColor(data.color),
+      labelAccessorFn: (data, _) => data.label,
     );
 
     return PieChart(
