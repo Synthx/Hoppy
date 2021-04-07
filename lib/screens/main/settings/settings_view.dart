@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hoppy/core/core.dart';
 import 'package:hoppy/generated/l10n.dart';
+import 'package:hoppy/screens/screens.dart';
 import 'package:hoppy/store/store.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -14,6 +15,13 @@ class SettingsView extends StatefulWidget {
 
 class _SettingsViewState extends State<SettingsView>
     with AutomaticKeepAliveClientMixin {
+  void _openOnBoardDialog() {
+    Navigator.push(
+      context,
+      OnBoardScreen.route(),
+    );
+  }
+
   void _goToHelpScreen() {
     Navigator.push(
       context,
@@ -91,6 +99,11 @@ class _SettingsViewState extends State<SettingsView>
             LinkTile(
               label: Localization.of(context).settings_about,
               onTap: () => _goToAboutScreen(),
+            ),
+            const Divider(height: 0),
+            LinkTile(
+              label: Localization.of(context).on_board,
+              onTap: () => _openOnBoardDialog(),
             ),
             const Divider(height: 0),
             LinkTile(

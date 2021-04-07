@@ -37,6 +37,11 @@ class SettingsCubit extends Cubit<SettingsState> {
     emit(state.copyWith.value(name: name));
   }
 
+  void firstVisitChanged(bool firstVisit) async {
+    await settingsRepository.setFirstVisit(firstVisit);
+    emit(state.copyWith.value(firstVisit: firstVisit));
+  }
+
   void deleteData() async {
     var newState = state.copyWith(loading: true);
     newState = newState.copyWith.value(

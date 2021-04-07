@@ -60,11 +60,18 @@ class _SplashScreenState extends State<SplashScreen> {
       _statisticCompleter.future,
       Future.delayed(Duration(seconds: 2)),
     ]).then((_) {
+      var firstVisit = context.read<SettingsCubit>().state.value.firstVisit;
       Navigator.pushAndRemoveUntil(
         context,
         MainScreen.route(),
         (_) => false,
       );
+      if (firstVisit == null || firstVisit == false) {
+        Navigator.push(
+          context,
+          OnBoardScreen.route(),
+        );
+      }
     });
   }
 
