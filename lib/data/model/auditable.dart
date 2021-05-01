@@ -1,5 +1,13 @@
 abstract class Auditable {
-  String? get id;
-  DateTime get creationDate;
-  DateTime get lastModifiedDate;
+  int? get id;
+
+  set id(int? id);
+
+  int get creationDate;
+
+  set creationDate(int timestamp);
+
+  int get lastModifiedDate;
+
+  set lastModifiedDate(int timestamp);
 }

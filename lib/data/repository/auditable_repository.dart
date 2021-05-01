@@ -1,40 +1,73 @@
-import 'package:hive/hive.dart';
+import 'dart:typed_data';
 
-abstract class AuditableRepository<T> {
-  final String _boxName;
+import 'package:hoppy/data/data.dart';
+import 'package:hoppy/data/model/synchronization_information.dart';
+import 'package:isar/isar.dart';
 
-  const AuditableRepository(this._boxName);
+abstract class AuditableRepository<T extends Auditable> {
+  final Isar isar;
+  final IsarCollection<T> collection;
 
-  Future<Box<T>> openBox() async {
-    return Hive.openBox<T>(_boxName);
+  const AuditableRepository(this.isar, this.collection);
+
+  Future<T?> find(int id) async {
+    return collection.get(id);
   }
 
-  Future<T?> find(String id) async {
-    final box = await openBox();
-    return box.get(id);
+  Future<List<T>> findAll() async {
+    return collection.where().findAll();
   }
 
-  Future<Iterable<T>> findAll() async {
-    final box = await openBox();
-    return box.values;
+  Future<T> insert(T object) async {
+    var id = await count() + 1;
+    var now = DateTime.now().millisecondsSinceEpoch;
+    object
+      ..id = id
+      ..creationDate = now
+      ..lastModifiedDate = now;
+
+    await isar.writeTxn((isar) async {
+      await collection.put(object);
+    });
+
+    return find(id) as T;
   }
 
-  Future<T> insert(T object);
+  Future<T> update(T object) async {
+    var now = DateTime.now().millisecondsSinceEpoch;
+    object.lastModifiedDate = now;
 
-  Future<T> update(T object);
+    await isar.writeTxn((isar) async {
+      await collection.put(object);
+    });
 
-  Future<void> delete(String id) async {
-    final box = await openBox();
-    await box.delete(id);
+    return find(object.id!) as T;
+  }
+
+  Future<void> delete(int id) async {
+    await isar.writeTxn((_) async {
+      await collection.delete(id);
+    });
   }
 
   Future<void> deleteAll() async {
-    final box = await openBox();
-    await box.clear();
+    await isar.writeTxn((_) async {
+      await collection.where().deleteAll();
+    });
   }
 
   Future<int> count() async {
-    final box = await openBox();
-    return box.length;
+    return collection.where().count();
+  }
+
+  Future<SynchronizationInformation<T>> import(Uint8List bytes) async {
+    await isar.writeTxn((_) async {
+      await collection.importJsonRaw(bytes);
+    });
+
+    return SynchronizationInformation(
+      data: await findAll(),
+      lastModificationDate: null,
+    );
   }
 }
