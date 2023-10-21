@@ -1,0 +1,21 @@
+{
+  "@@locale": "fr",
+  "homeHeaderHello": "BONJOUR {name},",
+  "homeHeaderHelloIntro": "PRÊT À DÉCOUVRIR DES NOUVELLES BIÈRES ?",
+  "homeHeaderActionTitle": "C'EST PARTI !",
+  "homeHeaderActionContent": "PARCOURIR NOTRE CATALOGUE",
+  "homeCountriesTitle": "GLOBE TROTTER",
+  "homeCountriesSubTitle": "UNE ENVIE DE VOYAGER ?",
+  "homeHookTitle": "NOUS SOMMES HOPPY !",
+  "homeHookContent": "TU ES UN AMATEUR DE BIÈRE OU JUSTE CURIEUX DE DÉCOUVRIR DE NOUVELLES SAVEURS, HOPPY EST LA POUR T'ACCOMPAGNER, BIEN PLUS QU'UNE APPLICATION, C'EST TON GUIDE ULTIME POUR EXPLORER LE VASTE ET MERVEILLEUX MONDE DES BIÈRES.\n\nCONÇU PAR DES AMATEURS DE BIÈRES, HOPPY VOUS AIDERA À DÉCOUVRIR, APPRÉCIER ET PARTAGER VOTRE PASSION POUR LA BIÈRE COMME JAMAIS AUPARAVANT.",
+  "homeHookStatistic": "BIÈRES",
+  "homeFeaturedBeerTitle": "LA SEULE ET UNIQUE",
+  "homeFeaturedBeerSubTitle": "NOTRE BIÈRE DU MOIS",
+  "homeLastAddedBeersTitle": "LES NOUVEAUTÉS",
+  "homeLastAddedBeersSubtitle": "DÉCOUVRES-LES VITE !",
+  "homeFooterCopyright": "COPYRIGHT 2023 JETDEV\nTOUS DROITS RESERVES",
+  "homeFooterLink": "JETDEV.FR",
+  "country": "{country, select, france {FRANCE} belgium {BELGIQUE} england {ANGLETERRE} germany {ALLEMAGNE} other {?}}",
+  "countrySubtitle": "{country, select, france {LA FRENCH TOUCH} belgium {UNE FOIS MAIS PAS DEUX} england {GOD SAVE THE BEAN} germany {DEUTSCHE QUALITAT} other {?}}",
+  "beerStyle": "{style, select, amberAle {AMBER ALE} ipa {IPA} paleAle {PALE ALE} saison {SAISON} special {SPÉCIALE} triple {TRIPLE} other {?}}"
+}
