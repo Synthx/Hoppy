@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "675203521482",
+    "project_id": "frontend-beer",
+    "storage_bucket": "frontend-beer.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:675203521482:android:7e1e694b6891b9ab8b0d33",
+        "android_client_info": {
+          "package_name": "com.example.hoppy"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBu1cvstzkU6lES51EAv6WLz5OqALPYhJI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
