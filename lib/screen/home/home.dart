@@ -2,6 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hoppy/core/core.dart';
 
+import 'home_countries.dart';
+import 'home_featured_beer.dart';
+import 'home_footer.dart';
+import 'home_header.dart';
+import 'home_hook.dart';
+import 'home_last_added_beer.dart';
 import 'home_store.dart';
 
 class HomePage extends StatelessWidget {
@@ -29,10 +35,16 @@ class HomePage extends StatelessWidget {
           }
 
           return const Scaffold(
-            body: Center(
-              child: Text(
-                'Hello Front End Beer',
-              ),
+            body: CustomScrollView(
+              physics: BouncingScrollPhysics(),
+              slivers: [
+                HomeHeader(),
+                HomeCountriesList(),
+                HomeHook(),
+                HomeFeaturedBeer(),
+                HomeLastAddedBeers(),
+                HomeFooter(),
+              ],
             ),
           );
         },

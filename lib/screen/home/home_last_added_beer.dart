@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hoppy/core/core.dart';
 import 'package:hoppy/data/data.dart';
+import 'package:hoppy/theme/theme.dart';
+import 'package:hoppy/widget/widget.dart';
 
+import 'home_section.dart';
 import 'home_store.dart';
 
 class HomeLastAddedBeers extends StatelessWidget {
@@ -16,8 +20,28 @@ class HomeLastAddedBeers extends StatelessWidget {
           return const SliverToBoxAdapter();
         }
 
-        return const SliverToBoxAdapter(
-          child: Placeholder(),
+        return HomeSection(
+          title: context.t.homeLastAddedBeersTitle,
+          subtitle: context.t.homeLastAddedBeersSubtitle,
+          child: GridView.builder(
+            shrinkWrap: true,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 2 / 3,
+              crossAxisSpacing: 5,
+              mainAxisSpacing: 5,
+            ),
+            padding: const EdgeInsets.symmetric(
+              horizontal: kSafeArea,
+            ),
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: lastAddedBeers.length,
+            itemBuilder: (context, index) {
+              return BeerCard(
+                beer: lastAddedBeers[index],
+              );
+            },
+          ),
         );
       },
     );
